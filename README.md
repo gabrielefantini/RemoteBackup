@@ -50,7 +50,7 @@ one	(https://www.boost.org/doc/libs/1_73_0/libs/filesystem/doc/index.htm).	Whene
 a	discrepancy	is	found,	the	local	corresponding	entry	should	be	marked	as	invalid	and	
 some	arrangements	should	be	taken	to	transfer	the	(updated)	file	to	the	server.	Some	
 indications	on	how	to	create	a	file	system	watcher	can	be	found	here	
-(https://solarianprogrammer.com/2019/01/13/cpp-17-filesystem-write-file-watchermonitor/)
+(https://solarianprogrammer.com/2019/01/13/cpp-17-filesystem-write-file-watcher-monitor/)
 ### Server	Side
 The	 server	 side	 is	 responsible	 of	 listening	 on	 socket	 connection	 and	 accept	 connection	
 requests	 from	 clients.	 The	 server	 should	 be	 designed	in	 order	 to	manage	more	 than	 one	
