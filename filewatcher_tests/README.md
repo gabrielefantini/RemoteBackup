@@ -1,6 +1,6 @@
 # Filewatcher_test
 
-Dopo aver eseguito il programma, si può testare aprendo terminale dalla cartella fw_test ed eseguendo comandi come ad esempio:
+Dopo aver eseguito il programma, si può testare aprendo terminale dalla cartella 'fw_test' (da creare nella stessa posizione di 'file_watcher') ed eseguendo comandi come ad esempio:
 
 - touch t1
 - echo "test modifica" > t1
