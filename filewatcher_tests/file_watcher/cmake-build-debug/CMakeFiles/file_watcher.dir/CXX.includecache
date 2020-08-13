@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/neppa/Scrivania/m1_project/tests/file_watcher/FileWatcher.h
+experimental/filesystem
+-
+chrono
+-
+thread
+-
+unordered_map
+-
+string
+-
+functional
+-
+
+/home/neppa/Scrivania/m1_project/tests/file_watcher/main.cpp
+iostream
+-
+FileWatcher.h
+/home/neppa/Scrivania/m1_project/tests/file_watcher/FileWatcher.h
+

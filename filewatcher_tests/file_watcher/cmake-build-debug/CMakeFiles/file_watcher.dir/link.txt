@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/file_watcher.dir/main.cpp.o  -o file_watcher  -lstdc++fs 
