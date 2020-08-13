@@ -6,4 +6,6 @@ Dopo aver eseguito il programma, si può testare aprendo terminale dalla cartell
 - echo "test modifica" > t1
 - rm t1
 
+https://solarianprogrammer.com/2019/01/13/cpp-17-filesystem-write-file-watchermonitor/
+
 OS: Linux Mint 19.3 ver 4.4.8
