@@ -1,3 +1,0 @@
-/home/neppa/Scrivania/m1_project/tests/file_watcher/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/neppa/Scrivania/m1_project/tests/file_watcher/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/neppa/Scrivania/m1_project/tests/file_watcher/cmake-build-debug/CMakeFiles/file_watcher.dir
