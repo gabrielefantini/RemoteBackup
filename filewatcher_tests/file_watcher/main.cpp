@@ -1,86 +1,72 @@
 #include <iostream>
-#include <boost/filesystem.hpp>
 #include "FileWatcher.h"
+#include <boost/filesystem.hpp>
 
-namespace fs=std::experimental::filesystem;
-namespace fs1=boost::filesystem;
-
-void create_backup_initial(std::string path_from,std::string path_to){
-    std::cout<<"path_from: "<<path_from<<"\n";
-    std::cout<<"path_to: "<<path_to<<"\n\n";
-    fs1::create_directory(path_to);
-
-    for (auto &file : fs1::recursive_directory_iterator(path_from)) {
-        if(fs1::is_regular_file(file.path())){
-            std::string fpath=file.path().string();
-            std::cout<<"file: "<<fpath<<"\n";
-            std::size_t pos=fpath.find_first_not_of(path_from);
-            std::string new_fp=path_to+fpath.substr(pos-1);
-            fs1::path new_fpath=new_fp;
-            fs1::copy_file(fpath,new_fpath);
-            std::cout<<"new file: "<<new_fpath<<"\n\n";
-        }
-        else if(fs1::is_directory(file.path())){
-            std::string dpath=file.path().string();
-            std::cout<<"dir: "<<dpath<<"\n";
-            std::size_t pos=dpath.find_first_not_of(path_from);
-            std::string new_dp=path_to+dpath.substr(pos-1);
-            fs1::path new_dpath=new_dp;
-            fs1::create_directory(new_dpath);
-            std::cout<<"new dir: "<<new_dpath<<"\n\n";
-        }
-
-        else
-            std::cout<<"irregular file\n\n";
+namespace fs=boost::filesystem;
+//to_backup_path: compone la stringa del nuovo path (es. da cartella_originale/file1 a cartella_backup/file1)
+std::string to_backup_path(std::string path,std::string path_from,std::string path_to){
+    std::size_t pos=path.find(path_from);
+    std::string substr=path.substr(pos+path_from.length());
+    std::string new_path=path_to+substr;
+    return new_path;
+}
+//create_backup_initial: fa una scansione iniziale della cartella da monitorare e popola la map dei path (backup_)
+std::unordered_map<std::string,std::string> create_backup_initial(std::string path_from,std::string path_to){
+    std::unordered_map<std::string,std::string> map;
+    for (auto &file : fs::recursive_directory_iterator(path_from)) {
+            std::string path=file.path().string();
+            std::string new_path=to_backup_path(path,path_from,path_to);
+            /*std::size_t pos=path.find(path_from);
+            std::string substr=path.substr(pos+path_from.length());
+            std::string new_path=path_to+substr;*/
+            //std::cout<<new_path<<"\n";
+            map.insert(std::pair<std::string,std::string>(path,new_path));
     }
-    std::cout<<"backup dir initialized!\n\n";
+    std::cout<<"backup map initialized!\n\n";
+    return map;
 }
-void copy_file(std::string fpath,std::string path_from,std::string path_to){
-    std::size_t pos=fpath.find_first_not_of(path_from);
-    std::string new_fp=path_to+fpath.substr(pos-1);
-    fs1::path new_fpath=new_fp;
-    fs1::copy_file(fpath,new_fpath);
-    std::cout<<"file created: "<<fpath<<"\nnew file: "<<new_fpath<<"\n\n";
-}
-void modify_file(std::string fpath,std::string path_from,std::string path_to){
-    std::size_t pos=fpath.find_first_not_of(path_from);
-    std::string new_fp=path_to+fpath.substr(pos-1);
-    fs1::path new_fpath=new_fp;
-    fs1::remove(new_fpath);
-    fs1::copy_file(fpath,new_fpath);
-    std::cout<<"file modified: "<<fpath<<"\nupdated file: "<<new_fpath<<"\n\n";
-}
-void remove_file(std::string fpath,std::string path_from,std::string path_to){
-    std::size_t pos=fpath.find_first_not_of(path_from);
-    std::string new_fp=path_to+fpath.substr(pos-1);
-    fs1::path new_fpath=new_fp;
-    fs1::remove(new_fpath);
-    std::cout<<"file removed: "<<fpath<<"\nfile removed: "<<new_fpath<<"\n\n";
+//print_map: per stampare la map dei path (per debug)
+void print_map(std::unordered_map<std::string,std::string> m){
+    for (auto& x: m)
+        std::cout<<x.first<<" => "<<x.second<<std::endl;
+    std::cout<<"\n\n";
 }
 
 int main() {
-    const std::string path="./../../fw_test";
-    const std::string path_backup="./../../fw_test_backup";
+    const std::string path="./../../dir_to_watch";
+    const std::string path_backup="./../../backup_dir";
+    std::unordered_map<std::string,std::string> backup_;
 
-    create_backup_initial(path,path_backup);
+    backup_=create_backup_initial(path,path_backup);
+    print_map(backup_);
 
-    Filewatcher fw(path,path_backup,std::chrono::milliseconds(5000));
+    Filewatcher fw(path,std::chrono::milliseconds(5000));
 
-    fw.start([] (std::string path_to_watch,std::string path_from,std::string path_to,FileStatus status) -> void {
-       //ignore irregular files
-       if(!fs::is_regular_file(fs::path(path_to_watch)) && status!=FileStatus::erased){
-           return;
-       }
+    //var passate dal main: backup_(reference),path,path_backup
+    //var ricevute dal chiamante: path_to_watch(= effettivo path del file che è variato),status(created/modified/erased)
+    fw.start([&backup_,path,path_backup] (std::string path_to_watch,FileStatus status) -> void {
+        //ignora i casi in cui si riceve la modifica di una cartella (avviene quando un file al suo interno viene modificato, apparentemente)
+        if(!fs::is_regular_file(fs::path(path_to_watch)) && status==FileStatus::modified){
+            return;
+        }
+
 
         switch (status) {
-           case FileStatus::created:
-                copy_file(path_to_watch,path_from,path_to);
+            case FileStatus::created:
+                std::cout<<path_to_watch<<" created\n";
+                backup_.insert(std::pair<std::string,std::string>(path_to_watch,to_backup_path(path_to_watch,path,path_backup)));
+                std::cout<<"map updated:\n";
+                print_map(backup_);
                 break;
             case FileStatus::modified:
-                modify_file(path_to_watch,path_from,path_to);
+                //per ora, non gestendo in contenuti, non succede nulla alla modifica di un file
+                std::cout<<path_to_watch<<" modified\n";
                 break;
             case FileStatus::erased:
-                remove_file(path_to_watch,path_from,path_to);
+                std::cout<<path_to_watch<<" erased\n";
+                backup_.erase(path_to_watch);
+                std::cout<<"map updated:\n";
+                print_map(backup_);
                 break;
             default:
                 std::cout<<"Error: unknown file status.\n";
