@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/mattia/Scrivania/socket/main.cpp
+iostream
+-
+sys/socket.h
+-
+zconf.h
+-
+netinet/in.h
+-
+arpa/inet.h
+-
+
