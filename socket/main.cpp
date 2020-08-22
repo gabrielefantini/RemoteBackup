@@ -22,7 +22,7 @@ int main() {
             throw std::runtime_error("Cannot convert address");
         // la porta è scritta in addr nel formato network, devo convertirla
         std::cout << "Got a connection from " << name << ": " << ntohs(addr.sin_port) << std::endl;
-        /// verificare identità client
+        /// TODO: verificare identità client
         std::cout << "Connection closed" << std::endl;
 
     }

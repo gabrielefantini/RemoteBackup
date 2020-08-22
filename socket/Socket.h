@@ -23,7 +23,13 @@ class Socket {
     Socket(const Socket&) = delete;
     Socket &operator=(const Socket&) = delete;
 
-    /// inserire application-level protocol: insieme di tutti i possibili messaggi con la relativa codifica e il relativo significato
+    /// TODO: inserire application-level protocol: insieme di tutti i possibili messaggi con la relativa codifica e il relativo significato
+    /*
+     * - probe command: il client chiede al server se ha una copia di un determinato file, la confronta (lato client) con la sua e verifica che non ci siano differenze;
+     * - comando per aggiornare un file/una cartella;
+     * - comando per rimuovere un file/una cartella;
+     * - comando per aggiungere un file/una cartella. Ha senso mettere questi tre insieme? Magari un'unica funzione che come parametro prende anche il tipo di azione
+     */
 
     friend class ServerSocket;
     friend class ClientSocket;
