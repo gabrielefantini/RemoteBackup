@@ -84,6 +84,18 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/mattia/Scrivania/socket/ServerSocket.cpp">
+			<Option target="socket"/>
+		</Unit>
+		<Unit filename="/home/mattia/Scrivania/socket/ServerSocket.h">
+			<Option target="socket"/>
+		</Unit>
+		<Unit filename="/home/mattia/Scrivania/socket/Socket.cpp">
+			<Option target="socket"/>
+		</Unit>
+		<Unit filename="/home/mattia/Scrivania/socket/Socket.h">
+			<Option target="socket"/>
+		</Unit>
 		<Unit filename="/home/mattia/Scrivania/socket/main.cpp">
 			<Option target="socket"/>
 		</Unit>

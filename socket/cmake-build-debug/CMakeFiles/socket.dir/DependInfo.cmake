@@ -4,6 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/mattia/Scrivania/socket/ServerSocket.cpp" "/home/mattia/Scrivania/socket/cmake-build-debug/CMakeFiles/socket.dir/ServerSocket.cpp.o"
+  "/home/mattia/Scrivania/socket/Socket.cpp" "/home/mattia/Scrivania/socket/cmake-build-debug/CMakeFiles/socket.dir/Socket.cpp.o"
   "/home/mattia/Scrivania/socket/main.cpp" "/home/mattia/Scrivania/socket/cmake-build-debug/CMakeFiles/socket.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
