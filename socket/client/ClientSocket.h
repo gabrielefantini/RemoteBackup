@@ -7,7 +7,7 @@
 
 #include <netinet/in.h>
 #include <arpa/inet.h>
-#include "../socket/Socket.h"
+#include "../Socket.h"
 
 class ClientSocket: public Socket {
 public:
