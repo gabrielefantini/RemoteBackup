@@ -23,6 +23,8 @@ class Socket {
     Socket(const Socket&) = delete;
     Socket &operator=(const Socket&) = delete;
 
+    /// inserire application-level protocol: insieme di tutti i possibili messaggi con la relativa codifica e il relativo significato
+
     friend class ServerSocket;
     friend class ClientSocket;
 public:
