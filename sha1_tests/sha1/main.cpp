@@ -5,9 +5,11 @@
 using namespace std;
 
 
-int do_sha1_file(char *name, unsigned char *out){
+std::string do_sha1_file(char *name){
     FILE *f;
     unsigned char buf[8192];
+    unsigned char out[SHA_DIGEST_LENGTH];
+
     SHA_CTX sc;
     int err;
 
@@ -16,7 +18,6 @@ int do_sha1_file(char *name, unsigned char *out){
     if (f == NULL) {
         //aggiungere gestione dell'errore se non riesce ad aprire il file
         std::cout<<"file could not be opened"<<std::endl;
-        return -1;
     }
     //Inizializza la struttura SHA_CTX
     SHA1_Init(&sc);
@@ -38,25 +39,21 @@ int do_sha1_file(char *name, unsigned char *out){
     if (err) {
         /* Aggiungere gestione degli errori di I/O */
         std::cout<<"I/O error"<<std::endl;
-        return -1;
     }
     //Inserisce il digest del file in out (deve avere almeno lunghezza 20) ed elimina SHA_CTX
     SHA1_Final(out, &sc);
-    return 0;
+    std::string digest( out, out + sizeof out / sizeof out[0] );
+    return digest;
 }
 
 int main(){
     unsigned char hash[SHA_DIGEST_LENGTH];
 
     ofstream outfile;
-    do_sha1_file("/home/gabriele/Desktop/test.txt", hash);
+    std::string test = do_sha1_file("/home/gabriele/Desktop/test.txt");
     outfile.open("/home/gabriele/Desktop/out.bin");
 
-    //N.B. quando scrivo il file non devo mettere gli a capo altrimenti aggiungo caratteri ed altero il digest
-    for(int i=0; i<20; i++){
-        std::cout<<hash[i];
-        outfile << hash[i];
-    }
+    outfile<<test;
     outfile.close();
     return  0;
 }
