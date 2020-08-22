@@ -11,6 +11,7 @@
 #include <unordered_map>
 #include <string>
 #include <functional>
+#include <iostream>
 
 //questa è l'implementazione del filewatcher totalmente affine a quella del tutorial linkato (eccetto per la sostituzione della libreria std con quella di boost)
 
@@ -26,7 +27,10 @@ Filewatcher::Filewatcher(std::string path_to_watch,std::chrono::duration<int, st
 
 void Filewatcher::start(const std::function<void (std::string,FileStatus)> &action){
     while (Filewatcher::running_){
+        std::cout<<"---\n"; //debug
         std::this_thread::sleep_for(delay); //wait delay
+
+
 
         auto it=paths_.begin();
         while(it!=paths_.end()){
@@ -52,6 +56,7 @@ void Filewatcher::start(const std::function<void (std::string,FileStatus)> &acti
                 }
             }
         }
+        action("",FileStatus::do_update);
     }
 }
 
