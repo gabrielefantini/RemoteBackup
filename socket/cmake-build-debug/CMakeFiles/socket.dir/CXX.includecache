@@ -6,11 +6,21 @@
 
 #IncludeRegexTransform: 
 
+/home/mattia/Scrivania/socket/ServerSocket.cpp
+ServerSocket.h
+/home/mattia/Scrivania/socket/ServerSocket.h
+
 /home/mattia/Scrivania/socket/ServerSocket.h
 sys/socket.h
 -
 netinet/in.h
 -
+cstring
+-
+Socket.h
+/home/mattia/Scrivania/socket/Socket.h
+
+/home/mattia/Scrivania/socket/Socket.cpp
 Socket.h
 /home/mattia/Scrivania/socket/Socket.h
 
@@ -20,6 +30,8 @@ iostream
 sys/socket.h
 -
 zconf.h
+-
+cstring
 -
 
 /home/mattia/Scrivania/socket/main.cpp

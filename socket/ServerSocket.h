@@ -7,6 +7,7 @@
 
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <cstring>
 #include "Socket.h"
 
 // dichiarata friend di socket, devo chiamare il suo costruttore privato
@@ -29,7 +30,8 @@ public:
             std::cout << "bind ok" << std::endl;
 
         // il socket viene messo in modalità passiva sulla porta
-        if (::listen(sockfd, 0) != 0)
+        /// 8 -> fino a 8 connessioni possono essere messe in sospeso
+        if (::listen(sockfd, 8) != 0)
             throw std::runtime_error("Error listen");
         else
             std::cout << "listen ok" << std::endl;
@@ -40,6 +42,30 @@ public:
         int fd = ::accept(sockfd, reinterpret_cast<struct sockaddr*>(addr), len);
         if (fd < 0) throw std::runtime_error("Cannot accept socket");
         return Socket(fd);
+    }
+
+    /// solo il server riceve file
+    void receiveFile() {
+        std::cout << "receiveFile called" << std::endl;
+        char buffer[1024];
+        ssize_t bytes_read = 0;
+        /// read di Socket.h
+        FILE* fr = fopen("prova.txt", "w");
+        while((bytes_read = read(buffer, sizeof(buffer)-1, 0)) > 0)
+        {
+            std::cout << "Dentro al while" << std::endl;
+            printf("%d bytes read\n", bytes_read);
+            fwrite(buffer, sizeof(char), bytes_read, fr);
+            if(ferror(fr))
+            {
+                perror("Error while writing to file");
+                fclose(fr);
+                exit(EXIT_FAILURE);
+            }
+        }
+        buffer[-1] = 0;
+        if(bytes_read == -1)
+            printf("%s\n", strerror(errno));
     }
 
 };

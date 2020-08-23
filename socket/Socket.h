@@ -8,6 +8,7 @@
 #include <iostream>
 #include <sys/socket.h>
 #include <zconf.h>
+#include <cstring>
 
 // paradigma RAII: rilascio corretto delle risorse
 class Socket {
@@ -23,14 +24,6 @@ class Socket {
     Socket(const Socket&) = delete;
     Socket &operator=(const Socket&) = delete;
 
-    /// TODO: inserire application-level protocol: insieme di tutti i possibili messaggi con la relativa codifica e il relativo significato
-    /*
-     * - probe command: il client chiede al server se ha una copia di un determinato file, la confronta (lato client) con la sua e verifica che non ci siano differenze;
-     * - comando per aggiornare un file/una cartella;
-     * - comando per rimuovere un file/una cartella;
-     * - comando per aggiungere un file/una cartella. Ha senso mettere questi tre insieme? Magari un'unica funzione che come parametro prende anche il tipo di azione
-     */
-
     friend class ServerSocket;
     friend class ClientSocket;
 public:
@@ -43,7 +36,7 @@ public:
 
     ~Socket() {
         if (sockfd != 0) {
-            std::cout << "Socket " << sockfd << "closed" << std::endl;
+            std::cout << "Socket " << sockfd << " closed" << std::endl;
             close(sockfd);
         }
     }
@@ -62,8 +55,12 @@ public:
 
     // il file descriptor del socket è privato, dall'esterno non potrei leggere e scrivere dei byte
     ssize_t read(char* buffer, size_t len, int options) {
+        std::cout << "read called" << std::endl;
         ssize_t res = recv(sockfd, buffer, len, options);
-        if (res < 0) throw std::runtime_error("Cannot receive from socket");
+        if (res < 0) {
+            std::cout << strerror(errno) << std::endl;
+            throw std::runtime_error("Cannot receive from socket");
+        }
         return res;
     }
 

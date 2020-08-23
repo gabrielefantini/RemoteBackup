@@ -8,8 +8,9 @@
 int main() {
     ClientSocket cs (5000);
 
-    int a = 0;
-    for (int i = 0; i< 999999999999; i++) a++;
+    std::cout << "Inizio a spedire il file" << std::endl;
+    cs.sendFile("prova.txt");
+
 
     std::cout << "Connection closed" << std::endl;
 

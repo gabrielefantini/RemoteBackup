@@ -30,7 +30,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../RemoteBackup" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -56,7 +56,9 @@
       <updated>1597923690141</updated>
       <workItem from="1597923691367" duration="859000" />
       <workItem from="1598004283844" duration="3000" />
-      <workItem from="1598011274965" duration="6893000" />
+      <workItem from="1598011274965" duration="7538000" />
+      <workItem from="1598087715631" duration="14000" />
+      <workItem from="1598174415800" duration="5579000" />
     </task>
     <servers />
   </component>
@@ -64,26 +66,26 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="778" y="311" width="424" height="491" key="FileChooserDialogImpl" timestamp="1598022733717">
+    <state x="778" y="311" width="424" height="491" key="FileChooserDialogImpl" timestamp="1598087726438">
       <screen x="70" y="27" width="1850" height="1053" />
     </state>
-    <state x="778" y="311" width="424" height="491" key="FileChooserDialogImpl/70.27.1850.1053@70.27.1850.1053" timestamp="1598022733717" />
-    <state width="879" height="171" key="GridCell.Tab.0.bottom" timestamp="1598022560992">
+    <state x="778" y="311" width="424" height="491" key="FileChooserDialogImpl/70.27.1850.1053@70.27.1850.1053" timestamp="1598087726438" />
+    <state width="879" height="362" key="GridCell.Tab.0.bottom" timestamp="1598182406657">
       <screen x="70" y="27" width="1850" height="1053" />
     </state>
-    <state width="879" height="171" key="GridCell.Tab.0.bottom/70.27.1850.1053@70.27.1850.1053" timestamp="1598022560992" />
-    <state width="879" height="171" key="GridCell.Tab.0.center" timestamp="1598022560991">
+    <state width="879" height="362" key="GridCell.Tab.0.bottom/70.27.1850.1053@70.27.1850.1053" timestamp="1598182406657" />
+    <state width="879" height="362" key="GridCell.Tab.0.center" timestamp="1598182406656">
       <screen x="70" y="27" width="1850" height="1053" />
     </state>
-    <state width="879" height="171" key="GridCell.Tab.0.center/70.27.1850.1053@70.27.1850.1053" timestamp="1598022560991" />
-    <state width="879" height="171" key="GridCell.Tab.0.left" timestamp="1598022560991">
+    <state width="879" height="362" key="GridCell.Tab.0.center/70.27.1850.1053@70.27.1850.1053" timestamp="1598182406656" />
+    <state width="879" height="362" key="GridCell.Tab.0.left" timestamp="1598182406655">
       <screen x="70" y="27" width="1850" height="1053" />
     </state>
-    <state width="879" height="171" key="GridCell.Tab.0.left/70.27.1850.1053@70.27.1850.1053" timestamp="1598022560991" />
-    <state width="879" height="171" key="GridCell.Tab.0.right" timestamp="1598022560992">
+    <state width="879" height="362" key="GridCell.Tab.0.left/70.27.1850.1053@70.27.1850.1053" timestamp="1598182406655" />
+    <state width="879" height="362" key="GridCell.Tab.0.right" timestamp="1598182406656">
       <screen x="70" y="27" width="1850" height="1053" />
     </state>
-    <state width="879" height="171" key="GridCell.Tab.0.right/70.27.1850.1053@70.27.1850.1053" timestamp="1598022560992" />
+    <state width="879" height="362" key="GridCell.Tab.0.right/70.27.1850.1053@70.27.1850.1053" timestamp="1598182406656" />
     <state x="658" y="259" width="672" height="678" key="search.everywhere.popup" timestamp="1598013087443">
       <screen x="70" y="27" width="1850" height="1053" />
     </state>
