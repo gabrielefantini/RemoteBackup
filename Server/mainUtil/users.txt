@@ -1,0 +1,3 @@
+usr1 ./../../server/client_dir/client1
+usr2 ./../../server/client_dir/client2
+
