@@ -86,3 +86,11 @@ int modify(std::string path, std::map<std::string,std::string> &localStructure){
     add(path, localStructure);
     return 0;
 };
+
+int create_backup_initial(std::string path_from, std::map<std::string,std::string> &localStructure){
+    for (auto &file : filesys::recursive_directory_iterator(path_from)) {
+        std::string path=file.path().string();
+        add(path, localStructure);
+    }
+    return 0;
+}
