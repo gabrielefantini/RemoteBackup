@@ -44,6 +44,7 @@ public:
         }
         std::cout << "Nome spedito, byte inviati: "<< bw << std::endl;
         std::cout << "Sizeof(nome): "<< sizeof(name) << std::endl;
+        // così poi non posso più inviare nulla sul socket
         //bw = write("\0", sizeof("\0"), 0);
         int bytes_read, bytes_written;
         char buffer[1024];
