@@ -34,13 +34,23 @@ public:
         this->write(buffer, sizeof(buffer), 0);
     }
 
+
     /// solo il client invia file, funzione inserita in ClientSocket per questo
-    void sendFile(const char* name) {
+    int sendFile(char* name) {
+        int bw = write(name, sizeof(name)+sizeof("\0"), 0);
+        if (bw == -1) {
+            perror("Error while sending name.");
+            exit(EXIT_FAILURE);
+        }
+        std::cout << "Nome spedito, byte inviati: "<< bw << std::endl;
+        std::cout << "Sizeof(nome): "<< sizeof(name) << std::endl;
+        //bw = write("\0", sizeof("\0"), 0);
         int bytes_read, bytes_written;
         char buffer[1024];
         FILE* fs = fopen(name, "r");
         if (fs) {
-            do{
+            do {
+                std::cout << "Leggo da file" << std::endl;
                 bytes_read = fread(buffer, sizeof(char), sizeof(buffer), fs);
                 if(ferror(fs))
                 {
@@ -49,10 +59,12 @@ public:
                     exit(EXIT_FAILURE);
                 }
                 /// per ora options = 0, è la write implementata in Socket.h
+                std::cout << "Scrivo al socket" << std::endl;
                 bytes_written = write(buffer, bytes_read, 0);
                 printf("Write operation status: %s; bytes sent: %d\n", strerror(errno), bytes_written);
             } while(!feof(fs) && bytes_written != -1);
         }
+        return bytes_written;
 
     }
 };

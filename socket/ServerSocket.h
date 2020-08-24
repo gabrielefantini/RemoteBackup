@@ -44,29 +44,8 @@ public:
         return Socket(fd);
     }
 
-    /// solo il server riceve file
-    void receiveFile() {
-        std::cout << "receiveFile called" << std::endl;
-        char buffer[1024];
-        ssize_t bytes_read = 0;
-        /// read di Socket.h
-        FILE* fr = fopen("prova.txt", "w");
-        while((bytes_read = read(buffer, sizeof(buffer)-1, 0)) > 0)
-        {
-            std::cout << "Dentro al while" << std::endl;
-            printf("%d bytes read\n", bytes_read);
-            fwrite(buffer, sizeof(char), bytes_read, fr);
-            if(ferror(fr))
-            {
-                perror("Error while writing to file");
-                fclose(fr);
-                exit(EXIT_FAILURE);
-            }
-        }
-        buffer[-1] = 0;
-        if(bytes_read == -1)
-            printf("%s\n", strerror(errno));
-    }
+
+
 
 };
 

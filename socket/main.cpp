@@ -24,7 +24,7 @@ int main() {
         std::cout << "Got a connection from " << name << ": " << ntohs(addr.sin_port) << std::endl;
 
         std::cout << "Before read from socket" << std::endl;
-        ss.receiveFile();
+        s.receiveFile();
         std::cout << "Connection closed" << std::endl;
 
     }

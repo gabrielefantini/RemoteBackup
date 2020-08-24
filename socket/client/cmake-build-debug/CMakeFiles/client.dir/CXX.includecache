@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+/home/mattia/Scrivania/client/ClientSocket.cpp
+ClientSocket.h
+/home/mattia/Scrivania/client/ClientSocket.h
+
 /home/mattia/Scrivania/client/ClientSocket.h
 netinet/in.h
 -

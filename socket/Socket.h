@@ -75,6 +75,48 @@ public:
         if (::connect(sockfd, reinterpret_cast<struct sockaddr*>(addr), len)!=0)
             throw std::runtime_error("Cannot connect to remote socket");
     }
+
+    /// solo il server riceve file
+    void receiveFile() {
+        char name[1024];
+
+        int br, tot = 0;
+
+        while((br = read(name, sizeof(name)-1, 0)) > 0) {
+            std::cout << "Br durante: " << br <<std::endl;
+            int written = write(name, br, 0);
+            tot+=written;
+        }
+        std::cout << "Tot: " << tot << std::endl;
+        name[tot]=0;
+
+        std::cout << "Name: " << name << std::endl;
+        std::cout << "receiveFile called" << std::endl;
+        FILE* fr = fopen(name, "w");
+
+        char buffer[1024];
+        ssize_t bytes_read = 0;
+        /// read di Socket.h
+        while((bytes_read = read(buffer, sizeof(buffer)-1, 0)) > 0) {
+            std::cout << "Dentro al while" << std::endl;
+            printf("%d bytes read\n", bytes_read);
+            std::cout<< "----------------------" <<std::endl;
+
+            int written = fwrite(&buffer, sizeof(char), bytes_read, fr);
+            if(ferror(fr))
+            {
+                perror("Error while writing to file");
+                fclose(fr);
+                exit(EXIT_FAILURE);
+            }
+            std::cout << "Written: " << written << " bytes" << std::endl;
+        }
+        buffer[bytes_read] = 0;
+        if(bytes_read == -1)
+            printf("%s\n", strerror(errno));
+        std::cout << "receive finita" << std::endl;
+        fclose(fr);
+    }
 };
 
 
