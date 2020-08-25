@@ -6,35 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/home/mattia/Scrivania/client/ClientSocket.cpp
-ClientSocket.h
-/home/mattia/Scrivania/client/ClientSocket.h
-
-/home/mattia/Scrivania/client/ClientSocket.h
-stdio.h
--
-stdlib.h
--
-netinet/in.h
--
-arpa/inet.h
--
-cstring
--
-../socket/Socket.h
+/home/mattia/Scrivania/socket/Socket.cpp
+Socket.h
 /home/mattia/Scrivania/socket/Socket.h
-
-/home/mattia/Scrivania/client/main.cpp
-iostream
--
-sys/socket.h
--
-netinet/in.h
--
-arpa/inet.h
--
-ClientSocket.h
-/home/mattia/Scrivania/client/ClientSocket.h
 
 /home/mattia/Scrivania/socket/Socket.h
 iostream

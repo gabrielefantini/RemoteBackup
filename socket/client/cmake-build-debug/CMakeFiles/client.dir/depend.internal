@@ -5,6 +5,9 @@ CMakeFiles/client.dir/ClientSocket.cpp.o
  /home/mattia/Scrivania/client/ClientSocket.cpp
  /home/mattia/Scrivania/client/ClientSocket.h
  /home/mattia/Scrivania/socket/Socket.h
+CMakeFiles/client.dir/home/mattia/Scrivania/socket/Socket.cpp.o
+ /home/mattia/Scrivania/socket/Socket.cpp
+ /home/mattia/Scrivania/socket/Socket.h
 CMakeFiles/client.dir/main.cpp.o
  /home/mattia/Scrivania/client/ClientSocket.h
  /home/mattia/Scrivania/client/main.cpp

@@ -93,6 +93,12 @@
 		<Unit filename="/home/mattia/Scrivania/client/main.cpp">
 			<Option target="client"/>
 		</Unit>
+		<Unit filename="/home/mattia/Scrivania/socket/Socket.cpp">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="/home/mattia/Scrivania/socket/Socket.h">
+			<Option target="client"/>
+		</Unit>
 		<Unit filename="/home/mattia/Scrivania/client/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

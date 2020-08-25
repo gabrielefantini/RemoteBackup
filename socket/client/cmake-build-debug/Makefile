@@ -150,6 +150,33 @@ ClientSocket.cpp.s:
 	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/ClientSocket.cpp.s
 .PHONY : ClientSocket.cpp.s
 
+home/mattia/Scrivania/socket/Socket.o: home/mattia/Scrivania/socket/Socket.cpp.o
+
+.PHONY : home/mattia/Scrivania/socket/Socket.o
+
+# target to build an object file
+home/mattia/Scrivania/socket/Socket.cpp.o:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/home/mattia/Scrivania/socket/Socket.cpp.o
+.PHONY : home/mattia/Scrivania/socket/Socket.cpp.o
+
+home/mattia/Scrivania/socket/Socket.i: home/mattia/Scrivania/socket/Socket.cpp.i
+
+.PHONY : home/mattia/Scrivania/socket/Socket.i
+
+# target to preprocess a source file
+home/mattia/Scrivania/socket/Socket.cpp.i:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/home/mattia/Scrivania/socket/Socket.cpp.i
+.PHONY : home/mattia/Scrivania/socket/Socket.cpp.i
+
+home/mattia/Scrivania/socket/Socket.s: home/mattia/Scrivania/socket/Socket.cpp.s
+
+.PHONY : home/mattia/Scrivania/socket/Socket.s
+
+# target to generate assembly for a file
+home/mattia/Scrivania/socket/Socket.cpp.s:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/home/mattia/Scrivania/socket/Socket.cpp.s
+.PHONY : home/mattia/Scrivania/socket/Socket.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -189,6 +216,9 @@ help:
 	@echo "... ClientSocket.o"
 	@echo "... ClientSocket.i"
 	@echo "... ClientSocket.s"
+	@echo "... home/mattia/Scrivania/socket/Socket.o"
+	@echo "... home/mattia/Scrivania/socket/Socket.i"
+	@echo "... home/mattia/Scrivania/socket/Socket.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
