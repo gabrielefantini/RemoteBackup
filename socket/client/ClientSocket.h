@@ -5,6 +5,9 @@
 #ifndef CLIENT_CLIENTSOCKET_H
 #define CLIENT_CLIENTSOCKET_H
 
+#include <stdio.h>
+#include <stdlib.h>
+
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <cstring>
@@ -25,7 +28,6 @@ public:
         if (::connect(sockfd, reinterpret_cast<struct sockaddr*>(&sockaddrIn), sizeof(sockaddrIn))!=0)
             throw std::runtime_error("Cannot connect to remote socket");
 
-
     }
     // funzione per inviare al server il nuovo hash
     /// questa funzione potrebbe anche essere sostituita da una semplice write
@@ -36,18 +38,37 @@ public:
 
 
     /// solo il client invia file, funzione inserita in ClientSocket per questo
-    int sendFile(char* name) {
-        int bw = write(name, sizeof(name)+sizeof("\0"), 0);
-        if (bw == -1) {
-            perror("Error while sending name.");
+    int sendFile(const char *name) {
+        int len = 0;
+        int j = 0;
+        /// calcolo il numero di elementi del char*
+        while(name[j]!='\0') {len++;j++;}
+        /// spazio per \0
+        len++;
+        std::cout << "Name: " << name << " , lunghezza: "<<len << std::endl;
+        /// variabile per scrivere la lunghezza come char*, valore accettato dalla write
+        char len_char[4];
+        /// conversione int -> char per la write
+        sprintf(len_char,"%d",len);
+        std::cout << "len_char: " << len_char << std::endl;
+        /// PRIMA WRITE: invio la dimensione del titolo
+        int bytes_written = write(len_char, sizeof(len_char), 0);
+        if (bytes_written == -1) {
+            perror("Error while sending name");
             exit(EXIT_FAILURE);
         }
-        std::cout << "Nome spedito, byte inviati: "<< bw << std::endl;
-        std::cout << "Sizeof(nome): "<< sizeof(name) << std::endl;
-        // così poi non posso più inviare nulla sul socket
-        //bw = write("\0", sizeof("\0"), 0);
-        int bytes_read, bytes_written;
+
+        /// SECONDA WRITE: invio il titolo
+        bytes_written = write(name, len, 0);
+        std::cout << "Dopo la write del nome ho scritto: " << bytes_written << " bytes" << std::endl;
+        if (bytes_written == -1) {
+            perror("Error while sending name");
+            exit(EXIT_FAILURE);
+        }
+        std::cout << "Nome spedito, byte inviati: "<< bytes_written << std::endl;
+        int bytes_read;
         char buffer[1024];
+        /// apro il file in lettura e invio il contenuto
         FILE* fs = fopen(name, "r");
         if (fs) {
             do {
@@ -62,11 +83,10 @@ public:
                 /// per ora options = 0, è la write implementata in Socket.h
                 std::cout << "Scrivo al socket" << std::endl;
                 bytes_written = write(buffer, bytes_read, 0);
-                printf("Write operation status: %s; bytes sent: %d\n", strerror(errno), bytes_written);
+                std::cout << "Write operation status:" << strerror(errno) << "; bytes sent: " << bytes_written;
             } while(!feof(fs) && bytes_written != -1);
         }
         return bytes_written;
-
     }
 };
 

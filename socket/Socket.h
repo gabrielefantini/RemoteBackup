@@ -78,22 +78,32 @@ public:
 
     /// solo il server riceve file
     void receiveFile() {
-        char name[1024];
-
-        int br, tot = 0;
-
-        while((br = read(name, sizeof(name)-1, 0)) > 0) {
-            std::cout << "Br durante: " << br <<std::endl;
-            int written = write(name, br, 0);
-            tot+=written;
+        int bytes_received;
+        char len[4];
+        /// PRIMA READ: leggo la dimensione del titolo
+        bytes_received = read(len, sizeof(len), 0);
+        if (bytes_received == -1) {
+            perror("Error while reading size");
+            exit(EXIT_FAILURE);
         }
-        std::cout << "Tot: " << tot << std::endl;
-        name[tot]=0;
+        /// atoi è una funzione che mi permette di convertire un char in un intero
+        std::cout << atoi(len) << std::endl;
+        /// alloco una struttura per contenere il nome della lunghezza del nome
+        char name[atoi(len)];
+        /// SECONDA READ: leggo il nome
+        bytes_received = read(name, sizeof(name), 0);
+        if (bytes_received == -1) {
+            perror("Error while reading size");
+            exit(EXIT_FAILURE);
+        }
+        /// inserisco il terminatore di stringa come ultimo carattere del titolo
+        name[atoi(len)-1] = '\0';
 
-        std::cout << "Name: " << name << std::endl;
-        std::cout << "receiveFile called" << std::endl;
+        std::cout << name << std::endl;
+        /// apro il file in modalità "w": se non esiste lo crea, se esiste ne sovrascrive il contenuto
         FILE* fr = fopen(name, "w");
 
+        /// TERZA READ: leggo il contenuto del file ricevuto e lo scrivo nel file appena creato
         char buffer[1024];
         ssize_t bytes_read = 0;
         /// read di Socket.h
@@ -115,6 +125,7 @@ public:
         if(bytes_read == -1)
             printf("%s\n", strerror(errno));
         std::cout << "receive finita" << std::endl;
+        /// chiudo il file
         fclose(fr);
     }
 };
