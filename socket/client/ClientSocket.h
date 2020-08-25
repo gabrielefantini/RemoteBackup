@@ -80,6 +80,7 @@ public:
                     fclose(fs);
                     exit(EXIT_FAILURE);
                 }
+
                 /// per ora options = 0, è la write implementata in Socket.h
                 std::cout << "Scrivo al socket" << std::endl;
                 bytes_written = write(buffer, bytes_read, 0);
