@@ -13,7 +13,6 @@ int add(std::string path, std::map<std::string,std::string> &localStructure){
 
         // Check if path exists and is of a regular file
         if (filesys::exists(pathObj) && filesys::is_regular_file(pathObj)){
-
             //pezzetti in cui verrà analizzato il file
             unsigned char buf[8192];
             //digest finale
@@ -30,44 +29,50 @@ int add(std::string path, std::map<std::string,std::string> &localStructure){
             f = fopen(name, "rb");
             if (f == NULL) {
                 //aggiungere gestione dell'errore se non riesce ad aprire il file
+                std::cout<<"err opening file \n";
                 return 1;
             }
             //Inizializza la struttura SHA_CTX
             SHA1_Init(&sc);
-            //Eseguito fino a che non si arriva alla fine del file
-            while(true) {
-                size_t len;
 
-                len = fread(buf, 1, sizeof buf, f);
-                if (len == 0)
-                    break;
-                //Chiamato più volte con pezzi del file che devono esssere processati
-                SHA1_Update(&sc, buf, len);
+
+            size_t len;
+            len = fread(buf, 1, sizeof buf, f);
+            if (len == 0){
+                //se il file è vuoto non calcolo l'hash ma metto "empty" come valore hash
+                localStructure[path] = "empty";
+                return 0;
+            } else{
+                // se invece il file non è vuoto, calcolo l'hash caricando un pezzo di file alla volta, fino ad arrivare alla fine
+                while(len!=0) {
+                    SHA1_Update(&sc, buf, len);
+                    len = fread(buf, 1, sizeof buf, f);
+                }
+
+                err = ferror(f);
+                fclose(f);
+
+                if (err) {
+                    /* Aggiungere gestione degli errori di I/O */
+                    std::cout<<"I/O error \n";
+                    return 1;
+                }
+                //Inserisce il digest del file in final (deve avere almeno lunghezza 20) ed elimina SHA_CTX
+                SHA1_Final(final, &sc);
+                std::string digest( final, final + sizeof final / sizeof final[0] );
+                //inserisce il path con il relativo digest nella map
+                localStructure[path] = digest;
+                return 0;
             }
-
-            err = ferror(f);
-            fclose(f);
-
-            if (err) {
-                /* Aggiungere gestione degli errori di I/O */
-                return 1;
-            }
-            //Inserisce il digest del file in final (deve avere almeno lunghezza 20) ed elimina SHA_CTX
-            SHA1_Final(final, &sc);
-            std::string digest( final, final + sizeof final / sizeof final[0] );
-
-            //inserisce il path con il relativo digest nella map
-            localStructure.insert(std::pair<std::string, std::string> (path, digest));
-            return 0;
         }
-
         // Check if path exists and is of a directory
         if (filesys::exists(pathObj) && filesys::is_directory(pathObj)){
             //inserisce il path e NULL come digest fittizio
-            localStructure.insert(std::pair<std::string, std::string> (path, NULL));
+            localStructure[path] = "";
 
             return 0;
         }
+
     }
     catch (filesys::filesystem_error & e)
     {

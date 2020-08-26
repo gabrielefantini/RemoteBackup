@@ -6,9 +6,16 @@
 #include "hashManager/hashManager.h"
 #include "fileWatcher/FileWatcher.h"
 
+void print_map(std::map<std::string,std::string> &m){
+    for (auto& x: m) {
+        std::cout << x.first << " : " << x.second << std::endl;
+    }
+    std::cout<<"\n";
+}
+
 int main(){
     std::map<std::string,std::string> localMap;
-    std::string localPath = "path";
+    std::string localPath = "/home/gabriele/Desktop/ClientFolder";
 
     create_backup_initial(localPath, localMap);
 
@@ -27,17 +34,16 @@ int main(){
                 add(path_to_watch, localMap);
                 break;
             case FileStatus::modified:
-                //per ora, non gestendo in contenuti, non succede nulla alla modifica di un file
+                modify(path_to_watch, localMap);
                 std::cout<<path_to_watch<<" modified\n";
                 break;
             case FileStatus::erased:
                 std::cout<<path_to_watch<<" erased\n";
                 remove(path_to_watch, localMap);
                 //std::cout<<"map updated:\n";
-                //print_map(backup_);
                 break;
             case FileStatus::do_update:
-                modify(path_to_watch, localMap);
+                print_map(localMap);
                 break;
             default:
                 std::cout<<"Error: unknown file status.\n";
