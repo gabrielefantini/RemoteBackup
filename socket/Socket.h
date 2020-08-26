@@ -9,6 +9,7 @@
 #include <sys/socket.h>
 #include <zconf.h>
 #include <cstring>
+#include <map>
 
 // paradigma RAII: rilascio corretto delle risorse
 class Socket {
@@ -23,6 +24,12 @@ class Socket {
     // costruttore di copia e operatore di assegnazione delete -> il file descriptor non deve essere duplicato
     Socket(const Socket&) = delete;
     Socket &operator=(const Socket&) = delete;
+
+    /// questa lista la vorrei mettere in ServerSocket ma la funzione per verificare il client va messa in Socket
+    /// TODO: ragionare sull'utilità di ServerSocket
+    std::map<char*, char*> client_dir;
+    char* cur_client = nullptr;
+    char* cur_dir = nullptr;
 
     friend class ServerSocket;
     friend class ClientSocket;
@@ -63,7 +70,10 @@ public:
     void connect(struct sockaddr_in *addr, unsigned int len);
 
     /// solo il server riceve file
+    /// inserita qui perché ritorno un socket e non un serversocket con la accept
     void receiveFile();
+
+    bool vrfy();
 };
 
 

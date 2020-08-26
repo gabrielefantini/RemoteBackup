@@ -76,3 +76,58 @@ ssize_t Socket::read(char *buffer, size_t len, int options)  {
     }
     return res;
 }
+
+bool Socket::vrfy() {
+    int bytes_received;
+    char len[4];
+
+    // nome client
+
+    /// PRIMA READ: leggo la dimensione del nome
+    bytes_received = read(len, sizeof(len), 0);
+    /// atoi è una funzione che mi permette di convertire un char in un intero
+    std::cout <<"Dimensione nome client: " <<  atoi(len) << std::endl;
+    /// alloco una struttura per contenere il nome della lunghezza del nome
+    char name[atoi(len)];
+    /// SECONDA READ: leggo il nome
+    bytes_received = read(name, sizeof(name), 0);
+    /// inserisco il terminatore di stringa come ultimo carattere del titolo
+    name[atoi(len)-1] = '\0';
+    std::cout << "Nome client: " << name << std::endl;
+
+    // nome dir
+
+    /// PRIMA READ: leggo la dimensione del nome
+    bytes_received = read(len, sizeof(len), 0);
+    /// atoi è una funzione che mi permette di convertire un char in un intero
+    std::cout << "Dimensione nome dir: " << atoi(len) << std::endl;
+    /// alloco una struttura per contenere il nome della lunghezza del nome
+    char dir[atoi(len)];
+    /// SECONDA READ: leggo il nome
+    bytes_received = read(dir, sizeof(dir), 0);
+    /// inserisco il terminatore di stringa come ultimo carattere del titolo
+    dir[atoi(len)-1] = '\0';
+    std::cout << "Nome dir: " << dir << std::endl;
+
+    for (auto elem : client_dir) {
+        std::cout << "Scansione lista client..." << std::endl;
+        if (strcmp(elem.first, name) == 0) {
+            cur_client = name;
+            cur_dir = dir;
+            std::cout << "Bentornato " << cur_client <<", sto controllando "<< cur_dir << std::endl;
+        }
+    }
+
+    /// nuovo client
+    if (cur_client == nullptr) {
+        std::cout << "Nuovo client!" << std::endl;
+        std::pair<char*, char*> elem = {name, dir};
+        client_dir.insert(elem);
+        cur_client = name;
+        cur_dir = dir;
+        std::cout << "Nuovo utente! Benvenuto " << cur_client <<", controllerò "<< cur_dir << std::endl;
+    }
+
+    //TODO: per ora restituisco sempre true, ci sono casi in cui devo restituire false? Possono esserci errori?
+    return true;
+}
