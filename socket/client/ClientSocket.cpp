@@ -81,7 +81,6 @@ bool ClientSocket::auth(char* name, char* dir) {
     /// controllo fatto da write
 
     /// SECONDA WRITE: nome
-
     bytes_written = write(name, len, 0);
     len = 0; j = 0;
     while(dir[j]!='\0') {len++;j++;}
