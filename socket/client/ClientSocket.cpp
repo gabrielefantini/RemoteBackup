@@ -28,6 +28,7 @@ int ClientSocket::sendFile(const char *name) {
     /// SECONDA WRITE: invio il titolo
     bytes_written = write(name, len, 0);
     std::cout << "Dopo la write del nome ho scritto: " << bytes_written << " bytes" << std::endl;
+    /// forse controlli inutili, li fa la funzione write...
     if (bytes_written == -1) {
         perror("Error while sending name");
         exit(EXIT_FAILURE);
@@ -56,7 +57,45 @@ int ClientSocket::sendFile(const char *name) {
     return bytes_written;
 }
 
-void ClientSocket::sendHash(char *buffer) {
+int ClientSocket::sendHash(char *buffer) {
     /// per ora options = 0, da definire
-    this->write(buffer, sizeof(buffer), 0);
+    int bytes_written = write(buffer, sizeof(buffer), 0);
+    return bytes_written;
+}
+
+bool ClientSocket::auth(char* name, char* dir) {
+    int len = 0;
+    int j = 0;
+
+    /// calcolo il numero di elementi del char*
+    while(name[j]!='\0') {len++;j++;}
+    len++;
+
+    char len_char[4];
+    /// conversione int -> char per la write
+    sprintf(len_char,"%d",len);
+
+    /// PRIMA WRITE: invio la dimensione del nome
+    int bytes_written;
+    bytes_written = write(len_char, sizeof(len_char), 0);
+    /// controllo fatto da write
+
+    /// SECONDA WRITE: nome
+
+    bytes_written = write(name, len, 0);
+    len = 0; j = 0;
+    while(dir[j]!='\0') {len++;j++;}
+    len++;
+
+
+    std::cout << "Spediti " << bytes_written << " bytes, inviato: " << name << std::endl;
+
+    /// TERZA WRITE: dimensione dir
+    sprintf(len_char,"%d",len);
+    bytes_written = write(len_char, sizeof(len_char), 0);
+    /// QUARTA WRITE: dir
+    bytes_written = write(dir, len, 0);
+    std::cout << "Spediti " << bytes_written << " bytes" << "\n" << "Attesa risposta..." << std::endl;
+
+
 }

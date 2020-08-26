@@ -31,11 +31,14 @@ public:
     }
     // funzione per inviare al server il nuovo hash
     /// questa funzione potrebbe anche essere sostituita da una semplice write
-    void sendHash(char* buffer);
+    int sendHash(char* buffer);
 
 
     /// solo il client invia file, funzione inserita in ClientSocket per questo
     int sendFile(const char *name);
+
+    /// funzione per l'autenticazione
+    bool auth(char* name, char* dir);
 };
 
 

@@ -23,10 +23,14 @@ int main() {
         // la porta è scritta in addr nel formato network, devo convertirla
         std::cout << "Got a connection from " << name << ": " << ntohs(addr.sin_port) << std::endl;
 
+        /*
         std::cout << "Before read from socket" << std::endl;
         s.receiveFile();
         std::cout << "Connection closed" << std::endl;
+        */
 
+        s.vrfy();
+        s.vrfy();
     }
     return 0;
 }
