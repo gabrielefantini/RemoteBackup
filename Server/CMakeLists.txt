@@ -11,6 +11,6 @@ include_directories(${Boost_INCLUDE_DIRS})
 link_libraries(stdc++fs)
 link_libraries(crypto)
 
-add_executable(server main.cpp hashManager/hashManager.h hashManager/hashManager.cpp mainUtil/mainUtilities.cpp mainUtil/mainUtilities.h)
+add_executable(server main.cpp hashManager/hashManager.h hashManager/hashManager.cpp main_util/mainUtilities.cpp main_util/mainUtilities.h socketUtil/Socket.cpp socketUtil/Socket.h socketUtil/ServerSocket.cpp socketUtil/ServerSocket.h)
 
 target_link_libraries(server ${Boost_LIBRARIES} ${OpenSSL_LIBRARIES})
