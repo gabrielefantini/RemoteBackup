@@ -4,6 +4,7 @@
 #include <arpa/inet.h>
 #include "Socket.h"
 #include "ServerSocket.h"
+#include <boost/filesystem.hpp>
 
 ServerSocket ss (5000);
 
@@ -29,8 +30,10 @@ int main() {
         std::cout << "Connection closed" << std::endl;
         */
 
+
         s.vrfy();
         s.vrfy();
+
     }
     return 0;
 }

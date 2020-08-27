@@ -109,6 +109,8 @@ socket: CMakeFiles/socket.dir/main.cpp.o
 socket: CMakeFiles/socket.dir/Socket.cpp.o
 socket: CMakeFiles/socket.dir/ServerSocket.cpp.o
 socket: CMakeFiles/socket.dir/build.make
+socket: /usr/lib/x86_64-linux-gnu/libboost_system.so
+socket: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so
 socket: CMakeFiles/socket.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/mattia/Scrivania/socket/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable socket"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/socket.dir/link.txt --verbose=$(VERBOSE)

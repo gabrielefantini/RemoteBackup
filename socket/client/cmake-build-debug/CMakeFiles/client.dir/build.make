@@ -109,6 +109,8 @@ client: CMakeFiles/client.dir/main.cpp.o
 client: CMakeFiles/client.dir/ClientSocket.cpp.o
 client: CMakeFiles/client.dir/home/mattia/Scrivania/socket/Socket.cpp.o
 client: CMakeFiles/client.dir/build.make
+client: /usr/lib/x86_64-linux-gnu/libboost_system.so
+client: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so
 client: CMakeFiles/client.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/mattia/Scrivania/client/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable client"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/client.dir/link.txt --verbose=$(VERBOSE)

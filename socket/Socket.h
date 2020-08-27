@@ -74,6 +74,7 @@ public:
     void receiveFile();
 
     bool vrfy();
+    int setup_dir(const std::string &path);
 };
 
 

@@ -3,6 +3,7 @@
 //
 
 #include "Socket.h"
+#include <boost/filesystem.hpp>
 
 void Socket::receiveFile() {
     int bytes_received;
@@ -79,24 +80,25 @@ ssize_t Socket::read(char *buffer, size_t len, int options)  {
 
 bool Socket::vrfy() {
     int bytes_received;
-    char len[4];
+    char len_name[4];
 
     // nome client
 
     /// PRIMA READ: leggo la dimensione del nome
-    bytes_received = read(len, sizeof(len), 0);
+    bytes_received = read(len_name, sizeof(len_name), 0);
     /// atoi è una funzione che mi permette di convertire un char in un intero
-    std::cout <<"Dimensione nome client: " <<  atoi(len) << std::endl;
+    std::cout <<"Dimensione nome client: " <<  atoi(len_name) << std::endl;
     /// alloco una struttura per contenere il nome della lunghezza del nome
-    char name[atoi(len)];
+    char name[atoi(len_name)];
     /// SECONDA READ: leggo il nome
     bytes_received = read(name, sizeof(name), 0);
     /// inserisco il terminatore di stringa come ultimo carattere del titolo
-    name[atoi(len)-1] = '\0';
+    name[atoi(len_name)-1] = '\0';
     std::cout << "Nome client: " << name << std::endl;
 
     // nome dir
 
+    char len[4];
     /// PRIMA READ: leggo la dimensione del nome
     bytes_received = read(len, sizeof(len), 0);
     /// atoi è una funzione che mi permette di convertire un char in un intero
@@ -109,6 +111,7 @@ bool Socket::vrfy() {
     dir[atoi(len)-1] = '\0';
     std::cout << "Nome dir: " << dir << std::endl;
 
+    /*
     for (auto elem : client_dir) {
         std::cout << "Scansione lista client..." << std::endl;
         if (strcmp(elem.first, name) == 0) {
@@ -127,7 +130,42 @@ bool Socket::vrfy() {
         cur_dir = dir;
         std::cout << "Nuovo utente! Benvenuto " << cur_client <<", controllerò "<< cur_dir << std::endl;
     }
+    */
+    int len_path = atoi(len)-1+atoi(len_name);
+    std::cout << "Len_path: " << len_path << std::endl;
+    char path_complessivo[len_path];
+
+    for (int i = 0; i<atoi(len_name); i++) path_complessivo[i] = name[i];
+    path_complessivo[atoi(len_name)-1] = '/';
+    for (int i = 0; i<atoi(len); i++) path_complessivo[i+atoi(len_name)] = dir[i];
+    std::cout << "Percorso creato: " << path_complessivo << std::endl;
+
+    if (setup_dir(path_complessivo)) {
+        std::cout << "Utente riconosciuto e directory esistente! Bentornato " << name << std::endl;
+
+    }
+    else {
+        std::cout << "Ciao " << name <<"! Ho aggiunto " << dir <<" alle directory controllate" << std::endl;
+    }
+
+    cur_client = name;
+    cur_dir = dir;
 
     //TODO: per ora restituisco sempre true, ci sono casi in cui devo restituire false? Possono esserci errori?
     return true;
+}
+
+// da mainUtil.h
+namespace fs=boost::filesystem;
+//setup_dir: cerca se la directory relativa al path di un certo utente esiste già (return 1), altrimenti la crea (return 0)
+int Socket::setup_dir(const std::string &path){
+    if(fs::exists(path) && fs::is_directory(path)) {
+        std::cout << path << " found in backups.\n\n";
+        return 1;
+    }else{
+        std::cout<<path<<" missing!\n";
+        fs::create_directory(path);
+        std::cout<<path<<" created correctly in backups.\n\n";
+        return 0;
+    }
 }

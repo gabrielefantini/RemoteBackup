@@ -1,1 +1,1 @@
-/usr/bin/c++  -g   CMakeFiles/client.dir/main.cpp.o CMakeFiles/client.dir/ClientSocket.cpp.o CMakeFiles/client.dir/home/mattia/Scrivania/socket/Socket.cpp.o  -o client 
+/usr/bin/c++  -g   CMakeFiles/client.dir/main.cpp.o CMakeFiles/client.dir/ClientSocket.cpp.o CMakeFiles/client.dir/home/mattia/Scrivania/socket/Socket.cpp.o  -o client -lstdc++fs /usr/lib/x86_64-linux-gnu/libboost_system.so /usr/lib/x86_64-linux-gnu/libboost_filesystem.so 
