@@ -127,7 +127,7 @@ void compare_and_process(std::map<std::string,std::string> &client_map,std::map<
     for(auto& x: server_map){
         std::string path=x.first;
         cs_to_sc(path,spath,cpath);
-        if(x.second=="directory") {
+        /*if(x.second=="directory") {
             //caso directory
             //std::cout << x.first << " is a dir\n";
             if(client_map.find(path)==client_map.end()){
@@ -147,7 +147,17 @@ void compare_and_process(std::map<std::string,std::string> &client_map,std::map<
                 cnt++;
             }
 
+        }*/
+        if(client_map.find(path)==client_map.end()){
+            if(x.second=="")
+                std::cout<<"dir "<<x.first<<" has to be deleted.\n";
+            else
+                std::cout<<"file "<<x.first<<" has to be deleted.\n";
+            fs::remove(x.first);
+            remove(x.first,server_map);
+            cnt++;
         }
+
     }
     if(cnt==0)
         std::cout<<"no mod required.\n";
