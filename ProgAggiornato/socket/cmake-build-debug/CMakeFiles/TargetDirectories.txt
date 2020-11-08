@@ -1,0 +1,3 @@
+/home/mattia/Scrivania/socket/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/mattia/Scrivania/socket/cmake-build-debug/CMakeFiles/socket.dir
+/home/mattia/Scrivania/socket/cmake-build-debug/CMakeFiles/edit_cache.dir
