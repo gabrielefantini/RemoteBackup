@@ -12,7 +12,7 @@
 
 #define USERS_FILE "./../main_util/users.txt"
 #define MAXLEN 50
-#define BACKUP_FOLDER "./../../server/backups"
+#define BACKUP_FOLDER "./../backups"
 
 namespace fs=boost::filesystem;
 
