@@ -48,10 +48,10 @@ RM = /home/mattia/Scaricati/CLion-2019.3.5/clion-2019.3.5/bin/cmake/linux/bin/cm
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/mattia/Scrivania/socket
+CMAKE_SOURCE_DIR = /home/mattia/Scrivania/RemoteBackup/socket
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/mattia/Scrivania/socket/cmake-build-debug
+CMAKE_BINARY_DIR = /home/mattia/Scrivania/RemoteBackup/socket/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mattia/Scrivania/socket/cmake-build-debug/CMakeFiles /home/mattia/Scrivania/socket/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mattia/Scrivania/RemoteBackup/socket/cmake-build-debug/CMakeFiles /home/mattia/Scrivania/RemoteBackup/socket/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mattia/Scrivania/socket/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mattia/Scrivania/RemoteBackup/socket/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

@@ -11,12 +11,14 @@ std::string get_server_dir(const std::string &username,const std::string &path){
 }
 //setup_dir: cerca se la directory relativa al path di un certo utente esiste già (return 1), altrimenti la crea (return 0)
 int setup_dir(const std::string &path){
-    if(fs::exists(path) && fs::is_directory(path)) {
-        std::cout << path << " found in backups.\n\n";
+    std::string new_path = std::string("../backup/")+path;
+    if(fs::exists(new_path) && fs::is_directory(new_path)) {
+        std::cout << new_path << " found in backups.\n\n";
         return 1;
     }else{
         std::cout<<path<<" missing!\n";
-        fs::create_directory(path);
+        fs::create_directory(std::string("../backup/")+fs::path(path).parent_path().string());
+        fs::create_directory(std::string("../backup/")+path);
         std::cout<<path<<" created correctly in backups.\n\n";
         return 0;
     }

@@ -44,10 +44,10 @@ RM = /home/mattia/Scaricati/CLion-2019.3.5/clion-2019.3.5/bin/cmake/linux/bin/cm
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/mattia/Scrivania/socket
+CMAKE_SOURCE_DIR = /home/mattia/Scrivania/RemoteBackup/socket
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/mattia/Scrivania/socket/cmake-build-debug
+CMAKE_BINARY_DIR = /home/mattia/Scrivania/RemoteBackup/socket/cmake-build-debug
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -74,14 +74,14 @@ preinstall:
 CMakeFiles/socket.dir/all:
 	$(MAKE) -f CMakeFiles/socket.dir/build.make CMakeFiles/socket.dir/depend
 	$(MAKE) -f CMakeFiles/socket.dir/build.make CMakeFiles/socket.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mattia/Scrivania/socket/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4 "Built target socket"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/mattia/Scrivania/RemoteBackup/socket/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4 "Built target socket"
 .PHONY : CMakeFiles/socket.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/socket.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mattia/Scrivania/socket/cmake-build-debug/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mattia/Scrivania/RemoteBackup/socket/cmake-build-debug/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/socket.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mattia/Scrivania/socket/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mattia/Scrivania/RemoteBackup/socket/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/socket.dir/rule
 
 # Convenience name for target.
