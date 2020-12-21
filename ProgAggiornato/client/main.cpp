@@ -4,12 +4,20 @@
 #include "hashManager/hashManager.h"
 #include "fileWatcher/FileWatcher.h"
 
-int main() {
+int main(int argc,char** argv) {
+    //argomenti attesi: usr path
+    if(argc!=3){
+        std::cout<<"ERRORE: numero argomenti errato (specifica 'usr' e 'path')"<<std::endl;
+        return -1;
+    }
+    //user
+    std::string usr=argv[1];
+    //path: se il path specificato non esiste, viene lanciato un errore
+    filesys::path backupPath=filesys::canonical(filesys::path(argv[2]));
     //inizializzo la map all'avvio del programma
     std::map<std::string,std::string> localMap;
     //definisco la path sulla quale voglio eseguire il backup
-    //N.B. va sostituita con gli argomenti passati al main!!!
-    std::string backupDir = "/home/gabriele/Desktop/ClientFolder";
+    std::string backupDir = backupPath.string();
     //analizzo tutta la directory e inserisco i valori nella map
     create_backup_initial(backupDir, localMap);
 
@@ -23,7 +31,7 @@ int main() {
     std::cout << "Bytes_written: " << bytes_written << std::endl;
     */
 
-    cs.auth("client1", "dir1");
+    cs.auth(usr, backupDir);
 
 
     std::cout << "Connection closed" << std::endl;
