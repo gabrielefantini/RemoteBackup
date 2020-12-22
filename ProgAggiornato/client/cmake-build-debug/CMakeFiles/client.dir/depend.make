@@ -14,6 +14,10 @@ CMakeFiles/client.dir/hashManager/hashManager.cpp.o: ../hashManager/hashManager.
 CMakeFiles/client.dir/home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/socket/Socket.cpp.o: /home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/socket/Socket.cpp
 CMakeFiles/client.dir/home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/socket/Socket.cpp.o: /home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/socket/Socket.h
 
+CMakeFiles/client.dir/jsonUtils.cpp.o: ../jsonUtils.cpp
+CMakeFiles/client.dir/jsonUtils.cpp.o: ../jsonUtils.h
+CMakeFiles/client.dir/jsonUtils.cpp.o: _deps/json-src/single_include/nlohmann/json.hpp
+
 CMakeFiles/client.dir/main.cpp.o: ../ClientSocket.h
 CMakeFiles/client.dir/main.cpp.o: ../fileWatcher/FileWatcher.h
 CMakeFiles/client.dir/main.cpp.o: ../hashManager/hashManager.h

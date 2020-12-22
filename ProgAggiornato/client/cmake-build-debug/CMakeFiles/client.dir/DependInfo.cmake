@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/client/fileWatcher/FileWatcher.cpp" "/home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/client/cmake-build-debug/CMakeFiles/client.dir/fileWatcher/FileWatcher.cpp.o"
   "/home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/client/hashManager/hashManager.cpp" "/home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/client/cmake-build-debug/CMakeFiles/client.dir/hashManager/hashManager.cpp.o"
   "/home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/socket/Socket.cpp" "/home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/client/cmake-build-debug/CMakeFiles/client.dir/home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/socket/Socket.cpp.o"
+  "/home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/client/jsonUtils.cpp" "/home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/client/cmake-build-debug/CMakeFiles/client.dir/jsonUtils.cpp.o"
   "/home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/client/main.cpp" "/home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/client/cmake-build-debug/CMakeFiles/client.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
@@ -21,6 +22,7 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
+  "_deps/json-src/single_include"
   )
 
 # Targets to which this target links.
