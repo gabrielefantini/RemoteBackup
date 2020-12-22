@@ -24,17 +24,18 @@ int main(int argc,char** argv) {
     //===================================================================
     //       qui andrebbe inserito il primo messaggio al server
     //===================================================================
-    ClientSocket cs {5000};
+    //ClientSocket cs {5000};
 
     /*std::cout << "Inizio a spedire il file" << std::endl;
     int bytes_written = cs.sendFile("prova2.txt");
     std::cout << "Bytes_written: " << bytes_written << std::endl;
     */
 
-    cs.auth(usr, backupDir);
+    //TO_DO : adattare il tipo di parametro richiesto dalla funzione auth
+    //cs.auth(usr, backupDir);
 
 
-    std::cout << "Connection closed" << std::endl;
+    //std::cout << "Connection closed" << std::endl;
 
     //===================================================================
     //       avvio il fileWatcher... ogni volta che rileva una modifica
@@ -64,7 +65,7 @@ int main(int argc,char** argv) {
                 //std::cout<<"map updated:\n";
                 break;
             case FileStatus::do_update:
-                std::cout<<"è successo qualcosa";
+                std::cout<<"è successo qualcosa\n";
                 break;
             default:
                 std::cout<<"Error: unknown file status.\n";

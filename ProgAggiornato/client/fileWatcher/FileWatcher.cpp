@@ -25,17 +25,21 @@ Filewatcher::Filewatcher(std::string path_to_watch,std::chrono::duration<int, st
 
 
 void Filewatcher::start(const std::function<void (std::string,FileStatus)> &action){
+    int do_update;
     while (Filewatcher::running_){
         std::cout<<"---\n"; //debug
+        do_update=false;
         std::this_thread::sleep_for(delay); //wait delay
 
 
 
         auto it=paths_.begin();
+        //check for erased
         while(it!=paths_.end()){
             if(!fs::exists(it->first)){
                 action(it->first,FileStatus::erased);
                 it=paths_.erase(it);
+                do_update=true;
             }else
                 it++;
         }
@@ -48,14 +52,18 @@ void Filewatcher::start(const std::function<void (std::string,FileStatus)> &acti
             if(!contains(file.path().string())){
                 paths_[file.path().string()]=current_file_last_write_time;
                 action(file.path().string(),FileStatus::created);
+                do_update=true;
             }else{
                 if(paths_[file.path().string()]!=current_file_last_write_time){
                     paths_[file.path().string()]=current_file_last_write_time;
                     action(file.path().string(),FileStatus::modified);
+                    do_update=true;
                 }
             }
         }
-        action("",FileStatus::do_update);
+
+        if(do_update)
+            action("",FileStatus::do_update);
     }
 }
 
