@@ -6,12 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/client/ClientSocket.cpp
-ClientSocket.h
-/home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/client/ClientSocket.h
-../socket/Socket.h
-/home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/socket/Socket.h
-
 /home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/client/ClientSocket.h
 stdio.h
 -
@@ -26,24 +20,6 @@ cstring
 ../socket/Socket.h
 /home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/socket/Socket.h
 
-/home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/client/fileWatcher/FileWatcher.cpp
-FileWatcher.h
-/home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/client/fileWatcher/FileWatcher.h
-boost/filesystem.hpp
--
-chrono
--
-thread
--
-unordered_map
--
-string
--
-functional
--
-iostream
--
-
 /home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/client/fileWatcher/FileWatcher.h
 chrono
 -
@@ -53,10 +29,6 @@ string
 -
 functional
 -
-
-/home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/client/hashManager/hashManager.cpp
-hashManager.h
-/home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/client/hashManager/hashManager.h
 
 /home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/client/hashManager/hashManager.h
 openssl/sha.h
@@ -83,12 +55,6 @@ hashManager/hashManager.h
 /home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/client/hashManager/hashManager.h
 fileWatcher/FileWatcher.h
 /home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/client/fileWatcher/FileWatcher.h
-
-/home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/socket/Socket.cpp
-Socket.h
-/home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/socket/Socket.h
-boost/filesystem.hpp
--
 
 /home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/socket/Socket.h
 iostream
