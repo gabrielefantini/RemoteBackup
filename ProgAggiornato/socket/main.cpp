@@ -4,11 +4,33 @@
 #include <arpa/inet.h>
 #include "Socket.h"
 #include "ServerSocket.h"
-#include <boost/filesystem.hpp>
+#include "serverUtils/serverUtils.h"
 
 ServerSocket ss (5000);
 
 int main() {
+    //all'avvio: inizializzo una map di corrispondenze user-path -> indice
+    //necessarie per localizzare in seguito la giusta cartella
+    std::map<std::pair<std::string,std::string>,int> user_map;
+    if(setup_users(user_map)!=0) {
+        std::cout<<"error during users setup.\n";
+        return -1;
+    }
+    //debug
+    print_user_map(user_map);
+
+    /*
+    //================================================================================
+    //sezione di debug (eliminabile in seguito)
+    //input d'esempio dal client
+    std::string usr="client2";
+    std::string path="/home/lollo/Scrivania/pds/tests/dir2";
+    //questa parte di codice sarà utilizzata nella funzione di risposta a "notify"
+    std::string backup_dir=get_backup_dir(user_map,usr,path);
+    std::cout << backup_dir << std::endl;
+    //================================================================================
+    */
+    
     while(true) {
         struct sockaddr_in addr;
         unsigned int len = sizeof(addr);
