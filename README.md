@@ -66,12 +66,13 @@ Communication	between	the	client	and	the	server	can be	based	on	the	Boost	ASIO	l
 (https://www.boost.org/doc/libs/1_73_0/doc/html/boost_asio.html)	 or	 any	 other	
 suitable	one.
 
-# Filewatcher_test
 
-Dopo aver eseguito il programma, si può testare aprendo terminale dalla cartella 'fw_test' (da creare nella stessa posizione della cartella del progetto clion) ed eseguendo comandi come ad esempio:
+# Demo
+## Client
 
-- touch t1
-- echo "test modifica" > t1
-- rm t1
-
-OS: Linux Mint 19.3 ver 4.4.8
+```
+./client usr path
+```
+parametri : 
+- usr : nome utente
+- path : path della directory da monitorare, può essere espresso sia in maniera assoluta che relativa
