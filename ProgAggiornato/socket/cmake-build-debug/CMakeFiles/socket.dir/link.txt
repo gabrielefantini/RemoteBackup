@@ -1,1 +1,1 @@
-/usr/bin/c++  -g   CMakeFiles/socket.dir/main.cpp.o CMakeFiles/socket.dir/Socket.cpp.o CMakeFiles/socket.dir/ServerSocket.cpp.o  -o socket -lstdc++fs /usr/lib/x86_64-linux-gnu/libboost_system.so /usr/lib/x86_64-linux-gnu/libboost_filesystem.so 
+/usr/bin/c++  -g   CMakeFiles/socket.dir/main.cpp.o CMakeFiles/socket.dir/Socket.cpp.o CMakeFiles/socket.dir/ServerSocket.cpp.o CMakeFiles/socket.dir/jsonUtils.cpp.o  -o socket  -lstdc++fs -lcrypto /usr/lib/x86_64-linux-gnu/libboost_system.so.1.71.0 /usr/lib/x86_64-linux-gnu/libboost_filesystem.so.1.71.0 

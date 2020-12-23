@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/socket.dir/ServerSocket.cpp.o"
   "CMakeFiles/socket.dir/Socket.cpp.o"
+  "CMakeFiles/socket.dir/jsonUtils.cpp.o"
   "CMakeFiles/socket.dir/main.cpp.o"
   "socket"
   "socket.pdb"
