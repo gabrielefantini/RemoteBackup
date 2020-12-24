@@ -273,5 +273,6 @@ bool Socket::ResToNotify() {
         std::cout << x.first << ", " << x.second << std::endl;
 
     /// POSSIBILE CONFRONTO: la funzione non è bool ma restituisce la mappa e nel main si fa il confronto
+
     return true;
 }
