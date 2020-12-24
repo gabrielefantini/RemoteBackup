@@ -1,7 +1,0 @@
-/opt/clion-2020.3/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/socket
--- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "1.1.1f")  
--- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.71.0/BoostConfig.cmake (found suitable version "1.71.0", minimum required is "1.65.1") found components: system filesystem 
--- Using the single-header code from /home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/socket/cmake-build-debug/_deps/json-src/single_include/
--- Configuring done
--- Generating done
--- Build files have been written to: /home/gabriele/Scrivania/RemoteBackup/ProgAggiornato/socket/cmake-build-debug

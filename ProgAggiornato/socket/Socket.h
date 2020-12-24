@@ -75,6 +75,8 @@ public:
 
     bool vrfy();
     int setup_dir(const std::string &path);
+
+    bool ResToNotify();
 };
 
 

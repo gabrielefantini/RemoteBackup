@@ -39,6 +39,8 @@ public:
 
     /// funzione per l'autenticazione
     bool auth(char* name, char* dir);
+
+    bool notify(std::string name, std::string dir, std::map<std::string, std::string> localMap);
 };
 
 

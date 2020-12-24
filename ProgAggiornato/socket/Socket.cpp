@@ -3,7 +3,9 @@
 //
 
 #include "Socket.h"
+#include "jsonUtils.h"
 #include <boost/filesystem.hpp>
+#include <nlohmann/json.hpp>
 
 void Socket::receiveFile() {
     int bytes_received;
@@ -170,4 +172,106 @@ int Socket::setup_dir(const std::string &path){
         std::cout<<path<<" created correctly in backups.\n\n";
         return 0;
     }
+}
+
+bool Socket::ResToNotify() {
+    int bytes_received;
+    char len_name[4];
+
+    // nome client
+
+    /// PRIMA READ: leggo la dimensione del nome
+    bytes_received = read(len_name, sizeof(len_name), 0);
+    /// atoi è una funzione che mi permette di convertire un char in un intero
+    std::cout <<"Dimensione nome client: " <<  atoi(len_name) << std::endl;
+    /// alloco una struttura per contenere il nome della lunghezza del nome
+    char name[atoi(len_name)];
+    /// SECONDA READ: leggo il nome
+    bytes_received = read(name, sizeof(name), 0);
+    /// inserisco il terminatore di stringa come ultimo carattere del titolo
+    name[atoi(len_name)-1] = '\0';
+    std::cout << "Nome client: " << name << std::endl;
+
+    // nome dir
+
+    char len[4];
+    /// PRIMA READ: leggo la dimensione del nome
+    bytes_received = read(len, sizeof(len), 0);
+    /// atoi è una funzione che mi permette di convertire un char in un intero
+    std::cout << "Dimensione nome dir: " << atoi(len) << std::endl;
+    /// alloco una struttura per contenere il nome della lunghezza del nome
+    char dir[atoi(len)];
+    /// SECONDA READ: leggo il nome
+    bytes_received = read(dir, sizeof(dir), 0);
+    /// inserisco il terminatore di stringa come ultimo carattere del titolo
+    dir[atoi(len)-1] = '\0';
+    std::cout << "Nome dir: " << dir << std::endl;
+
+    /*
+    for (auto elem : client_dir) {
+        std::cout << "Scansione lista client..." << std::endl;
+        if (strcmp(elem.first, name) == 0) {
+            cur_client = name;
+            cur_dir = dir;
+            std::cout << "Bentornato " << cur_client <<", sto controllando "<< cur_dir << std::endl;
+        }
+    }
+
+    /// nuovo client
+    if (cur_client == nullptr) {
+        std::cout << "Nuovo client!" << std::endl;
+        std::pair<char*, char*> elem = {name, dir};
+        client_dir.insert(elem);
+        cur_client = name;
+        cur_dir = dir;
+        std::cout << "Nuovo utente! Benvenuto " << cur_client <<", controllerò "<< cur_dir << std::endl;
+    }
+    */
+    int len_path = atoi(len)-1+atoi(len_name);
+    std::cout << "Len_path: " << len_path << std::endl;
+    char path_complessivo[len_path];
+
+    for (int i = 0; i<atoi(len_name); i++) path_complessivo[i] = name[i];
+    path_complessivo[atoi(len_name)-1] = '/';
+    for (int i = 0; i<atoi(len); i++) path_complessivo[i+atoi(len_name)] = dir[i];
+    std::cout << "Percorso creato: " << path_complessivo << std::endl;
+
+    if (Socket::setup_dir(path_complessivo)) {
+        std::cout << "Utente riconosciuto e directory esistente! Bentornato " << name << std::endl;
+
+    }
+    else {
+        std::cout << "Ciao " << name <<"! Ho aggiunto " << dir <<" alle directory controllate" << std::endl;
+    }
+
+    cur_client = name;
+    cur_dir = dir;
+
+    /// RICEVO MAP
+
+    // 1. ricevo char
+    /// PRIMA READ: leggo la dimensione del nome
+    bytes_received = read(len, sizeof(len), 0);
+    /// atoi è una funzione che mi permette di convertire un char in un intero
+    std::cout << "Dimensione map: " << atoi(len) << std::endl;
+    /// alloco una struttura per contenere il nome della lunghezza del nome
+    char char_map[atoi(len)];
+    /// SECONDA READ: leggo il nome
+    bytes_received = read(char_map, sizeof(char_map), 0);
+    /// inserisco il terminatore di stringa come ultimo carattere del titolo
+    char_map[atoi(len)-1] = '\0';
+
+    // 2. converto in stringa e poi in map
+    std::string s = std::string(char_map, len);
+    nlohmann::json json_map = json::parse(s);
+    std::cout << "Parse effettuato" << std::endl;
+    std::map<std::string, std::string> localMap = std::map<std::string, std::string>();
+    from_json(localMap, json_map);
+
+    std::cout << "--- Mappa ricevuta ---" << std::endl;
+    for (auto x : localMap)
+        std::cout << x.first << ", " << x.second << std::endl;
+
+    /// POSSIBILE CONFRONTO: la funzione non è bool ma restituisce la mappa e nel main si fa il confronto
+    return true;
 }

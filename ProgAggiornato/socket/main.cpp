@@ -53,8 +53,9 @@ int main() {
         */
 
 
-        s.vrfy();
-        s.vrfy();
+        s.ResToNotify();
+        //s.vrfy();
+        //s.vrfy();
 
     }
     return 0;

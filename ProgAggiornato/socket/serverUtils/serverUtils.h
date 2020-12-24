@@ -5,6 +5,7 @@
 #include <iostream>
 #include <sstream>
 #include <boost/filesystem.hpp>
+#include <map>
 
 #ifndef SOCKET_SERVERUTILS_H
 #define SOCKET_SERVERUTILS_H

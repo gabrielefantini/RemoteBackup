@@ -12,6 +12,7 @@ int main(int argc,char** argv) {
     }
     // user
     std::string usr=argv[1];
+    std::cout <<argv[2] << std::endl;
     // path: se il path specificato non esiste, viene lanciato un errore
     filesys::path backupPath=filesys::canonical(filesys::path(argv[2]));
     // inizializzo la map all'avvio del programma
@@ -26,6 +27,8 @@ int main(int argc,char** argv) {
     //===================================================================
     // creo il socket
     ClientSocket cs {5000};
+
+    cs.notify(usr, argv[2], localMap);
 
     // notify()
 
