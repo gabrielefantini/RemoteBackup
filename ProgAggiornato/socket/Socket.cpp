@@ -283,6 +283,5 @@ bool Socket::ResToNotify() {
     // a questo punto il server sa che il client è riuscito a inviare tutto correttamente e invia il suo ok
     int bytes_written = write(len, sizeof(len), 0);
     bytes_written = write(ok, sizeof(ok), 0);
-
     return true;
 }
