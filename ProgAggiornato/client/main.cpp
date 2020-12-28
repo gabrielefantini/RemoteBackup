@@ -22,13 +22,18 @@ int main(int argc,char** argv) {
     // analizzo tutta la directory e inserisco i valori nella map
     create_backup_initial(backupDir, localMap);
 
+    /// inserita momentaneamente per il problema del path
+    std::string cartella = argv[2];
+
     //===================================================================
     //      invio il primo messaggio al server
     //===================================================================
     // creo il socket
-    ClientSocket cs {5000};
+    {
+        ClientSocket cs{5000};
 
-    cs.notify(usr, argv[2], localMap);
+        cs.notify(usr, cartella, localMap);
+    }
 
     // notify()
 
@@ -41,7 +46,7 @@ int main(int argc,char** argv) {
 
     Filewatcher fw{ backupDir,std::chrono::milliseconds(5000) };
 
-    fw.start([&localMap, backupDir] (std::string path_to_watch,FileStatus status) -> void {
+    fw.start([&localMap, backupDir, usr, cartella] (std::string path_to_watch,FileStatus status) -> void {
 
         switch (status) {
             case FileStatus::created: {
@@ -64,6 +69,7 @@ int main(int argc,char** argv) {
                 std::cout << "è successo qualcosa\n";
                 // mi connetto
                 ClientSocket socket{5000};
+                socket.notify(usr, cartella, localMap);
                 // notifico il server della modifica
                 // notify()
                 // esco dallo scope e quindi la connessione viene abbattuta

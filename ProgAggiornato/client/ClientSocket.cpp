@@ -176,4 +176,31 @@ bool ClientSocket::notify(std::string n, std::string d, std::map<std::string,std
     std::cout << "--- Mappa inviata ---" << std::endl;
     for (auto x : localMap)
         std::cout << x.first << ", " << x.second << std::endl;
+
+
+
+
+    std::string msg = "ok";
+    char* ok = const_cast<char *>(msg.c_str());
+    ///ULTIMA WRITE -> OK
+    len = 0; j = 0;
+    while(ok[j]!='\0') {len++;j++;}
+    len++;
+
+    /// TERZA WRITE: dimensione dir
+    sprintf(len_char,"%d",len);
+
+    /// PRIMA WRITE: invio la dimensione del localMap
+    bytes_written = write(len_char, sizeof(len_char), 0);
+    /// controllo fatto da write
+    bytes_written = write(ok, len, 0);
+
+    char len_res[4];
+    int bytes_received = read(len_res, sizeof(len_res), 0);
+    /// alloco una struttura per contenere il nome della lunghezza del nome
+    char res[atoi(len_res)];
+    bytes_received = read(res, sizeof(res), 0);
+    res[atoi(len_res)-1] = '\0';
+    std::cout << "Messaggio ricevuto: " << res << std::endl;
+
 }

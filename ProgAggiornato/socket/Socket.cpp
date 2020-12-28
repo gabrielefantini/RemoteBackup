@@ -232,8 +232,8 @@ bool Socket::ResToNotify() {
     char path_complessivo[len_path];
 
     for (int i = 0; i<atoi(len_name); i++) path_complessivo[i] = name[i];
-    path_complessivo[atoi(len_name)-1] = '/';
-    for (int i = 0; i<atoi(len); i++) path_complessivo[i+atoi(len_name)] = dir[i];
+    //path_complessivo[atoi(len_name)-1] = '/';
+    for (int i = 0; i<atoi(len); i++) path_complessivo[i+atoi(len_name)-1] = dir[i];
     std::cout << "Percorso creato: " << path_complessivo << std::endl;
 
     if (Socket::setup_dir(path_complessivo)) {
@@ -273,6 +273,16 @@ bool Socket::ResToNotify() {
         std::cout << x.first << ", " << x.second << std::endl;
 
     /// POSSIBILE CONFRONTO: la funzione non è bool ma restituisce la mappa e nel main si fa il confronto
+
+    bytes_received = read(len, sizeof(len), 0);
+    char ok[atoi(len)];
+    bytes_received = read(ok, sizeof(ok), 0);
+    ok[atoi(len)-1] = '\0';
+    std::cout << "Messaggio ricevuto: " << ok << std::endl;
+
+    // a questo punto il server sa che il client è riuscito a inviare tutto correttamente e invia il suo ok
+    int bytes_written = write(len, sizeof(len), 0);
+    bytes_written = write(ok, sizeof(ok), 0);
 
     return true;
 }
