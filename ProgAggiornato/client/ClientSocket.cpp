@@ -198,4 +198,5 @@ bool ClientSocket::notify(std::string n, std::string d, std::map<std::string,std
     res[atoi(len_res)-1] = '\0';
     std::cout << "Messaggio ricevuto: " << res << std::endl;
 
+
 }
