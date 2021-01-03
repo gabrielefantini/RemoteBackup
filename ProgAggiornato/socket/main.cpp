@@ -53,10 +53,13 @@ int main() {
         */
 
 
+        // alla fine di questa funzione la mappa del client è salvata in clientMap
         s.ResToNotify();
         //s.vrfy();
         //s.vrfy();
 
+        /// controllo sul file con la mappa esistenza cartella client
+        ///
     }
     return 0;
 }

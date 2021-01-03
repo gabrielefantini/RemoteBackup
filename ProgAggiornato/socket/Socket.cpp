@@ -4,6 +4,7 @@
 
 #include "Socket.h"
 #include "jsonUtils.h"
+#include "serverUtils/serverUtils.h"
 #include <boost/filesystem.hpp>
 #include <nlohmann/json.hpp>
 
@@ -236,14 +237,6 @@ bool Socket::ResToNotify() {
     for (int i = 0; i<atoi(len); i++) path_complessivo[i+atoi(len_name)-1] = dir[i];
     std::cout << "Percorso creato: " << path_complessivo << std::endl;
 
-    if (Socket::setup_dir(path_complessivo)) {
-        std::cout << "Utente riconosciuto e directory esistente! Bentornato " << name << std::endl;
-
-    }
-    else {
-        std::cout << "Ciao " << name <<"! Ho aggiunto " << dir <<" alle directory controllate" << std::endl;
-    }
-
     cur_client = name;
     cur_dir = dir;
 
@@ -273,7 +266,7 @@ bool Socket::ResToNotify() {
         std::cout << x.first << ", " << x.second << std::endl;
 
     /// POSSIBILE CONFRONTO: la funzione non è bool ma restituisce la mappa e nel main si fa il confronto
-
+    clientMap = localMap;
     bytes_received = read(len, sizeof(len), 0);
     char ok[atoi(len)];
     bytes_received = read(ok, sizeof(ok), 0);

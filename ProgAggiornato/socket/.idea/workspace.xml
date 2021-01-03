@@ -2,17 +2,16 @@
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
-      <config projectName="socket" targetName="test-json_patch" />
       <config projectName="socket" targetName="NightlyTest" />
       <config projectName="socket" targetName="ContinuousBuild" />
       <config projectName="socket" targetName="test-wstring" />
       <config projectName="socket" targetName="test-inspection" />
       <config projectName="socket" targetName="ContinuousSubmit" />
+      <config projectName="socket" targetName="test-msgpack" />
       <config projectName="socket" targetName="test-ubjson" />
       <config projectName="socket" targetName="NightlyMemoryCheck" />
       <config projectName="socket" targetName="test-alt-string" />
       <config projectName="socket" targetName="test-unicode" />
-      <config projectName="socket" targetName="test-pointer_access" />
       <config projectName="socket" targetName="test-capacity" />
       <config projectName="socket" targetName="test-class_parser" />
       <config projectName="socket" targetName="ContinuousUpdate" />
@@ -22,7 +21,7 @@
       <config projectName="socket" targetName="test-conversions" />
       <config projectName="socket" targetName="socket" />
       <config projectName="socket" targetName="ContinuousCoverage" />
-      <config projectName="socket" targetName="NightlyCoverage" />
+      <config projectName="socket" targetName="test-json_patch" />
       <config projectName="socket" targetName="ExperimentalCoverage" />
       <config projectName="socket" targetName="ContinuousConfigure" />
       <config projectName="socket" targetName="ExperimentalConfigure" />
@@ -32,37 +31,38 @@
       <config projectName="socket" targetName="ExperimentalTest" />
       <config projectName="socket" targetName="test-serialization" />
       <config projectName="socket" targetName="test-class_const_iterator" />
-      <config projectName="socket" targetName="test-bson" />
+      <config projectName="socket" targetName="test-large_json" />
       <config projectName="socket" targetName="Continuous" />
       <config projectName="socket" targetName="ContinuousMemCheck" />
       <config projectName="socket" targetName="NightlyMemCheck" />
       <config projectName="socket" targetName="ExperimentalMemCheck" />
       <config projectName="socket" targetName="test-readme" />
       <config projectName="socket" targetName="ExperimentalSubmit" />
+      <config projectName="socket" targetName="test-bson" />
       <config projectName="socket" targetName="NightlySubmit" />
-      <config projectName="socket" targetName="test-to_chars" />
+      <config projectName="socket" targetName="test-json_pointer" />
       <config projectName="socket" targetName="test-testsuites" />
       <config projectName="socket" targetName="test-reference_access" />
       <config projectName="socket" targetName="test-noexcept" />
-      <config projectName="socket" targetName="test-msgpack" />
+      <config projectName="socket" targetName="test-to_chars" />
       <config projectName="socket" targetName="test-concepts" />
       <config projectName="socket" targetName="ExperimentalUpdate" />
       <config projectName="socket" targetName="NightlyUpdate" />
       <config projectName="socket" targetName="test-meta" />
-      <config projectName="socket" targetName="test-element_access2" />
+      <config projectName="socket" targetName="test-pointer_access" />
       <config projectName="socket" targetName="test-element_access1" />
-      <config projectName="socket" targetName="test-large_json" />
       <config projectName="socket" targetName="Nightly" />
       <config projectName="socket" targetName="NightlyConfigure" />
       <config projectName="socket" targetName="test-constructor2" />
       <config projectName="socket" targetName="test-constructor1" />
       <config projectName="socket" targetName="ContinuousTest" />
-      <config projectName="socket" targetName="test-json_pointer" />
       <config projectName="socket" targetName="test-modifiers" />
       <config projectName="socket" targetName="test-items" />
       <config projectName="socket" targetName="ExperimentalStart" />
       <config projectName="socket" targetName="Experimental" />
       <config projectName="socket" targetName="test-cbor" />
+      <config projectName="socket" targetName="NightlyCoverage" />
+      <config projectName="socket" targetName="test-element_access2" />
       <config projectName="socket" targetName="test-iterators2" />
       <config projectName="socket" targetName="test-convenience" />
       <config projectName="socket" targetName="test-regression" />
@@ -85,9 +85,10 @@
     <list default="true" id="2eaf5fed-5014-4655-a42c-cd07f6df1559" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../client/ClientSocket.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../client/ClientSocket.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../client/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../client/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Socket.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Socket.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Socket.h" beforeDir="false" afterPath="$PROJECT_DIR$/Socket.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +113,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -484,8 +485,6 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="CMake Application.socket" />
-      <item itemvalue="CMake Application.Continuous" />
       <item itemvalue="CMake Application.ContinuousBuild" />
       <item itemvalue="CMake Application.ContinuousConfigure" />
       <item itemvalue="CMake Application.ContinuousCoverage" />
@@ -494,7 +493,7 @@
       <item itemvalue="CMake Application.ContinuousSubmit" />
       <item itemvalue="CMake Application.ContinuousTest" />
       <item itemvalue="CMake Application.ContinuousUpdate" />
-      <item itemvalue="CMake Application.Experimental" />
+      <item itemvalue="CMake Application.Continuous" />
       <item itemvalue="CMake Application.ExperimentalBuild" />
       <item itemvalue="CMake Application.ExperimentalConfigure" />
       <item itemvalue="CMake Application.ExperimentalCoverage" />
@@ -503,7 +502,7 @@
       <item itemvalue="CMake Application.ExperimentalSubmit" />
       <item itemvalue="CMake Application.ExperimentalTest" />
       <item itemvalue="CMake Application.ExperimentalUpdate" />
-      <item itemvalue="CMake Application.Nightly" />
+      <item itemvalue="CMake Application.Experimental" />
       <item itemvalue="CMake Application.NightlyBuild" />
       <item itemvalue="CMake Application.NightlyConfigure" />
       <item itemvalue="CMake Application.NightlyCoverage" />
@@ -513,7 +512,9 @@
       <item itemvalue="CMake Application.NightlySubmit" />
       <item itemvalue="CMake Application.NightlyTest" />
       <item itemvalue="CMake Application.NightlyUpdate" />
+      <item itemvalue="CMake Application.Nightly" />
       <item itemvalue="CMake Application.doctest_main" />
+      <item itemvalue="CMake Application.socket" />
       <item itemvalue="CMake Application.test-algorithms" />
       <item itemvalue="CMake Application.test-allocator" />
       <item itemvalue="CMake Application.test-alt-string" />
@@ -582,6 +583,10 @@
       <workItem from="1608734702675" duration="328000" />
       <workItem from="1608821871260" duration="9528000" />
       <workItem from="1609174485454" duration="7182000" />
+      <workItem from="1609182782638" duration="54000" />
+      <workItem from="1609262007620" duration="3971000" />
+      <workItem from="1609698058728" duration="79000" />
+      <workItem from="1609698442160" duration="12000" />
     </task>
     <servers />
   </component>
@@ -606,21 +611,25 @@
       <screen x="70" y="27" width="1850" height="1053" />
     </state>
     <state x="1001" y="128" width="892" height="858" key="CommitChangelistDialog2/70.27.1850.1053@70.27.1850.1053" timestamp="1609182058696" />
-    <state width="869" height="298" key="GridCell.Tab.0.bottom" timestamp="1609182273155">
+    <state x="305" y="311" width="424" height="491" key="FileChooserDialogImpl" timestamp="1609698451472">
       <screen x="70" y="27" width="1850" height="1053" />
     </state>
-    <state width="869" height="298" key="GridCell.Tab.0.bottom/70.27.1850.1053@70.27.1850.1053" timestamp="1609182273155" />
-    <state width="869" height="298" key="GridCell.Tab.0.center" timestamp="1609182273155">
+    <state x="305" y="311" width="424" height="491" key="FileChooserDialogImpl/70.27.1850.1053@70.27.1850.1053" timestamp="1609698451472" />
+    <state width="849" height="298" key="GridCell.Tab.0.bottom" timestamp="1609265979668">
       <screen x="70" y="27" width="1850" height="1053" />
     </state>
-    <state width="869" height="298" key="GridCell.Tab.0.center/70.27.1850.1053@70.27.1850.1053" timestamp="1609182273155" />
-    <state width="869" height="298" key="GridCell.Tab.0.left" timestamp="1609182273155">
+    <state width="849" height="298" key="GridCell.Tab.0.bottom/70.27.1850.1053@70.27.1850.1053" timestamp="1609265979668" />
+    <state width="849" height="298" key="GridCell.Tab.0.center" timestamp="1609265979667">
       <screen x="70" y="27" width="1850" height="1053" />
     </state>
-    <state width="869" height="298" key="GridCell.Tab.0.left/70.27.1850.1053@70.27.1850.1053" timestamp="1609182273155" />
-    <state width="869" height="298" key="GridCell.Tab.0.right" timestamp="1609182273155">
+    <state width="849" height="298" key="GridCell.Tab.0.center/70.27.1850.1053@70.27.1850.1053" timestamp="1609265979667" />
+    <state width="849" height="298" key="GridCell.Tab.0.left" timestamp="1609265979667">
       <screen x="70" y="27" width="1850" height="1053" />
     </state>
-    <state width="869" height="298" key="GridCell.Tab.0.right/70.27.1850.1053@70.27.1850.1053" timestamp="1609182273155" />
+    <state width="849" height="298" key="GridCell.Tab.0.left/70.27.1850.1053@70.27.1850.1053" timestamp="1609265979667" />
+    <state width="849" height="298" key="GridCell.Tab.0.right" timestamp="1609265979667">
+      <screen x="70" y="27" width="1850" height="1053" />
+    </state>
+    <state width="849" height="298" key="GridCell.Tab.0.right/70.27.1850.1053@70.27.1850.1053" timestamp="1609265979667" />
   </component>
 </project>

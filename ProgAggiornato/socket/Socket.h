@@ -30,6 +30,7 @@ class Socket {
     std::map<char*, char*> client_dir;
     char* cur_client = nullptr;
     char* cur_dir = nullptr;
+    std::map<std::string, std::string> clientMap;
 
     friend class ServerSocket;
     friend class ClientSocket;
