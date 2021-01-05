@@ -41,6 +41,8 @@ public:
     bool auth(char* name, char* dir);
 
     bool notify(std::string name, std::string dir, std::map<std::string, std::string> localMap);
+
+    void WaitForSendingFile();
 };
 
 

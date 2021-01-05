@@ -200,3 +200,24 @@ bool ClientSocket::notify(std::string n, std::string d, std::map<std::string,std
 
 
 }
+
+void ClientSocket::WaitForSendingFile() {
+    while(1) {
+        int bytes_received;
+        char len_name[4];
+        bytes_received = read(len_name, sizeof(len_name), 0);
+        std::cout <<"Dimensione nome client: " <<  atoi(len_name) << std::endl;
+        char name[atoi(len_name)];
+        bytes_received = read(name, sizeof(name), 0);
+        name[atoi(len_name)-1] = '\0';
+
+        /// CONTROLLO, se è "ok" si esce dal ciclo
+        char* ok = "ok";
+        if (name == ok) {
+            std::cout << "Il server non ha bisogno di ulteriori file" << std::endl;
+            break;
+        }
+
+        sendFile(name);
+    }
+}

@@ -32,6 +32,7 @@ int main(int argc,char** argv) {
 
         try {
             cs.notify(usr, backupDir, localMap);
+            cs.WaitForSendingFile();
         }
         catch(std::runtime_error &e) {
             std::cout << "Errore notify: " << e.what() << std::endl;
@@ -74,6 +75,7 @@ int main(int argc,char** argv) {
                 ClientSocket socket{5000};
                 try {
                     socket.notify(usr, backupDir, localMap);
+                    socket.WaitForSendingFile();
                 }
                 catch(std::exception &e) {
                     std::cout << "Errore notify: " << e.what() << std::endl;
