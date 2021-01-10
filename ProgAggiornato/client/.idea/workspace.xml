@@ -83,48 +83,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="87ce0ddc-d06d-46a4-b43a-e01821f1eded" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../socket/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../socket/jsonUtils.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../socket/jsonUtils.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jsonUtils.h" beforeDir="false" afterPath="$PROJECT_DIR$/jsonUtils.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/3.15.3/CMakeCCompiler.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/3.15.3/CMakeCXXCompiler.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/3.15.3/CMakeDetermineCompilerABI_C.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/3.15.3/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/3.15.3/CMakeSystem.cmake" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/3.15.3/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/3.15.3/CompilerIdC/a.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/3.15.3/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/3.15.3/CompilerIdCXX/a.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/Makefile.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/Makefile2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/progress.marks" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/progress.marks" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/socket.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/socket.dir/CXX.includecache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/socket.dir/DependInfo.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/socket.dir/DependInfo.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/socket.dir/ServerSocket.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/socket.dir/ServerSocket.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/socket.dir/Socket.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/socket.dir/Socket.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/socket.dir/build.make" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/socket.dir/build.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/socket.dir/cmake_clean.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/socket.dir/cmake_clean.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/socket.dir/depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/socket.dir/depend.internal" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/socket.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/socket.dir/depend.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/socket.dir/flags.make" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/socket.dir/flags.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/socket.dir/link.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/socket.dir/link.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/socket.dir/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/socket.dir/main.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/socket.dir/progress.make" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/cmake-build-debug/CMakeFiles/socket.dir/progress.make" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/cmake-build-debug/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/cmake-build-debug/cmake_install.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/socket" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/cmake-build-debug/socket.cbp" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/cmake-build-debug/socket.cbp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientSocket.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ClientSocket.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,11 +127,6 @@
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RunManager" selected="CMake Application.client">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Continuous" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="client" TARGET_NAME="Continuous" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -308,6 +263,11 @@
       </method>
     </configuration>
     <configuration name="NightlyUpdate" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="client" TARGET_NAME="NightlyUpdate" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="client" RUN_TARGET_NAME="NightlyUpdate">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -636,6 +596,7 @@
       <workItem from="1608635253515" duration="3138000" />
       <workItem from="1608651507918" duration="7257000" />
       <workItem from="1608733947612" duration="1924000" />
+      <workItem from="1609953743625" duration="1053000" />
     </task>
     <servers />
   </component>

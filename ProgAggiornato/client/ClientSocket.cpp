@@ -128,11 +128,18 @@ bool ClientSocket::notify(std::string n, std::string d, std::map<std::string,std
     /// PRIMA WRITE: invio la dimensione del nome
     int bytes_written;
     bytes_written = write(len_char, sizeof(len_char), 0);
+    // Controllo se il valore ritornato è -1
+    // in tal caso setto la variabile di aggiornamento fallito a 1
+    // e interrompo l'aggiornamento
+
     /// controllo fatto da write
 
     /// SECONDA WRITE: nome
 
     bytes_written = write(name, len, 0);
+    // Controllo se il valore ritornato è -1
+    // in tal caso setto la variabile di aggiornamento fallito a 1
+    // e interrompo l'aggiornamento
     len = 0; j = 0;
     while(dir[j]!='\0') {len++;j++;}
     len++;
@@ -143,8 +150,14 @@ bool ClientSocket::notify(std::string n, std::string d, std::map<std::string,std
     /// TERZA WRITE: dimensione dir
     sprintf(len_char,"%d",len);
     bytes_written = write(len_char, sizeof(len_char), 0);
+    // Controllo se il valore ritornato è -1
+    // in tal caso setto la variabile di aggiornamento fallito a 1
+    // e interrompo l'aggiornamento
     /// QUARTA WRITE: dir
     bytes_written = write(dir, len, 0);
+    // Controllo se il valore ritornato è -1
+    // in tal caso setto la variabile di aggiornamento fallito a 1
+    // e interrompo l'aggiornamento
     std::cout << "Spediti " << bytes_written << " bytes" << "\n" << "Attesa risposta..." << std::endl;
 
     /// SEND MAP
@@ -167,12 +180,17 @@ bool ClientSocket::notify(std::string n, std::string d, std::map<std::string,std
 
     /// PRIMA WRITE: invio la dimensione del localMap
     bytes_written = write(len_char, sizeof(len_char), 0);
+    // Controllo se il valore ritornato è -1
+    // in tal caso setto la variabile di aggiornamento fallito a 1
+    // e interrompo l'aggiornamento
     /// controllo fatto da write
 
     /// SECONDA WRITE: localMap
 
     bytes_written = write(char_map, len, 0);
-
+    // Controllo se il valore ritornato è -1
+    // in tal caso setto la variabile di aggiornamento fallito a 1
+    // e interrompo l'aggiornamento
     std::cout << "--- Mappa inviata ---" << std::endl;
     for (auto x : localMap)
         std::cout << x.first << ", " << x.second << std::endl;
@@ -188,12 +206,26 @@ bool ClientSocket::notify(std::string n, std::string d, std::map<std::string,std
     sprintf(len_char,"%d",len);
 
     bytes_written = write(len_char, sizeof(len_char), 0);
+    // Controllo se il valore ritornato è -1
+    // in tal caso setto la variabile di aggiornamento fallito a 1
+    // e interrompo l'aggiornamento
     /// controllo fatto da write
     bytes_written = write(ok, len, 0);
+    // Controllo se il valore ritornato è -1
+    // in tal caso setto la variabile di aggiornamento fallito a 1
+    // e interrompo l'aggiornamento
 
     char len_res[4];
+    // setto un timer:
+    // se alla fine del timer non ricevo nulla annullo
+    // l'aggiornamento chiudendo il socket e setto la variabile
+    // di aggiornamento fallito a 1
     int bytes_received = read(len_res, sizeof(len_res), 0);
     char res[atoi(len_res)];
+    // setto un timer:
+    // se alla fine del timer non ricevo nulla annullo
+    // l'aggiornamento chiudendo il socket e setto la variabile
+    // di aggiornamento fallito a 1
     bytes_received = read(res, sizeof(res), 0);
     res[atoi(len_res)-1] = '\0';
     std::cout << "Messaggio ricevuto: " << res << std::endl;
@@ -202,6 +234,11 @@ bool ClientSocket::notify(std::string n, std::string d, std::map<std::string,std
 
 void ClientSocket::WaitForSendingFile() {
     while(1) {
+        // all'inizio di ogni attesa devo settare un timer:
+        // se alla fine del timer non ricevo nulla annullo
+        // l'aggiornamento chiudendo il socket e setto la variabile
+        // di aggiornamento fallito a 1
+
         int bytes_received;
         char len_name[4];
         bytes_received = read(len_name, sizeof(len_name), 0);
