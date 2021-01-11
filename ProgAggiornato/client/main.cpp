@@ -5,6 +5,8 @@
 #include "fileWatcher/FileWatcher.h"
 
 int main(int argc,char** argv) {
+    // static variable for connection problems
+    static int connectionProblem = 0;
     // argomenti attesi: usr path
     if(argc!=3){
         std::cout<<"ERRORE: numero argomenti errato (specifica 'usr' e 'path')"<<std::endl;
@@ -73,9 +75,20 @@ int main(int argc,char** argv) {
                 std::cout << "è successo qualcosa\n";
                 // mi connetto
                 ClientSocket socket{5000};
+                int operationResult;
                 try {
-                    socket.notify(usr, backupDir, localMap);
-                    socket.WaitForSendingFile();
+                    operationResult = socket.notify(usr, backupDir, localMap);
+                    if(operationResult == -1){
+                        connectionProblem = 1;
+                        break;
+                    }
+                    operationResult = socket.WaitForSendingFile();
+                    if(operationResult == -1){
+                        connectionProblem = 1;
+                        break;
+                    }
+                    // arriva alla fine e tutto è andato bene
+                    connectionProblem = 0;
                 }
                 catch(std::exception &e) {
                     std::cout << "Errore notify: " << e.what() << std::endl;
@@ -87,6 +100,28 @@ int main(int argc,char** argv) {
                 break;
             }
             default: {
+                if(connectionProblem){
+                    // tenta di rinviare l'aggiornamento
+                    ClientSocket socket{5000};
+                    int operationResult;
+                    try {
+                        operationResult = socket.notify(usr, backupDir, localMap);
+                        if(operationResult == -1){
+                            connectionProblem = 1;
+                            break;
+                        }
+                        operationResult = socket.WaitForSendingFile();
+                        if(operationResult == -1){
+                            connectionProblem = 1;
+                            break;
+                        }
+                    }
+                    catch(std::exception &e) {
+                        std::cout << "Errore notify: " << e.what() << std::endl;
+                    }
+                    // arriva alla fine ed è andato tutto bene
+                    connectionProblem = 0;
+                }
                 std::cout << "Error: unknown file status.\n";
             }
         }

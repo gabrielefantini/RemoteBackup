@@ -30,19 +30,21 @@ public:
 
     }
     // funzione per inviare al server il nuovo hash
-    /// questa funzione potrebbe anche essere sostituita da una semplice write
+    // questa funzione potrebbe anche essere sostituita da una semplice write
+    /// deprecata
     int sendHash(char* buffer);
 
 
     /// solo il client invia file, funzione inserita in ClientSocket per questo
     int sendFile(const char *name);
 
-    /// funzione per l'autenticazione
+    // funzione per l'autenticazione
+    /// deprecata
     bool auth(char* name, char* dir);
 
-    bool notify(std::string name, std::string dir, std::map<std::string, std::string> localMap);
+    int notify(std::string name, std::string dir, std::map<std::string, std::string> localMap);
 
-    void WaitForSendingFile();
+    int WaitForSendingFile();
 };
 
 
