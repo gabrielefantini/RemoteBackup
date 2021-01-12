@@ -8,7 +8,7 @@
 #include <boost/filesystem.hpp>
 #include <nlohmann/json.hpp>
 
-bool Socket::ask_file(char* path,std::string &dir){
+bool Socket::ask_file(char* path,std::string hash,std::string &dir){
     int len = 0;
     int j = 0;
 
@@ -28,7 +28,7 @@ bool Socket::ask_file(char* path,std::string &dir){
     bytes_written = write(path, len, 0);
     std::cout << "Spedito: " << path << " bytes ("<<bytes_written<<" B)"<< std::endl;
 
-    receiveFile(path,dir);
+    receiveFile(hash,dir);
 
     return true;
 }
@@ -51,7 +51,7 @@ bool Socket::send_ok(){
     return true;
 }
 
-void Socket::receiveFile(char* name,std::string &dir) {
+void Socket::receiveFile(std::string name,std::string &dir) {
     int bytes_received;
     char len[4];
     /// PRIMA READ: leggo la dimensione del titolo
@@ -62,7 +62,7 @@ void Socket::receiveFile(char* name,std::string &dir) {
     }
     std::cout << "received len: " << atoi(len) << std::endl;
 
-    std::string newfile=std::string(dir + "/" + fs::path(name).filename().string());
+    std::string newfile=std::string(dir + "/" + name);
     char *cstr = new char[newfile.length() + 1];
     strcpy(cstr, newfile.c_str());
     std::cout<< "creating: " << cstr << std::endl;
@@ -86,6 +86,10 @@ void Socket::receiveFile(char* name,std::string &dir) {
             fclose(fr);
             exit(EXIT_FAILURE);
         }
+        std::cout << "Written: " << written << " bytes" << std::endl;
+        if(tot == len_tot)
+            break;
+    }
     buffer[bytes_read] = 0;
     if(bytes_read == -1)
         printf("%s\n", strerror(errno));

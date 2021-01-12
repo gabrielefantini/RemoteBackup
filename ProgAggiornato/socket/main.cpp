@@ -72,9 +72,10 @@ int main() {
             for (std::set<std::string>::iterator it=files.begin(); it!=files.end(); ++it) {
                 std::string file=*it;
                 std::cout<<"chiedo: "<<file<<std::endl;
+                std::string hash=clientMap.find(file)->second;
                 char *cstr = new char[file.length() + 1];
                 strcpy(cstr, file.c_str());
-                s.ask_file(cstr,tmp_dir_name);
+                s.ask_file(cstr,hash,tmp_dir_name);
                 delete [] cstr;
             }
             s.send_ok();

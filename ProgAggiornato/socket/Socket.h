@@ -70,16 +70,28 @@ public:
     /// per ora non usata
     void connect(struct sockaddr_in *addr, unsigned int len);
 
-    bool ask_file(char* path,std::string &dir);
+    bool ask_file(char* path,std::string hash,std::string &dir);
     bool send_ok();
     /// solo il server riceve file
     /// inserita qui perché ritorno un socket e non un serversocket con la accept
-    void receiveFile(char* path,std::string &dir);
+    void receiveFile(std::string name,std::string &dir);
 
     bool vrfy();
-    int setup_dir(const std::string &path);
+    int setup_dir(const std::string &path,std::string &client,int index);
 
-    bool ResToNotify();
+    int ResToNotify();
+
+    std::string get_cur_client(){
+        return std::string(cur_client);
+    }
+
+    std::string get_cur_dir(){
+        return std::string(cur_dir);
+    }
+
+    std::map<std::string, std::string> get_clientMap(){
+        return clientMap;
+    }
 };
 
 
