@@ -60,14 +60,22 @@ void print_user_map(std::map<std::pair<std::string,std::string>,int> &m){
  *          -1  (error)
  * */
 int add_user(std::map<std::pair<std::string,std::string>,int> &m,std::string &usr,std::string &path){
-    int index=0,value;
+    int index,max=0,value,i;
     std::pair<std::string,std::string> key;
+    std::set<int> indexes;
     for (auto& x: m) {
         key=x.first;
         value=x.second;
-        if(usr.compare(key.first)==0)
-            if(index==value)
-                index++;
+        if(usr.compare(key.first)==0) {
+            indexes.insert(value);
+            if(value>max)
+                max=value;
+        }
+    }
+    for(i=0;i<=max+1;i++)
+        if(indexes.find(i)==indexes.end()){
+            index=i;
+            break;
     }
     m.insert(std::pair<std::pair<std::string,std::string>,int>(std::make_pair(usr,path),index));
     //aggiorno anche il file
@@ -92,7 +100,7 @@ int add_user(std::map<std::pair<std::string,std::string>,int> &m,std::string &us
  * return : string (ok)
  *          ""     (error)
  * */
-std::string get_backup_dir(std::map<std::pair<std::string,std::string>,int> &user_map,std::string &usr,std::string &path){
+std::pair<std::string,int> get_backup_dir(std::map<std::pair<std::string,std::string>,int> &user_map,std::string &usr,std::string &path){
     auto search=user_map.find(std::make_pair(usr,path));
     int folder_num;
     if(search==user_map.end()){
@@ -100,7 +108,7 @@ std::string get_backup_dir(std::map<std::pair<std::string,std::string>,int> &use
         folder_num=add_user(user_map,usr,path);
         if(folder_num==-1){
             std::cout<<"error during users update.\n";
-            return std::string("");
+            return std::make_pair(std::string(""),-1);
         }
         std::cout<<"added user-folder, index: "<<folder_num<<std::endl;
     }else{
@@ -112,9 +120,62 @@ std::string get_backup_dir(std::map<std::pair<std::string,std::string>,int> &use
     std::stringstream backup_folder;
 
     std::cout << "dir watched: "+filename << std::endl;
-
-    backup_folder<<BACKUP<<usr<<"/"<<folder_num<<"/"<<filename;
-    std::cout << "backup folder: "<<backup_folder.str()<< std::endl;
-    return backup_folder.str();
+    fs::path backupPath=fs::canonical(fs::path(BACKUP));
+    backup_folder<<backupPath.string()<<"/"<<usr<<"/"<<folder_num<<"/"<<filename;
+    return std::make_pair(backup_folder.str(),folder_num);
 }
 
+std::string get_tmp_dir(std::string &bpath){
+    std::cout<<"backup: "<<bpath<<std::endl;
+
+    //setup: create tmp folder (if not exists yet)
+    std::string parent_path=fs::path(bpath).parent_path().string();
+    std::string tmp=std::string(fs::path(parent_path).parent_path().string()+"/tmp");
+    fs::create_directory(tmp);
+
+    return tmp;
+}
+
+std::set<std::string> check_for_file(std::map<std::string,std::string> &client_map,std::map<std::string,std::string> &server_map){
+    int cnt=0;
+    std::set<std::string> fset;
+    for(auto& x: client_map){
+        std::string path=x.first;
+        if(x.second=="")
+            std::cout << x.first << " is a dir\n";
+        else {
+            //caso file
+            //std::cout << x.first << " is a file\n";
+            std::map<std::string,std::string>::iterator it=server_map.find(path);
+            if(it==server_map.end()){
+                bool fnd=false;
+                for(auto& y: server_map)
+                    if(y.second==x.second && fs::path(y.first).filename().string()==fs::path(path).filename().string() && fs::path(y.first).parent_path().string()!=fs::path(path).parent_path().string()){
+                        //CASO FILE SPOSTATO: path diverso, stesso digest, stesso filename
+                        fnd=true;
+                    }else if(y.second==x.second && fs::path(y.first).filename().string()!=fs::path(path).filename().string() && fs::path(y.first).parent_path().string()==fs::path(path).parent_path().string()){
+                        //CASO FILE RINOMINATO: path diverso(ma stesso parent_path), stesso digest, filename diverso
+                        fnd=true;
+                    }
+                if(!fnd){
+                    //CASO FILE MANCANTE: path diverso(anche parent_path)
+                    std::cout << "file " << path << " missing -> calling client.\n";
+                    fset.insert(path);
+                }
+                cnt++;
+            }else{
+                if(it->second!=x.second){
+                    //CASO DI FILE MODIFICATO: stesso path, diverso digest
+                    std::cout << "file " << path << " changed -> calling client.\n";
+                    //TO_DO call file
+                    fset.insert(path);
+                    cnt++;
+                }
+            }
+        }
+    }
+    if(cnt==0)
+        std::cout<<"no mod required.\n";
+    //TO_DO call ok
+    return fset;
+}

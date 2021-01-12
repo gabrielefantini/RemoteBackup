@@ -8,15 +8,18 @@
 #include "jsonUtils.h"
 using json = nlohmann::json;
 
+int get_file_size(std::string filename) // path to file
+{
+    FILE *p_file = NULL;
+    p_file = fopen(filename.c_str(),"rb");
+    fseek(p_file,0,SEEK_END);
+    int size = ftell(p_file);
+    fclose(p_file);
+    return size;
+}
+
 int ClientSocket::sendFile(const char *name) {
-    int len = 0;
-    int j = 0;
-    /// calcolo il numero di elementi del char*
-    while(name[j]!='\0') {len++;j++;}
-    /// spazio per \0
-    len++;
-    std::cout << "Name: " << name << " , lunghezza: "<<len << std::endl;
-    /// variabile per scrivere la lunghezza come char*, valore accettato dalla write
+    int len = get_file_size(name);
     char len_char[4];
     /// conversione int -> char per la write
     sprintf(len_char,"%d",len);
@@ -29,16 +32,6 @@ int ClientSocket::sendFile(const char *name) {
         return -1;
     }
 
-    /// SECONDA WRITE: invio il titolo
-    bytes_written = write(name, len, 0);
-    std::cout << "Dopo la write del nome ho scritto: " << bytes_written << " bytes" << std::endl;
-    /// forse controlli inutili, li fa la funzione write...
-    if (bytes_written == -1) {
-        perror("Error while sending name");
-        //exit(EXIT_FAILURE);
-        return -1;
-    }
-    std::cout << "Nome spedito, byte inviati: "<< bytes_written << std::endl;
     int bytes_read;
     char buffer[1024];
     /// apro il file in lettura e invio il contenuto
@@ -65,18 +58,17 @@ int ClientSocket::sendFile(const char *name) {
             }
         } while(!feof(fs) && bytes_written != -1);
     }
+
     return bytes_written;
 }
-
 /*
 int ClientSocket::sendHash(char *buffer) {
     /// per ora options = 0, da definire
     int bytes_written = write(buffer, sizeof(buffer), 0);
     return bytes_written;
 }
-*/
-/*
- bool ClientSocket::auth(char* name, char* dir) {
+
+bool ClientSocket::auth(char* name, char* dir) {
     int len = 0;
     int j = 0;
 
@@ -111,16 +103,8 @@ int ClientSocket::sendHash(char *buffer) {
     std::cout << "Spediti " << bytes_written << " bytes" << "\n" << "Attesa risposta..." << std::endl;
 
     /// Aspetto risposta cartella presente o no
-
-     // dir1
-     //      a   -> dir1/a
-     //          file1           ->
-     //      b   -> dir1/b
-
-
 }
 */
-
 int ClientSocket::notify(std::string n, std::string d, std::map<std::string,std::string> localMap) {
     int len = 0;
     int j = 0;
@@ -137,22 +121,16 @@ int ClientSocket::notify(std::string n, std::string d, std::map<std::string,std:
     /// PRIMA WRITE: invio la dimensione del nome
     int bytes_written;
     bytes_written = write(len_char, sizeof(len_char), 0);
-    // Controllo se il valore ritornato è -1
-    // in tal caso setto la variabile di aggiornamento fallito a 1
-    // e interrompo l'aggiornamento
+    /// controllo fatto da write
     if (bytes_written == -1) {
         perror("Error while sending name dimension");
         //exit(EXIT_FAILURE);
         return -1;
     }
-    /// controllo fatto da write
 
     /// SECONDA WRITE: nome
 
     bytes_written = write(name, len, 0);
-    // Controllo se il valore ritornato è -1
-    // in tal caso setto la variabile di aggiornamento fallito a 1
-    // e interrompo l'aggiornamento
     if (bytes_written == -1) {
         perror("Error while sending name");
         //exit(EXIT_FAILURE);
@@ -244,9 +222,6 @@ int ClientSocket::notify(std::string n, std::string d, std::map<std::string,std:
     sprintf(len_char,"%d",len);
 
     bytes_written = write(len_char, sizeof(len_char), 0);
-    // Controllo se il valore ritornato è -1
-    // in tal caso setto la variabile di aggiornamento fallito a 1
-    // e interrompo l'aggiornamento
     /// controllo fatto da write
     if (bytes_written == -1) {
         perror("Error while sending OK dimension");
@@ -262,7 +237,6 @@ int ClientSocket::notify(std::string n, std::string d, std::map<std::string,std:
         //exit(EXIT_FAILURE);
         return -1;
     }
-
     char len_res[4];
     // setto un timer:
     // se alla fine del timer non ricevo nulla annullo
@@ -280,10 +254,9 @@ int ClientSocket::notify(std::string n, std::string d, std::map<std::string,std:
 
     /// tutto ok
     return 1;
-
 }
 
-int ClientSocket::WaitForSendingFile() {
+void ClientSocket::WaitForSendingFile() {
     while(1) {
         // all'inizio di ogni attesa devo settare un timer:
         // se alla fine del timer non ricevo nulla annullo
@@ -307,8 +280,8 @@ int ClientSocket::WaitForSendingFile() {
         name[atoi(len_name)-1] = '\0';
 
         /// CONTROLLO, se è "ok" si esce dal ciclo
-        char* ok = "ok";
-        if (name == ok) {
+        std::string ok = "ok";
+        if (std::string(name) == ok) {
             std::cout << "Il server non ha bisogno di ulteriori file" << std::endl;
             return 1;
         }
@@ -318,6 +291,6 @@ int ClientSocket::WaitForSendingFile() {
             perror("Error while sending file");
             //exit(EXIT_FAILURE);
             return -1;
-        }
+        };
     }
 }

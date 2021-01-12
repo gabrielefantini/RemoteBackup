@@ -70,9 +70,11 @@ public:
     /// per ora non usata
     void connect(struct sockaddr_in *addr, unsigned int len);
 
+    bool ask_file(char* path,std::string &dir);
+    bool send_ok();
     /// solo il server riceve file
     /// inserita qui perché ritorno un socket e non un serversocket con la accept
-    void receiveFile();
+    void receiveFile(char* path,std::string &dir);
 
     bool vrfy();
     int setup_dir(const std::string &path);

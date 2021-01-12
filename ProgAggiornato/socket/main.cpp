@@ -18,18 +18,6 @@ int main() {
     }
     //debug
     print_user_map(user_map);
-
-    /*
-    //================================================================================
-    //sezione di debug (eliminabile in seguito)
-    //input d'esempio dal client
-    std::string usr="client2";
-    std::string path="/home/lollo/Scrivania/pds/tests/dir2";
-    //questa parte di codice sarà utilizzata nella funzione di risposta a "notify"
-    std::string backup_dir=get_backup_dir(user_map,usr,path);
-    std::cout << backup_dir << std::endl;
-    //================================================================================
-    */
     
     while(true) {
         struct sockaddr_in addr;
@@ -46,24 +34,53 @@ int main() {
         // la porta è scritta in addr nel formato network, devo convertirla
         std::cout << "Got a connection from " << name << ": " << ntohs(addr.sin_port) << std::endl;
 
-        /*
-        std::cout << "Before read from socket" << std::endl;
-        s.receiveFile();
-        std::cout << "Connection closed" << std::endl;
-        */
+        int res=s.ResToNotify();
+        if(res==0){
+            //cur_client: client che ha eseguito la richiesta
+            //cur_dir   : directory client di cui eseguire il backup
+            std::string cur_client=s.get_cur_client();
+            std::string cur_dir=s.get_cur_dir();
+            std::cout<< "client: "<<cur_client<<std::endl;
+            std::cout<< "directory: "<<cur_dir<<std::endl;
 
+            //b_setup->first=backup_dir_name:   path della cartella di backup   (nome)
+            //b_setup->second=id:               id della directory di backup    (in relazione al client)
+            std::pair<std::string,int> b_setup=get_backup_dir(user_map,cur_client,cur_dir);
+            std::string backup_dir_name=b_setup.first;
+            int id=b_setup.second;
+            std::cout << "backup path name: " << backup_dir_name<< "\n";
 
-        // alla fine di questa funzione la mappa del client è salvata in clientMap
-        s.ResToNotify();
-        //s.vrfy();
-        //s.vrfy();
+            //prepara la directory di backup partendo dal nome precedentemente generato
+            int res_setup=s.setup_dir(backup_dir_name,cur_client,id);
 
-        /// controllo sul file con la mappa esistenza cartella client
-        ///
+            //prepara la directory temporanea (per gli upload futuri)
+            std::string tmp_dir_name=get_tmp_dir(backup_dir_name);
+            std::cout<<"files will go there: "<<tmp_dir_name<<std::endl;
+
+            //localMap: hash map lato server
+            std::map<std::string,std::string> localMap; //empty
+            if(res_setup==1){
+                std::cout<<"directory found -> check for map file\n";
+            }else{
+                std::cout<<"new directory -> empty map\n";
+            }
+
+            //compara le map per richiedere i file necessari
+            std::map<std::string,std::string> clientMap=s.get_clientMap();
+            std::set<std::string> files;
+            files=check_for_file(clientMap,localMap);
+            for (std::set<std::string>::iterator it=files.begin(); it!=files.end(); ++it) {
+                std::string file=*it;
+                std::cout<<"chiedo: "<<file<<std::endl;
+                char *cstr = new char[file.length() + 1];
+                strcpy(cstr, file.c_str());
+                s.ask_file(cstr,tmp_dir_name);
+                delete [] cstr;
+            }
+            s.send_ok();
+        }
+        else
+            std::cout<<"Communication failed!\n";
     }
     return 0;
 }
-
-/*
- * prima di creare il client posso testare la connessione con "telnet localhost 5000" da terminale
- */
