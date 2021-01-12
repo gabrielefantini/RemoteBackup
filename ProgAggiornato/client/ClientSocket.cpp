@@ -256,7 +256,7 @@ int ClientSocket::notify(std::string n, std::string d, std::map<std::string,std:
     return 1;
 }
 
-void ClientSocket::WaitForSendingFile() {
+int ClientSocket::WaitForSendingFile() {
     while(1) {
         // all'inizio di ogni attesa devo settare un timer:
         // se alla fine del timer non ricevo nulla annullo
