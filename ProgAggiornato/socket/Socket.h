@@ -76,7 +76,7 @@ public:
     /// inserita qui perché ritorno un socket e non un serversocket con la accept
     void receiveFile(std::string name,std::string &dir);
 
-    bool vrfy();
+    //bool vrfy();
     int setup_dir(const std::string &path,std::string &client,int index);
 
     int ResToNotify();

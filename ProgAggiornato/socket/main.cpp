@@ -79,6 +79,9 @@ int main() {
                 delete [] cstr;
             }
             s.send_ok();
+
+            //aggiorno la cartella di backup
+            updateBackupFolder(clientMap,localMap,tmp_dir_name,backup_dir_name,cur_dir);
         }
         else
             std::cout<<"Communication failed!\n";

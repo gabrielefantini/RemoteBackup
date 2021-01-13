@@ -24,6 +24,6 @@ link_libraries(crypto)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(socket main.cpp Socket.cpp Socket.h ServerSocket.cpp ServerSocket.h jsonUtils.cpp jsonUtils.h serverUtils/serverUtils.cpp serverUtils/serverUtils.h)
+add_executable(socket main.cpp Socket.cpp Socket.h ServerSocket.cpp ServerSocket.h jsonUtils.cpp jsonUtils.h serverUtils/serverUtils.cpp serverUtils/serverUtils.h hashManager/hashManager.h hashManager/hashManager.cpp)
 
 target_link_libraries(socket ${Boost_LIBRARIES} nlohmann_json::nlohmann_json)
