@@ -21,7 +21,7 @@ endif()
 
 link_libraries(stdc++fs)
 link_libraries(crypto)
-
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 set(CMAKE_CXX_STANDARD 17)
 
 add_executable(socket main.cpp Socket.cpp Socket.h ServerSocket.cpp ServerSocket.h jsonUtils.cpp jsonUtils.h serverUtils/serverUtils.cpp serverUtils/serverUtils.h hashManager/hashManager.h hashManager/hashManager.cpp)

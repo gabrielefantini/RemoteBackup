@@ -8,6 +8,14 @@
 #include <boost/filesystem.hpp>
 #include <nlohmann/json.hpp>
 
+
+#include <boost/asio/deadline_timer.hpp>
+#include <boost/asio.hpp>
+#include <boost/bind.hpp>
+
+
+
+
 bool Socket::ask_file(char* path,std::string hash,std::string &dir){
     int len = 0;
     int j = 0;
@@ -119,6 +127,30 @@ ssize_t Socket::read(char *buffer, size_t len, int options)  {
     }
     return res;
 }
+
+void handler(const boost::system::error_code& error, char* buffer)
+{
+    if (!error)
+    {
+       if(buffer[0] == NULL){
+           throw std::runtime_error("Timeout expired without receiving anything");
+       }
+    }
+}
+ssize_t Socket::readAsync(char* buffer, size_t len, int options) {
+    io_service io;
+    // va calcolato il tempo per l'arresto!!
+    deadline_timer t(io, boost::posix_time::seconds(5));
+    t.async_wait(boost::bind(handler, boost::asio::placeholders::error, buffer));
+    std::cout << "read called" << std::endl;
+    ssize_t res = recv(sockfd, buffer, len, options);
+    if (res < 0) {
+        std::cout << strerror(errno) << std::endl;
+        throw std::runtime_error("Cannot receive from socket");
+    }
+    return res;
+}
+
 /*
 bool Socket::vrfy() {
     int bytes_received;

@@ -84,9 +84,12 @@
   <component name="ChangeListManager">
     <list default="true" id="87ce0ddc-d06d-46a4-b43a-e01821f1eded" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientSocket.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ClientSocket.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientSocket.h" beforeDir="false" afterPath="$PROJECT_DIR$/ClientSocket.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../socket/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../socket/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../socket/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../socket/Socket.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/Socket.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../socket/Socket.h" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/Socket.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +113,6 @@
     <expand />
     <select />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
@@ -126,7 +128,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../socket" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RunManager" selected="CMake Application.client">
@@ -490,11 +492,6 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="CMake Application.client" />
       <item itemvalue="CMake Application.Continuous" />
@@ -597,6 +594,9 @@
       <workItem from="1609953743625" duration="1053000" />
       <workItem from="1610298858823" duration="4421000" />
       <workItem from="1610355105612" duration="2606000" />
+      <workItem from="1610618920866" duration="2327000" />
+      <workItem from="1610623200198" duration="59000" />
+      <workItem from="1610624022750" duration="22000" />
     </task>
     <servers />
   </component>

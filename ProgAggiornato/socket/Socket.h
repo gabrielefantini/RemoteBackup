@@ -11,6 +11,13 @@
 #include <cstring>
 #include <map>
 
+
+#include <boost/asio/deadline_timer.hpp>
+#include <boost/asio.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
+
+using namespace boost::asio;
+
 // paradigma RAII: rilascio corretto delle risorse
 class Socket {
     // file descriptor del socket
@@ -63,6 +70,8 @@ public:
 
     // il file descriptor del socket è privato, dall'esterno non potrei leggere e scrivere dei byte
     ssize_t read(char* buffer, size_t len, int options);
+
+    ssize_t readAsync(char* buffer, size_t len, int options);
 
     ssize_t write(const char* buffer, size_t len, int options);
 
