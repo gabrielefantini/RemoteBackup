@@ -58,15 +58,30 @@ int main() {
             std::cout<<"files will go there: "<<tmp_dir_name<<std::endl;
 
             //localMap: hash map lato server
-            std::map<std::string,std::string> localMap; //empty
+            //cerco se ho una copia della map in <relative pos>/backup/{client}/{id}/localMap.txt
+            //altrimenti ho una map vuota
+            std::map<std::string,std::string> localMap;
+            std::string localMapPath=getMapPath(backup_dir_name);
+
             if(res_setup==1){
-                std::cout<<"directory found -> check for map file\n";
-            }else{
-                std::cout<<"new directory -> empty map\n";
-            }
+                std::cout<<"cartella di backup trovata -> ricerca file map\n";
+                int res_map=setupLocalMap(localMapPath,localMap);
+                if(res_map==1)
+                    std::cout<<"file map trovato -> map caricata\n";
+                else
+                    std::cout<<"file map non trovato -> map vuota\n";
+            }else
+                std::cout<<"cartella di backup nuova -> map vuota\n";
 
             //compara le map per richiedere i file necessari
             std::map<std::string,std::string> clientMap=s.get_clientMap();
+            std::cout<<"CLIENT MAP:\n";
+            for (auto& x: clientMap)
+                std::cout<<x.first<<" : "<<x.second<<std::endl;
+            std::cout<<"\nSERVER MAP:\n";
+            for (auto& x: localMap)
+                std::cout<<x.first<<" : "<<x.second<<std::endl;
+            std::cout<<"\n\n";
             std::set<std::string> files;
             files=check_for_file(clientMap,localMap);
             for (std::set<std::string>::iterator it=files.begin(); it!=files.end(); ++it) {
@@ -82,6 +97,18 @@ int main() {
 
             //aggiorno la cartella di backup
             updateBackupFolder(clientMap,localMap,tmp_dir_name,backup_dir_name,cur_dir);
+            //aggiorno il file map
+            //debug
+            std::cout<<"nuova SERVER MAP:\n";
+            localMap=clientMap;
+            for (auto& x: localMap)
+                std::cout<<x.first<<" : "<<x.second<<std::endl;
+            std::cout<<"\n\n";
+            //
+            int update_res=saveLocalMap(localMapPath,localMap);
+            if(update_res==0)
+                std::cout<<localMapPath<<" aggiornato correttamente.\n";
+            flushTmp(tmp_dir_name);
         }
         else
             std::cout<<"Communication failed!\n";

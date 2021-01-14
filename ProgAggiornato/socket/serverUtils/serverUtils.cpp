@@ -142,10 +142,10 @@ std::set<std::string> check_for_file(std::map<std::string,std::string> &client_m
     for(auto& x: client_map){
         std::string path=x.first;
         if(x.second=="")
-            std::cout << x.first << " is a dir\n";
+            std::cout << path << " è una directory\n";
         else {
             //caso file
-            //std::cout << x.first << " is a file\n";
+            std::cout << path << " è un file\n";
             std::map<std::string,std::string>::iterator it=server_map.find(path);
             if(it==server_map.end()){
                 bool fnd=false;
@@ -159,15 +159,14 @@ std::set<std::string> check_for_file(std::map<std::string,std::string> &client_m
                     }
                 if(!fnd){
                     //CASO FILE MANCANTE: path diverso(anche parent_path)
-                    std::cout << "file " << path << " missing -> calling client.\n";
+                    std::cout << "file " << path << " MANCANTE.\n";
                     fset.insert(path);
                 }
                 cnt++;
             }else{
                 if(it->second!=x.second){
                     //CASO DI FILE MODIFICATO: stesso path, diverso digest
-                    std::cout << "file " << path << " changed -> calling client.\n";
-                    //TO_DO call file
+                    std::cout << "file " << path << " MODIFICATO.\n";
                     fset.insert(path);
                     cnt++;
                 }
@@ -175,30 +174,35 @@ std::set<std::string> check_for_file(std::map<std::string,std::string> &client_m
         }
     }
     if(cnt==0)
-        std::cout<<"no mod required.\n";
+        std::cout<<"nessuna modifica richiesta.\n";
     return fset;
 }
 
 std::string getServerPath(std::string clientPath, std::string clientDir,std::string backupDir){
+    std::cout<<"\nGET SERVER PATH {entro}\n";
+    std::cout<<"client path: "<<clientPath<<"\n";
+    std::cout<<"client dir: "<<clientDir<<"\n";
+    std::cout<<"backup dir: "<<backupDir<<"\n";
     std::string serverPath;
     int pos=clientDir.length();
     serverPath=std::string(backupDir+clientPath.substr(pos));
-    std::cout<<serverPath<<std::endl;
+    std::cout<<"==> "<<serverPath<<"\n";
+    std::cout<<"GET SERVER PATH {esco}\n\n";
     return serverPath;
 }
 
 void updateBackupFolder(std::map<std::string,std::string> &client_map,std::map<std::string,std::string> &server_map,std::string &tmp,std::string &backup,std::string client_dir){
-        for(auto& x: client_map){
+    std::cout<<"UPDATE BACKUP FOLDER\n";
+    for(auto& x: client_map){
             std::string path=x.first;
             if(x.second=="") {
                 //caso directory
                 if(server_map.find(path)==server_map.end()){
-                    std::cout<<"dir "<<path<<" missing -> create_directory.\n";
                     //creazione dir
                     std::string newpath=getServerPath(path,client_dir,backup);
+                    std::cout<<"DIRECTORY MANCANTE!\n";
+                    std::cout<<"dir "<<newpath<<" mancante -> creazione directory.\n";
                     fs::create_directory(newpath);
-                    //aggiornamento map
-                    add(path,server_map);
                 }
             }
             else {
@@ -209,51 +213,43 @@ void updateBackupFolder(std::map<std::string,std::string> &client_map,std::map<s
                     for(auto& y: server_map)
                         if(y.second==x.second && fs::path(y.first).filename().string()==fs::path(path).filename().string() && fs::path(y.first).parent_path().string()!=fs::path(path).parent_path().string()){
                             //CASO FILE SPOSTATO: path diverso, stesso digest, stesso filename
-                            std::cout << "file has to be moved: " << y.first << " -> " << path << "\n";
                             //spostamento file
                             std::string oldpath=getServerPath(y.first,client_dir,backup);
                             std::string newpath=getServerPath(path,client_dir,backup);
+                            std::cout<<"FILE SPOSTATO!\n";
+                            std::cout<<oldpath<<" -> "<<newpath<<std::endl;
                             fs::copy_file(oldpath,newpath);
                             fs::remove(oldpath);
-                            //aggiornamento map
-                            server_map.insert(std::pair<std::string,std::string>(path,y.second));
-                            remove(y.first,server_map);
                             fnd=true;
                         }else if(y.second==x.second && fs::path(y.first).filename().string()!=fs::path(path).filename().string() && fs::path(y.first).parent_path().string()==fs::path(path).parent_path().string()){
                             //CASO FILE RINOMINATO: path diverso(ma stesso parent_path), stesso digest, filename diverso
-                            std::cout << "file renamed: " << y.first << " -> " << path << "\n";
                             //aggiornamento file
                             std::string oldpath=getServerPath(y.first,client_dir,backup);
                             std::string newpath=getServerPath(path,client_dir,backup);
+                            std::cout<<"FILE RINOMINATO!\n";
+                            std::cout<<oldpath<<" -> "<<newpath<<std::endl;
                             fs::rename(oldpath,newpath);
-                            //aggiornamento map
-                            server_map.insert(std::pair<std::string,std::string>(path,y.second));
-                            remove(y.first,server_map);
                             fnd=true;
                         }
                     if(!fnd){
                         //CASO FILE MANCANTE: path diverso(anche parent_path)
-                        std::cout << "file " << path << " missing -> copying to server.\n";
                         //inserimento file
                         std::string newfile=std::string(tmp+"/"+x.second);
                         std::string newpath=getServerPath(path,client_dir,backup);
+                        std::cout<<"FILE MANCANTE!\n";
+                        std::cout<<newfile<<" -> "<<newpath<<std::endl;
                         fs::copy_file(newfile,newpath);
-                        //aggiornamento map
-                        server_map.insert(std::pair<std::string,std::string>(path,x.second));
                     }
                 }else{
                     if(it->second!=x.second){
                         //CASO DI FILE MODIFICATO: stesso path, diverso digest
-                        std::cout << "file " << path << " changed -> copying to server.\n";
                         //aggiornamento file
                         std::string newfile=std::string(tmp+"/"+x.second);
                         std::string filepath=getServerPath(path,client_dir,backup);
+                        std::cout<<"FILE MODIFICATO!\n";
+                        std::cout<<newfile<<" -> "<<filepath<<std::endl;
                         fs::remove(filepath);
                         fs::copy_file(newfile,filepath);
-                        //aggiornamento map
-                        std::string hash=x.second;
-                        remove(path,server_map);
-                        server_map.insert(std::pair<std::string,std::string>(path,hash));
                     }
                 }
 
@@ -262,16 +258,69 @@ void updateBackupFolder(std::map<std::string,std::string> &client_map,std::map<s
         for(auto& x: server_map){
             std::string path=x.first;
             if(client_map.find(path)==client_map.end()){
-                if(x.second=="")
-                    std::cout<<"dir "<<x.first<<" has to be deleted.\n";
-                else
-                    std::cout<<"file "<<x.first<<" has to be deleted.\n";
-                //rimozione file
                 std::string oldpath=getServerPath(x.first,client_dir,backup);
+                std::cout<<"FILE/DIRECTORY SUPERFLUI!\n";
+                if(x.second=="")
+                    std::cout<<"dir "<<oldpath<<" da eliminare.\n";
+                else
+                    std::cout<<"file "<<oldpath<<" da eliminare.\n";
+                //rimozione file
                 fs::remove(oldpath);
-                //aggiornamento map
-                remove(x.first,server_map);
             }
 
         }
+}
+
+std::string getMapPath(std::string &backupPath){
+    std::cout<<"GET MAP PATH\n";
+    std::string parent_path=fs::path(backupPath).parent_path().string();
+    return std::string(parent_path+"/localMap.txt");
+}
+
+int setupLocalMap(std::string &mapPath,std::map<std::string,std::string> &m){
+    if(fs::exists(mapPath) && fs::is_regular(mapPath)){
+        FILE *fp;
+        char path[MAXLEN+1],hash[MAXLEN+1];
+        fp=fopen(mapPath.c_str(),"r+");
+        if(fp==nullptr){
+            std::cout<<"error opening file "<<mapPath<<"\n";
+            return -1;
+        }
+        while(fscanf(fp,"%s %s",path,hash)!=EOF)
+            if(hash!="directory")
+                m.insert(std::pair<std::string,std::string>(path,hash));
+            else
+                m.insert(std::pair<std::string,std::string>(path,""));
+
+    fclose(fp);
+        return 1;   //file trovato, map caricata
+    }
+    return 0;   //file non esistente, map rimane vuota
+}
+
+int saveLocalMap(std::string &mapPath,std::map<std::string,std::string> &m){
+    std::cout<<"SAVE LOCAL MAP\n";
+    //rimozione vecchio file
+    if(fs::exists(mapPath) && fs::is_regular(mapPath))
+        fs::remove(mapPath);
+    //creazione nuovo file
+    FILE *fp;
+    fp=fopen(mapPath.c_str(),"w+");
+    if(fp==nullptr){
+        std::cout<<"error opening file "<<mapPath<<"\n";
+        return -1;
+    }
+    for (auto& x: m)
+        if(x.second!="")
+            fprintf(fp,"%s %s\n",x.first.c_str(),x.second.c_str());
+        else
+            fprintf(fp,"%s directory\n",x.first.c_str());
+
+    fclose(fp);
+    return 0;
+}
+
+void flushTmp(std::string &tmp){
+    fs::remove_all(tmp);
+    std::cout<<tmp<<" folder cleared.\n";
 }
