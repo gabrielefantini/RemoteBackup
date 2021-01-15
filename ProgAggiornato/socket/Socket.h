@@ -79,14 +79,14 @@ public:
     /// per ora non usata
     void connect(struct sockaddr_in *addr, unsigned int len);
 
-    bool ask_file(char* path,std::string hash,std::string &dir);
-    bool send_ok();
+    bool askFile(char* path,std::string hash,std::string &dir);
+    bool sendOk();
     /// solo il server riceve file
     /// inserita qui perché ritorno un socket e non un serversocket con la accept
     void receiveFile(std::string name,std::string &dir);
 
     //bool vrfy();
-    int setup_dir(const std::string &path,std::string &client,int index);
+    int setupDir(const std::string &path,std::string &client,int index);
 
     int ResToNotify();
 

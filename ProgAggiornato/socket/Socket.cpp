@@ -16,7 +16,7 @@
 
 
 
-bool Socket::ask_file(char* path,std::string hash,std::string &dir){
+bool Socket::askFile(char* path,std::string hash,std::string &dir){
     int len = 0;
     int j = 0;
 
@@ -41,7 +41,7 @@ bool Socket::ask_file(char* path,std::string hash,std::string &dir){
     return true;
 }
 
-bool Socket::send_ok(){
+bool Socket::sendOk(){
     char len_char[4];
     int len,j,bytes_written = 0;
     std::string msg = "ok";
@@ -232,7 +232,7 @@ bool Socket::vrfy() {
 // da mainUtil.h
 namespace fs=boost::filesystem;
 //setup_dir: cerca se la directory relativa al path di un certo utente esiste già (return 1), altrimenti la crea (return 0)
-int Socket::setup_dir(const std::string &new_path,std::string &client,int index){
+int Socket::setupDir(const std::string &new_path,std::string &client,int index){
     if(fs::exists(new_path) && fs::is_directory(new_path)) {
         std::cout << new_path << " found in backups.\n";
         return 1;

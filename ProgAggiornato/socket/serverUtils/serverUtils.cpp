@@ -13,7 +13,7 @@
  * return : 0 (ok)
  *         -1 (error)
  * */
-int setup_users(std::map<std::pair<std::string,std::string>,int> &m){
+int setupUsers(std::map<std::pair<std::string,std::string>,int> &m){
     FILE *fp;
     char usr[MAXLEN+1],path[MAXLEN+1];
     int num;
@@ -34,7 +34,7 @@ int setup_users(std::map<std::pair<std::string,std::string>,int> &m){
  *
  * param {m} : map <<string,string>,int>
  * */
-void print_user_map(std::map<std::pair<std::string,std::string>,int> &m){
+void printUserMap(std::map<std::pair<std::string,std::string>,int> &m){
     std::cout<<"users file: "<<std::endl;
     if(m.size()==0){
         std::cout<<"[empty]"<<std::endl;
@@ -59,7 +59,7 @@ void print_user_map(std::map<std::pair<std::string,std::string>,int> &m){
  * return : int (ok)
  *          -1  (error)
  * */
-int add_user(std::map<std::pair<std::string,std::string>,int> &m,std::string &usr,std::string &path){
+int addUser(std::map<std::pair<std::string,std::string>,int> &m,std::string &usr,std::string &path){
     int index,max=0,value,i;
     std::pair<std::string,std::string> key;
     std::set<int> indexes;
@@ -100,12 +100,12 @@ int add_user(std::map<std::pair<std::string,std::string>,int> &m,std::string &us
  * return : string (ok)
  *          ""     (error)
  * */
-std::pair<std::string,int> get_backup_dir(std::map<std::pair<std::string,std::string>,int> &user_map,std::string &usr,std::string &path){
+std::pair<std::string,int> getBackupDir(std::map<std::pair<std::string,std::string>,int> &user_map,std::string &usr,std::string &path){
     auto search=user_map.find(std::make_pair(usr,path));
     int folder_num;
     if(search==user_map.end()){
         //coppia user-folder non esiste -> la creo
-        folder_num=add_user(user_map,usr,path);
+        folder_num=addUser(user_map,usr,path);
         if(folder_num==-1){
             std::cout<<"error during users update.\n";
             return std::make_pair(std::string(""),-1);
@@ -125,8 +125,8 @@ std::pair<std::string,int> get_backup_dir(std::map<std::pair<std::string,std::st
     return std::make_pair(backup_folder.str(),folder_num);
 }
 
-std::string get_tmp_dir(std::string &bpath){
-    std::cout<<"backup: "<<bpath<<std::endl;
+std::string getTmpDir(std::string &bpath){
+    //std::cout<<"backup: "<<bpath<<std::endl;
 
     //setup: create tmp folder (if not exists yet)
     std::string parent_path=fs::path(bpath).parent_path().string();
@@ -136,7 +136,7 @@ std::string get_tmp_dir(std::string &bpath){
     return tmp;
 }
 
-std::set<std::string> check_for_file(std::map<std::string,std::string> &client_map,std::map<std::string,std::string> &server_map){
+std::set<std::string> checkForFile(std::map<std::string,std::string> &client_map,std::map<std::string,std::string> &server_map){
     int cnt=0;
     std::set<std::string> fset;
     for(auto& x: client_map){

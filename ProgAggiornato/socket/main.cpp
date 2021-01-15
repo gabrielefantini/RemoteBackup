@@ -12,12 +12,12 @@ int main() {
     //all'avvio: inizializzo una map di corrispondenze user-path -> indice
     //necessarie per localizzare in seguito la giusta cartella
     std::map<std::pair<std::string,std::string>,int> user_map;
-    if(setup_users(user_map)!=0) {
+    if(setupUsers(user_map)!=0) {
         std::cout<<"error during users setup.\n";
         return -1;
     }
     //debug
-    print_user_map(user_map);
+    printUserMap(user_map);
     
     while(true) {
         struct sockaddr_in addr;
@@ -45,16 +45,16 @@ int main() {
 
             //b_setup->first=backup_dir_name:   path della cartella di backup   (nome)
             //b_setup->second=id:               id della directory di backup    (in relazione al client)
-            std::pair<std::string,int> b_setup=get_backup_dir(user_map,cur_client,cur_dir);
+            std::pair<std::string,int> b_setup=getBackupDir(user_map,cur_client,cur_dir);
             std::string backup_dir_name=b_setup.first;
             int id=b_setup.second;
             std::cout << "backup path name: " << backup_dir_name<< "\n";
 
             //prepara la directory di backup partendo dal nome precedentemente generato
-            int res_setup=s.setup_dir(backup_dir_name,cur_client,id);
+            int res_setup=s.setupDir(backup_dir_name,cur_client,id);
 
             //prepara la directory temporanea (per gli upload futuri)
-            std::string tmp_dir_name=get_tmp_dir(backup_dir_name);
+            std::string tmp_dir_name=getTmpDir(backup_dir_name);
             std::cout<<"files will go there: "<<tmp_dir_name<<std::endl;
 
             //localMap: hash map lato server
@@ -83,17 +83,17 @@ int main() {
                 std::cout<<x.first<<" : "<<x.second<<std::endl;
             std::cout<<"\n\n";
             std::set<std::string> files;
-            files=check_for_file(clientMap,localMap);
+            files=checkForFile(clientMap,localMap);
             for (std::set<std::string>::iterator it=files.begin(); it!=files.end(); ++it) {
                 std::string file=*it;
                 std::cout<<"chiedo: "<<file<<std::endl;
                 std::string hash=clientMap.find(file)->second;
                 char *cstr = new char[file.length() + 1];
                 strcpy(cstr, file.c_str());
-                s.ask_file(cstr,hash,tmp_dir_name);
+                s.askFile(cstr,hash,tmp_dir_name);
                 delete [] cstr;
             }
-            s.send_ok();
+            s.sendOk();
 
             //aggiorno la cartella di backup
             updateBackupFolder(clientMap,localMap,tmp_dir_name,backup_dir_name,cur_dir);
