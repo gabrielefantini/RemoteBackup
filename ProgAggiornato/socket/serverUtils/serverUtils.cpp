@@ -286,12 +286,12 @@ int setupLocalMap(std::string &mapPath,std::map<std::string,std::string> &m){
             std::cout<<"error opening file "<<mapPath<<"\n";
             return -1;
         }
-        while(fscanf(fp,"%s %s",path,hash)!=EOF)
-            if(hash!="directory")
-                m.insert(std::pair<std::string,std::string>(path,hash));
+        while(fscanf(fp,"%s %s",path,hash)!=EOF) {
+            if (hash != "directory")
+                m.insert(std::pair<std::string, std::string>(path, hash));
             else
-                m.insert(std::pair<std::string,std::string>(path,""));
-
+                m.insert(std::pair<std::string, std::string>(path, ""));
+        }
     fclose(fp);
         return 1;   //file trovato, map caricata
     }

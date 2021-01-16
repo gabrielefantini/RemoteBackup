@@ -20,7 +20,7 @@ int get_file_size(std::string filename) // path to file
 
 int ClientSocket::sendFile(const char *name) {
     int len = get_file_size(name);
-    char len_char[4];
+    char len_char[10];
     /// conversione int -> char per la write
     sprintf(len_char,"%d",len);
     std::cout << "len_char: " << len_char << std::endl;
@@ -238,20 +238,23 @@ int ClientSocket::notify(std::string n, std::string d, std::map<std::string,std:
         return -1;
     }
     char len_res[4];
-    // setto un timer:
-    // se alla fine del timer non ricevo nulla annullo
-    // l'aggiornamento chiudendo il socket e setto la variabile
-    // di aggiornamento fallito a 1
-    int bytes_received = read(len_res, sizeof(len_res), 0);
-    char res[atoi(len_res)];
-    // setto un timer:
-    // se alla fine del timer non ricevo nulla annullo
-    // l'aggiornamento chiudendo il socket e setto la variabile
-    // di aggiornamento fallito a 1
-    bytes_received = read(res, sizeof(res), 0);
-    res[atoi(len_res)-1] = '\0';
-    std::cout << "Messaggio ricevuto: " << res << std::endl;
-
+    try{
+        // setto un timer:
+        // se alla fine del timer non ricevo nulla annullo
+        // l'aggiornamento chiudendo il socket e setto la variabile
+        // di aggiornamento fallito a 1
+        int bytes_received = readAsync(len_res, sizeof(len_res), 0);
+        char res[atoi(len_res)];
+        // setto un timer:
+        // se alla fine del timer non ricevo nulla annullo
+        // l'aggiornamento chiudendo il socket e setto la variabile
+        // di aggiornamento fallito a 1
+        bytes_received = readAsync(res, sizeof(res), 0);
+        res[atoi(len_res)-1] = '\0';
+        std::cout << "Messaggio ricevuto: " << res << std::endl;
+    } catch (std::exception &e) {
+        return -1;
+    }
     /// tutto ok
     return 1;
 }
@@ -262,10 +265,14 @@ int ClientSocket::WaitForSendingFile() {
         // se alla fine del timer non ricevo nulla annullo
         // l'aggiornamento chiudendo il socket e setto la variabile
         // di aggiornamento fallito a 1
-
+        std::cout<<"waitforfile"<<std::endl;
         int bytes_received;
         char len_name[4];
-        bytes_received = read(len_name, sizeof(len_name), 0);
+        try {
+            bytes_received = readAsync(len_name, sizeof(len_name), 0);
+        } catch  (std::exception &e) {
+            return -1;
+        }
         /* Anzichè fare una read bloccante, dovrei fare:
          * -read asincrona salvando il valore di ritorno
          * -timer bloccante
@@ -276,7 +283,11 @@ int ClientSocket::WaitForSendingFile() {
          * */
         std::cout <<"Dimensione nome client: " <<  atoi(len_name) << std::endl;
         char name[atoi(len_name)];
-        bytes_received = read(name, sizeof(name), 0);
+        try {
+            bytes_received = readAsync(name, sizeof(name), 0);
+        } catch (std::exception &e) {
+            return -1;
+        }
         name[atoi(len_name)-1] = '\0';
 
         /// CONTROLLO, se è "ok" si esce dal ciclo

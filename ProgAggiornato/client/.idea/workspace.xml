@@ -2,78 +2,78 @@
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
-      <config projectName="client" targetName="ContinuousSubmit" />
-      <config projectName="client" targetName="test-class_lexer" />
-      <config projectName="client" targetName="ExperimentalBuild" />
-      <config projectName="client" targetName="test-noexcept" />
-      <config projectName="client" targetName="NightlyMemCheck" />
-      <config projectName="client" targetName="NightlyStart" />
-      <config projectName="client" targetName="test-regression" />
-      <config projectName="client" targetName="ContinuousUpdate" />
-      <config projectName="client" targetName="ExperimentalStart" />
-      <config projectName="client" targetName="test-items" />
-      <config projectName="client" targetName="ContinuousMemCheck" />
-      <config projectName="client" targetName="NightlySubmit" />
-      <config projectName="client" targetName="test-json_patch" />
-      <config projectName="client" targetName="NightlyConfigure" />
-      <config projectName="client" targetName="test-inspection" />
-      <config projectName="client" targetName="test-modifiers" />
-      <config projectName="client" targetName="test-constructor1" />
-      <config projectName="client" targetName="ExperimentalSubmit" />
-      <config projectName="client" targetName="test-constructor2" />
-      <config projectName="client" targetName="ExperimentalCoverage" />
-      <config projectName="client" targetName="ExperimentalConfigure" />
-      <config projectName="client" targetName="test-reference_access" />
-      <config projectName="client" targetName="test-alt-string" />
-      <config projectName="client" targetName="NightlyMemoryCheck" />
-      <config projectName="client" targetName="test-readme" />
-      <config projectName="client" targetName="ContinuousStart" />
-      <config projectName="client" targetName="test-class_const_iterator" />
-      <config projectName="client" targetName="ExperimentalMemCheck" />
-      <config projectName="client" targetName="test-merge_patch" />
-      <config projectName="client" targetName="client" />
-      <config projectName="client" targetName="test-udt" />
-      <config projectName="client" targetName="test-large_json" />
       <config projectName="client" targetName="test-meta" />
-      <config projectName="client" targetName="doctest_main" />
-      <config projectName="client" targetName="ContinuousCoverage" />
-      <config projectName="client" targetName="NightlyTest" />
-      <config projectName="client" targetName="test-ubjson" />
-      <config projectName="client" targetName="test-comparison" />
-      <config projectName="client" targetName="test-allocator" />
-      <config projectName="client" targetName="test-unicode" />
-      <config projectName="client" targetName="test-msgpack" />
-      <config projectName="client" targetName="test-bson" />
-      <config projectName="client" targetName="test-serialization" />
-      <config projectName="client" targetName="test-wstring" />
-      <config projectName="client" targetName="ContinuousBuild" />
-      <config projectName="client" targetName="test-cbor" />
-      <config projectName="client" targetName="test-testsuites" />
-      <config projectName="client" targetName="test-deserialization" />
-      <config projectName="client" targetName="test-class_parser" />
-      <config projectName="client" targetName="test-iterators1" />
-      <config projectName="client" targetName="ExperimentalTest" />
-      <config projectName="client" targetName="test-iterators2" />
-      <config projectName="client" targetName="Nightly" />
-      <config projectName="client" targetName="ExperimentalUpdate" />
-      <config projectName="client" targetName="test-to_chars" />
-      <config projectName="client" targetName="Experimental" />
-      <config projectName="client" targetName="NightlyUpdate" />
-      <config projectName="client" targetName="test-capacity" />
-      <config projectName="client" targetName="test-concepts" />
-      <config projectName="client" targetName="NightlyBuild" />
-      <config projectName="client" targetName="Continuous" />
-      <config projectName="client" targetName="ContinuousTest" />
       <config projectName="client" targetName="test-pointer_access" />
+      <config projectName="client" targetName="test-comparison" />
+      <config projectName="client" targetName="ExperimentalUpdate" />
+      <config projectName="client" targetName="test-serialization" />
+      <config projectName="client" targetName="test-constructor2" />
+      <config projectName="client" targetName="test-constructor1" />
+      <config projectName="client" targetName="ContinuousMemCheck" />
+      <config projectName="client" targetName="test-to_chars" />
       <config projectName="client" targetName="test-json_pointer" />
-      <config projectName="client" targetName="test-algorithms" />
-      <config projectName="client" targetName="test-class_iterator" />
-      <config projectName="client" targetName="test-conversions" />
+      <config projectName="client" targetName="test-items" />
+      <config projectName="client" targetName="NightlySubmit" />
       <config projectName="client" targetName="NightlyCoverage" />
-      <config projectName="client" targetName="test-element_access2" />
+      <config projectName="client" targetName="test-class_parser" />
+      <config projectName="client" targetName="test-cbor" />
+      <config projectName="client" targetName="test-iterators2" />
+      <config projectName="client" targetName="test-iterators1" />
+      <config projectName="client" targetName="test-deserialization" />
+      <config projectName="client" targetName="test-algorithms" />
+      <config projectName="client" targetName="NightlyStart" />
+      <config projectName="client" targetName="doctest_main" />
+      <config projectName="client" targetName="NightlyTest" />
       <config projectName="client" targetName="test-element_access1" />
+      <config projectName="client" targetName="Nightly" />
+      <config projectName="client" targetName="ContinuousStart" />
+      <config projectName="client" targetName="NightlyConfigure" />
+      <config projectName="client" targetName="test-merge_patch" />
+      <config projectName="client" targetName="test-udt" />
+      <config projectName="client" targetName="test-inspection" />
+      <config projectName="client" targetName="ContinuousSubmit" />
+      <config projectName="client" targetName="test-class_const_iterator" />
+      <config projectName="client" targetName="client" />
+      <config projectName="client" targetName="test-bson" />
+      <config projectName="client" targetName="test-ubjson" />
+      <config projectName="client" targetName="NightlyMemoryCheck" />
+      <config projectName="client" targetName="Experimental" />
       <config projectName="client" targetName="ContinuousConfigure" />
+      <config projectName="client" targetName="test-capacity" />
+      <config projectName="client" targetName="test-readme" />
+      <config projectName="client" targetName="test-regression" />
+      <config projectName="client" targetName="NightlyUpdate" />
+      <config projectName="client" targetName="ContinuousUpdate" />
+      <config projectName="client" targetName="test-element_access2" />
+      <config projectName="client" targetName="test-allocator" />
+      <config projectName="client" targetName="test-class_lexer" />
+      <config projectName="client" targetName="test-class_iterator" />
+      <config projectName="client" targetName="ExperimentalBuild" />
+      <config projectName="client" targetName="test-modifiers" />
+      <config projectName="client" targetName="ExperimentalCoverage" />
+      <config projectName="client" targetName="test-unicode" />
+      <config projectName="client" targetName="ExperimentalConfigure" />
+      <config projectName="client" targetName="NightlyBuild" />
+      <config projectName="client" targetName="ExperimentalTest" />
+      <config projectName="client" targetName="test-wstring" />
+      <config projectName="client" targetName="test-large_json" />
+      <config projectName="client" targetName="ExperimentalStart" />
+      <config projectName="client" targetName="Continuous" />
+      <config projectName="client" targetName="ContinuousBuild" />
+      <config projectName="client" targetName="NightlyMemCheck" />
+      <config projectName="client" targetName="ExperimentalMemCheck" />
+      <config projectName="client" targetName="test-alt-string" />
+      <config projectName="client" targetName="ExperimentalSubmit" />
+      <config projectName="client" targetName="test-conversions" />
+      <config projectName="client" targetName="test-testsuites" />
+      <config projectName="client" targetName="test-reference_access" />
       <config projectName="client" targetName="test-convenience" />
+      <config projectName="client" targetName="test-noexcept" />
+      <config projectName="client" targetName="test-msgpack" />
+      <config projectName="client" targetName="ContinuousTest" />
+      <config projectName="client" targetName="test-concepts" />
+      <config projectName="client" targetName="ContinuousCoverage" />
+      <config projectName="client" targetName="test-json_patch" />
     </generated>
   </component>
   <component name="CMakeSettings">
@@ -84,12 +84,14 @@
   <component name="ChangeListManager">
     <list default="true" id="87ce0ddc-d06d-46a4-b43a-e01821f1eded" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ClientSocket.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ClientSocket.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fileWatcher/FileWatcher.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/fileWatcher/FileWatcher.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fileWatcher/FileWatcher.h" beforeDir="false" afterPath="$PROJECT_DIR$/fileWatcher/FileWatcher.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../socket/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../socket/Socket.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/Socket.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket/Socket.h" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/Socket.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../socket/serverUtils/folders.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/serverUtils/folders.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../socket/serverUtils/serverUtils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/serverUtils/serverUtils.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,6 +115,7 @@
     <expand />
     <select />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
@@ -272,7 +275,7 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="client" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="client" TARGET_NAME="client" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="client" RUN_TARGET_NAME="client">
+    <configuration name="client" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="client1 $PROJECT_DIR$/../../../test" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="client" TARGET_NAME="client" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="client" RUN_TARGET_NAME="client">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -492,6 +495,11 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="CMake Application.client" />
       <item itemvalue="CMake Application.Continuous" />
@@ -597,6 +605,8 @@
       <workItem from="1610618920866" duration="2327000" />
       <workItem from="1610623200198" duration="59000" />
       <workItem from="1610624022750" duration="22000" />
+      <workItem from="1610788306674" duration="1446000" />
+      <workItem from="1610792113091" duration="5204000" />
     </task>
     <servers />
   </component>

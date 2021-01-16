@@ -9,7 +9,7 @@
 
 
 //file change statuses
-enum class FileStatus {created, modified, erased, do_update};
+enum class FileStatus {created, modified, erased, do_update, default_status};
 
 class Filewatcher{
 public:

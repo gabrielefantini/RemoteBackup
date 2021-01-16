@@ -61,7 +61,7 @@ bool Socket::sendOk(){
 
 void Socket::receiveFile(std::string name,std::string &dir) {
     int bytes_received;
-    char len[4];
+    char len[10];
     /// PRIMA READ: leggo la dimensione del titolo
     bytes_received = read(len, sizeof(len), 0);
     if (bytes_received == -1) {
@@ -128,20 +128,22 @@ ssize_t Socket::read(char *buffer, size_t len, int options)  {
     return res;
 }
 
-void handler(const boost::system::error_code& error, char* buffer)
+void handler(const boost::system::error_code& error)
 {
     if (!error)
     {
-       if(buffer[0] == NULL){
+        std::cout<<"blabla"<<std::endl;
+       /*if(buffer[0] == NULL){
            throw std::runtime_error("Timeout expired without receiving anything");
        }
+        */
     }
 }
 ssize_t Socket::readAsync(char* buffer, size_t len, int options) {
     io_service io;
     // va calcolato il tempo per l'arresto!!
     deadline_timer t(io, boost::posix_time::seconds(5));
-    t.async_wait(boost::bind(handler, boost::asio::placeholders::error, buffer));
+    t.async_wait(handler);
     std::cout << "read called" << std::endl;
     ssize_t res = recv(sockfd, buffer, len, options);
     if (res < 0) {

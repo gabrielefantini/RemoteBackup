@@ -30,14 +30,16 @@ int main(int argc,char** argv) {
     //===================================================================
     // creo il socket
     {
-        ClientSocket cs{5000};
+
 
         try {
+            ClientSocket cs{5000};
             cs.notify(usr, backupDir, localMap);
             cs.WaitForSendingFile();
         }
         catch(std::runtime_error &e) {
-            std::cout << "Errore notify: " << e.what() << std::endl;
+            std::cout << "Errore: " << e.what() << std::endl;
+            connectionProblem = 1;
         }
     }
 
@@ -57,7 +59,11 @@ int main(int argc,char** argv) {
         switch (status) {
             case FileStatus::created: {
                 std::cout << path_to_watch << " created\n";
-                add(path_to_watch, localMap);
+                if(filesys::is_regular(path_to_watch) && !filesys::is_empty(path_to_watch)){ // se il file non è vuoto
+                    add(path_to_watch, localMap);
+                } if(filesys::is_directory(path_to_watch)) { // se è una directory
+                    add(path_to_watch, localMap);
+                }
                 break;
             }
             case FileStatus::modified: {
@@ -74,9 +80,9 @@ int main(int argc,char** argv) {
             case FileStatus::do_update: {
                 std::cout << "è successo qualcosa\n";
                 // mi connetto
-                ClientSocket socket{5000};
-                int operationResult;
                 try {
+                    ClientSocket socket{5000};
+                    int operationResult;
                     operationResult = socket.notify(usr, backupDir, localMap);
                     if(operationResult == -1){
                         connectionProblem = 1;
@@ -91,7 +97,8 @@ int main(int argc,char** argv) {
                     connectionProblem = 0;
                 }
                 catch(std::exception &e) {
-                    std::cout << "Errore notify: " << e.what() << std::endl;
+                    std::cout << "Errore: " << e.what() << std::endl;
+                    connectionProblem = 1;
                 }
 
                 // notifico il server della modifica
@@ -99,12 +106,13 @@ int main(int argc,char** argv) {
                 // esco dallo scope e quindi la connessione viene abbattuta
                 break;
             }
-            default: {
+            case FileStatus::default_status: {
                 if(connectionProblem){
                     // tenta di rinviare l'aggiornamento
-                    ClientSocket socket{5000};
-                    int operationResult;
+
                     try {
+                        ClientSocket socket{5000};
+                        int operationResult;
                         operationResult = socket.notify(usr, backupDir, localMap);
                         if(operationResult == -1){
                             connectionProblem = 1;
@@ -115,14 +123,14 @@ int main(int argc,char** argv) {
                             connectionProblem = 1;
                             break;
                         }
+                        connectionProblem = 0;
                     }
                     catch(std::exception &e) {
-                        std::cout << "Errore notify: " << e.what() << std::endl;
+                        std::cout << "Errore: " << e.what() << std::endl;
+                        connectionProblem = 1;
                     }
                     // arriva alla fine ed è andato tutto bene
-                    connectionProblem = 0;
                 }
-                std::cout << "Error: unknown file status.\n";
             }
         }
     });

@@ -62,8 +62,11 @@ void Filewatcher::start(const std::function<void (std::string,FileStatus)> &acti
             }
         }
 
-        if(do_update)
-            action("",FileStatus::do_update);
+        if(do_update) {
+            action("", FileStatus::do_update);
+        } else {
+            action("", FileStatus::default_status);
+        }
     }
 }
 
