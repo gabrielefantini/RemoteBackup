@@ -9,12 +9,6 @@
 #include <nlohmann/json.hpp>
 
 
-#include <boost/asio/deadline_timer.hpp>
-#include <boost/asio.hpp>
-#include <boost/bind.hpp>
-
-
-
 
 bool Socket::askFile(char* path,std::string hash,std::string &dir){
     int len = 0;
@@ -119,36 +113,17 @@ ssize_t Socket::write(const char *buffer, size_t len, int options)  {
 }
 
 ssize_t Socket::read(char *buffer, size_t len, int options)  {
-    std::cout << "read called" << std::endl;
-    ssize_t res = recv(sockfd, buffer, len, options);
-    if (res < 0) {
-        std::cout << strerror(errno) << std::endl;
-        throw std::runtime_error("Cannot receive from socket");
-    }
-    return res;
-}
+    struct timeval tv;
+    tv.tv_sec = 4; // setta il timeout massimo
+    tv.tv_usec = 0;
+    setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof tv);
 
-void handler(const boost::system::error_code& error)
-{
-    if (!error)
-    {
-        std::cout<<"blabla"<<std::endl;
-       /*if(buffer[0] == NULL){
-           throw std::runtime_error("Timeout expired without receiving anything");
-       }
-        */
-    }
-}
-ssize_t Socket::readAsync(char* buffer, size_t len, int options) {
-    io_service io;
-    // va calcolato il tempo per l'arresto!!
-    deadline_timer t(io, boost::posix_time::seconds(5));
-    t.async_wait(handler);
     std::cout << "read called" << std::endl;
     ssize_t res = recv(sockfd, buffer, len, options);
     if (res < 0) {
         std::cout << strerror(errno) << std::endl;
-        throw std::runtime_error("Cannot receive from socket");
+        //throw std::runtime_error("Cannot receive from socket");
+        return -1;
     }
     return res;
 }

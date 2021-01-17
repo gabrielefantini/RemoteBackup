@@ -140,15 +140,11 @@ int ClientSocket::notify(std::string n, std::string d, std::map<std::string,std:
     while(dir[j]!='\0') {len++;j++;}
     len++;
 
-
     std::cout << "Spediti " << bytes_written << " bytes, inviato: " << name << std::endl;
-
     /// TERZA WRITE: dimensione dir
     sprintf(len_char,"%d",len);
+
     bytes_written = write(len_char, sizeof(len_char), 0);
-    // Controllo se il valore ritornato è -1
-    // in tal caso setto la variabile di aggiornamento fallito a 1
-    // e interrompo l'aggiornamento
     if (bytes_written == -1) {
         perror("Error while sending dir dimension");
         //exit(EXIT_FAILURE);
@@ -156,9 +152,6 @@ int ClientSocket::notify(std::string n, std::string d, std::map<std::string,std:
     }
     /// QUARTA WRITE: dir
     bytes_written = write(dir, len, 0);
-    // Controllo se il valore ritornato è -1
-    // in tal caso setto la variabile di aggiornamento fallito a 1
-    // e interrompo l'aggiornamento
     if (bytes_written == -1) {
         perror("Error while sending dir");
         //exit(EXIT_FAILURE);
@@ -186,9 +179,6 @@ int ClientSocket::notify(std::string n, std::string d, std::map<std::string,std:
 
     /// PRIMA WRITE: invio la dimensione del localMap
     bytes_written = write(len_char, sizeof(len_char), 0);
-    // Controllo se il valore ritornato è -1
-    // in tal caso setto la variabile di aggiornamento fallito a 1
-    // e interrompo l'aggiornamento
     if (bytes_written == -1) {
         perror("Error while sending localMap dimension");
         //exit(EXIT_FAILURE);
@@ -199,9 +189,6 @@ int ClientSocket::notify(std::string n, std::string d, std::map<std::string,std:
     /// SECONDA WRITE: localMap
 
     bytes_written = write(char_map, len, 0);
-    // Controllo se il valore ritornato è -1
-    // in tal caso setto la variabile di aggiornamento fallito a 1
-    // e interrompo l'aggiornamento
     if (bytes_written == -1) {
         perror("Error while sending localMap");
         //exit(EXIT_FAILURE);
@@ -229,32 +216,27 @@ int ClientSocket::notify(std::string n, std::string d, std::map<std::string,std:
         return -1;
     }
     bytes_written = write(ok, len, 0);
-    // Controllo se il valore ritornato è -1
-    // in tal caso setto la variabile di aggiornamento fallito a 1
-    // e interrompo l'aggiornamento
     if (bytes_written == -1) {
         perror("Error while sending OK");
         //exit(EXIT_FAILURE);
         return -1;
     }
     char len_res[4];
-    try{
-        // setto un timer:
-        // se alla fine del timer non ricevo nulla annullo
-        // l'aggiornamento chiudendo il socket e setto la variabile
-        // di aggiornamento fallito a 1
-        int bytes_received = readAsync(len_res, sizeof(len_res), 0);
-        char res[atoi(len_res)];
-        // setto un timer:
-        // se alla fine del timer non ricevo nulla annullo
-        // l'aggiornamento chiudendo il socket e setto la variabile
-        // di aggiornamento fallito a 1
-        bytes_received = readAsync(res, sizeof(res), 0);
-        res[atoi(len_res)-1] = '\0';
-        std::cout << "Messaggio ricevuto: " << res << std::endl;
-    } catch (std::exception &e) {
+    int bytes_received = read(len_res, sizeof(len_res), 0);
+    if(bytes_received == -1) {
+        perror("Error while reading from server");
+        //exit(EXIT_FAILURE);
         return -1;
     }
+    char res[atoi(len_res)];
+    bytes_received = read(res, sizeof(res), 0);
+    if(bytes_received == -1) {
+        perror("Error while reading from server");
+        //exit(EXIT_FAILURE);
+        return -1;
+    }
+    res[atoi(len_res)-1] = '\0';
+    std::cout << "Messaggio ricevuto: " << res << std::endl;
     /// tutto ok
     return 1;
 }
@@ -268,24 +250,18 @@ int ClientSocket::WaitForSendingFile() {
         std::cout<<"waitforfile"<<std::endl;
         int bytes_received;
         char len_name[4];
-        try {
-            bytes_received = readAsync(len_name, sizeof(len_name), 0);
-        } catch  (std::exception &e) {
+        bytes_received = read(len_name, sizeof(len_name), 0);
+        if(bytes_received == -1) {
+            perror("Error while reading from server");
+            //exit(EXIT_FAILURE);
             return -1;
         }
-        /* Anzichè fare una read bloccante, dovrei fare:
-         * -read asincrona salvando il valore di ritorno
-         * -timer bloccante
-         * alla fine del timer bloccante controllo il valore ritornato
-         * dal read asincrono:
-         * se è nullo significa che ancora sta aspettando:
-         * devo terminare il thread creato e ritornare la funzione
-         * */
         std::cout <<"Dimensione nome client: " <<  atoi(len_name) << std::endl;
         char name[atoi(len_name)];
-        try {
-            bytes_received = readAsync(name, sizeof(name), 0);
-        } catch (std::exception &e) {
+        bytes_received = read(name, sizeof(name), 0);
+        if(bytes_received == -1) {
+            perror("Error while reading from server");
+            //exit(EXIT_FAILURE);
             return -1;
         }
         name[atoi(len_name)-1] = '\0';
