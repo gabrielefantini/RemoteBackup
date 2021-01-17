@@ -10,7 +10,7 @@
 
 
 
-bool Socket::askFile(char* path,std::string hash,std::string &dir){
+int Socket::askFile(char* path,std::string hash,std::string &dir){
     int len = 0;
     int j = 0;
 
@@ -55,7 +55,7 @@ bool Socket::askFile(char* path,std::string hash,std::string &dir){
         return -1;
     }
 
-    return 0;
+    return 1;
 }
 
 bool Socket::sendOk(){
@@ -89,14 +89,9 @@ int Socket::receiveFile(std::string name,std::string &dir) {
     int bytes_received;
     char len[10];
     /// PRIMA READ: leggo la dimensione del titolo
-    try {
-        bytes_received = readAsync(len, sizeof(len), 0);
-    } catch (std::exception &e) {
-        std::cout << e.what() << std::endl;
-        return -1;
-    }
+    bytes_received = read(len, sizeof(len), 0);
     if (bytes_received == -1 || bytes_received == 0) {
-        //perror("Error while reading size");
+        perror("Error while reading size");
         //exit(EXIT_FAILURE);
         return -1;
     }
@@ -112,18 +107,13 @@ int Socket::receiveFile(std::string name,std::string &dir) {
     int len_tot=atoi(len);
     ssize_t bytes_read = 0;
     ssize_t tot = 0;
-    try {
-        bytes_read = readAsync(buffer, sizeof(buffer)-1, 0);
-    } catch (std::exception &e) {
-        std::cout << e.what() << std::endl;
-        return -1;
-    }
+    bytes_read = read(buffer, sizeof(buffer)-1, 0);
     if (bytes_read == -1) return -1;
     while(bytes_read > 0 ) {
         tot+=bytes_read;
 
         if (bytes_read == -1) {
-            //perror("Error while sending name");
+            perror("Error while reading");
             //exit(EXIT_FAILURE);
             return -1;
         }
@@ -145,22 +135,23 @@ int Socket::receiveFile(std::string name,std::string &dir) {
             std::cout << "Ricevuto tutto" << std::endl;
             break;
         }
-        try {
-            bytes_read = readAsync(buffer, sizeof(buffer)-1, 0);
-        } catch (std::exception &e) {
-            std::cout << "Errore readAsync" << std::endl;
+
+        bytes_read = read(buffer, sizeof(buffer)-1, 0);
+        if (bytes_read == -1) {
+            perror("Error while reading");
+            //exit(EXIT_FAILURE);
             return -1;
         }
     }
     buffer[bytes_read] = 0;
     if(bytes_read == -1)
-        printf("%s\n", strerror(errno));
+        return -1;
     std::cout << "receive finita" << std::endl;
     /// chiudo il file
     fclose(fr);
     delete[] cstr;
 
-    return 0;
+    return 1;
 }
 
 void Socket::connect(struct sockaddr_in *addr, unsigned int len)  {

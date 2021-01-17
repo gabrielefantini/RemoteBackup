@@ -71,8 +71,6 @@ public:
     // il file descriptor del socket è privato, dall'esterno non potrei leggere e scrivere dei byte
     ssize_t read(char* buffer, size_t len, int options);
 
-    ssize_t readAsync(char* buffer, size_t len, int options);
-
     ssize_t write(const char* buffer, size_t len, int options);
 
     // sockaddr_in va bene per IP_v4
