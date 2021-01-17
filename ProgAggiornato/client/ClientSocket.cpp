@@ -19,6 +19,7 @@ int get_file_size(std::string filename) // path to file
 }
 
 int ClientSocket::sendFile(const char *name) {
+    std::cout << "send file" << std::endl;
     int len = get_file_size(name);
     char len_char[10];
     /// conversione int -> char per la write

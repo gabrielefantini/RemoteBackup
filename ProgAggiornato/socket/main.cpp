@@ -18,7 +18,7 @@ int main() {
     }
     //debug
     printUserMap(user_map);
-    
+    int flag = 0;
     while(true) {
         struct sockaddr_in addr;
         unsigned int len = sizeof(addr);
@@ -84,31 +84,51 @@ int main() {
             std::cout<<"\n\n";
             std::set<std::string> files;
             files=checkForFile(clientMap,localMap);
-            for (std::set<std::string>::iterator it=files.begin(); it!=files.end(); ++it) {
+            for (std::set<std::string>::iterator it=files.begin(); it!=files.end(); /*++it*/) {
                 std::string file=*it;
                 std::cout<<"chiedo: "<<file<<std::endl;
                 std::string hash=clientMap.find(file)->second;
                 char *cstr = new char[file.length() + 1];
                 strcpy(cstr, file.c_str());
-                s.askFile(cstr,hash,tmp_dir_name);
+                int risultato = s.askFile(cstr,hash,tmp_dir_name);
                 delete [] cstr;
+                if (risultato == -1) {
+                    //perror("Error while sending name");
+                    //exit(EXIT_FAILURE);
+                    if (flag == 0) {
+                        std::cout << "A problem to receive the file has been detected" << std::endl;
+                        std::cout << "Try to ask again the file, maybe it was a temporary error..." << std::endl;
+                        //it = it--;
+                        flag = 1;
+                    }
+                    else {
+                        std::cout << "File asked two times. Probably it wasn't a temporary error, I close the communication" << std::endl;
+                        flag = 2;
+                        break;
+                    }
+                }
+                else flag = 0;
+                if (flag == 0) it++;
             }
-            s.sendOk();
+            if (flag != 2) {
+                s.sendOk();
 
-            //aggiorno la cartella di backup
-            updateBackupFolder(clientMap,localMap,tmp_dir_name,backup_dir_name,cur_dir);
-            //aggiorno il file map
-            //debug
-            std::cout<<"nuova SERVER MAP:\n";
-            localMap=clientMap;
-            for (auto& x: localMap)
-                std::cout<<x.first<<" : "<<x.second<<std::endl;
-            std::cout<<"\n\n";
-            //
-            int update_res=saveLocalMap(localMapPath,localMap);
-            if(update_res==0)
-                std::cout<<localMapPath<<" aggiornato correttamente.\n";
+                //aggiorno la cartella di backup
+                updateBackupFolder(clientMap, localMap, tmp_dir_name, backup_dir_name, cur_dir);
+                //aggiorno il file map
+                //debug
+                std::cout << "nuova SERVER MAP:\n";
+                localMap = clientMap;
+                for (auto &x: localMap)
+                    std::cout << x.first << " : " << x.second << std::endl;
+                std::cout << "\n\n";
+                //
+                int update_res = saveLocalMap(localMapPath, localMap);
+                if (update_res == 0)
+                    std::cout << localMapPath << " aggiornato correttamente.\n";
+            }
             flushTmp(tmp_dir_name);
+
         }
         else
             std::cout<<"Communication failed!\n";

@@ -24,15 +24,38 @@ bool Socket::askFile(char* path,std::string hash,std::string &dir){
 
     // PRIMA WRITE: dimensione
     int bytes_written;
-    bytes_written = write(len_char, sizeof(len_char), 0);
+    try {
+        bytes_written = write(len_char, sizeof(len_char), 0);
+    } catch (std::exception &e) {
+        return -1;
+    }
+
+    if (bytes_written == -1) {
+        //perror("Error while sending dimension");
+        //exit(EXIT_FAILURE);
+        return -1;
+    }
 
     // SECONDA WRITE: nome
     bytes_written = write(path, len, 0);
+
+    if (bytes_written == -1) {
+        //perror("Error while sending name");
+        //exit(EXIT_FAILURE);
+        return -1;
+    }
+
     std::cout << "Spedito: " << path << " bytes ("<<bytes_written<<" B)"<< std::endl;
 
-    receiveFile(hash,dir);
+    int risultato = receiveFile(hash,dir);
 
-    return true;
+    if (risultato == -1) {
+        //perror("Error while receiving file");
+        //exit(EXIT_FAILURE);
+        return -1;
+    }
+
+    return 0;
 }
 
 bool Socket::sendOk(){
@@ -47,20 +70,35 @@ bool Socket::sendOk(){
     sprintf(len_char,"%d",len);
 
     bytes_written = write(len_char, sizeof(len_char), 0);
-    /// controllo fatto da write
+    if (bytes_written == -1) {
+        //perror("Error while sending dimension");
+        //exit(EXIT_FAILURE);
+        return -1;
+    }
     bytes_written = write(ok, len, 0);
+    if (bytes_written == -1) {
+        //perror("Error while sending dimension");
+        //exit(EXIT_FAILURE);
+        return -1;
+    }
     std::cout<<"sent ok to client.\n";
     return true;
 }
 
-void Socket::receiveFile(std::string name,std::string &dir) {
+int Socket::receiveFile(std::string name,std::string &dir) {
     int bytes_received;
     char len[10];
     /// PRIMA READ: leggo la dimensione del titolo
-    bytes_received = read(len, sizeof(len), 0);
-    if (bytes_received == -1) {
-        perror("Error while reading size");
-        exit(EXIT_FAILURE);
+    try {
+        bytes_received = readAsync(len, sizeof(len), 0);
+    } catch (std::exception &e) {
+        std::cout << e.what() << std::endl;
+        return -1;
+    }
+    if (bytes_received == -1 || bytes_received == 0) {
+        //perror("Error while reading size");
+        //exit(EXIT_FAILURE);
+        return -1;
     }
     std::cout << "received len: " << atoi(len) << std::endl;
 
@@ -74,8 +112,22 @@ void Socket::receiveFile(std::string name,std::string &dir) {
     int len_tot=atoi(len);
     ssize_t bytes_read = 0;
     ssize_t tot = 0;
-    while((bytes_read = read(buffer, sizeof(buffer)-1, 0)) > 0 ) {
+    try {
+        bytes_read = readAsync(buffer, sizeof(buffer)-1, 0);
+    } catch (std::exception &e) {
+        std::cout << e.what() << std::endl;
+        return -1;
+    }
+    if (bytes_read == -1) return -1;
+    while(bytes_read > 0 ) {
         tot+=bytes_read;
+
+        if (bytes_read == -1) {
+            //perror("Error while sending name");
+            //exit(EXIT_FAILURE);
+            return -1;
+        }
+
         std::cout << "Dentro al while" << std::endl;
         std::cout << buffer << std::endl;
         printf("%d / %d bytes read\n", tot,len_tot);
@@ -89,8 +141,16 @@ void Socket::receiveFile(std::string name,std::string &dir) {
             exit(EXIT_FAILURE);
         }
         std::cout << "Written: " << written << " bytes" << std::endl;
-        if(tot == len_tot)
+        if(tot == len_tot){
+            std::cout << "Ricevuto tutto" << std::endl;
             break;
+        }
+        try {
+            bytes_read = readAsync(buffer, sizeof(buffer)-1, 0);
+        } catch (std::exception &e) {
+            std::cout << "Errore readAsync" << std::endl;
+            return -1;
+        }
     }
     buffer[bytes_read] = 0;
     if(bytes_read == -1)
@@ -99,6 +159,8 @@ void Socket::receiveFile(std::string name,std::string &dir) {
     /// chiudo il file
     fclose(fr);
     delete[] cstr;
+
+    return 0;
 }
 
 void Socket::connect(struct sockaddr_in *addr, unsigned int len)  {
@@ -107,8 +169,9 @@ void Socket::connect(struct sockaddr_in *addr, unsigned int len)  {
 }
 
 ssize_t Socket::write(const char *buffer, size_t len, int options)  {
-    ssize_t res = send(sockfd, buffer, len, options);
-    if (res < 0) throw std::runtime_error("Cannot write to socket");
+    ssize_t res = send(sockfd, buffer, len, MSG_NOSIGNAL);
+    if (res < 0) //throw std::runtime_error("Cannot write to socket");
+        return -1;
     return res;
 }
 
@@ -127,6 +190,7 @@ ssize_t Socket::read(char *buffer, size_t len, int options)  {
     }
     return res;
 }
+
 
 /*
 bool Socket::vrfy() {
@@ -311,6 +375,16 @@ int Socket::ResToNotify() {
 
     // a questo punto il server sa che il client è riuscito a inviare tutto correttamente e invia il suo ok
     int bytes_written = write(len, sizeof(len), 0);
+    if (bytes_written == -1) {
+        //perror("Error while sending dimension");
+        //exit(EXIT_FAILURE);
+        return -1;
+    }
     bytes_written = write(ok, sizeof(ok), 0);
+    if (bytes_written == -1) {
+        //perror("Error while sending dimension");
+        //exit(EXIT_FAILURE);
+        return -1;
+    }
     return 0;
 }
