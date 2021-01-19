@@ -347,6 +347,7 @@ int Socket::ResToNotify() {
 
     // 2. converto in stringa e poi in map
     std::string s = std::string(char_map, len);
+    std::cout<<s<<std::endl;
     nlohmann::json json_map = json::parse(s);
     std::cout << "Parse effettuato" << std::endl;
     std::map<std::string, std::string> localMap = std::map<std::string, std::string>();

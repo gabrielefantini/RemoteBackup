@@ -291,9 +291,9 @@ int setupLocalMap(std::string &mapPath,std::map<std::string,std::string> &m){
             dir=line.substr(0,pos);
             hash=line.substr(pos+1);
             if (hash != "directory")
-                m.insert(std::pair<std::string, std::string>(path, hash));
+                m.insert(std::pair<std::string, std::string>(dir, hash));
             else
-                m.insert(std::pair<std::string, std::string>(path, ""));
+                m.insert(std::pair<std::string, std::string>(dir, ""));
         }
         ifs.close();
         return 1;   //file trovato, map caricata

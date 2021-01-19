@@ -3,7 +3,7 @@
 //
 
 #include "hashManager.h"
-
+#include <bitset>
 
 int add(std::string path, std::map<std::string,std::string> &localStructure){
 
@@ -61,7 +61,18 @@ int add(std::string path, std::map<std::string,std::string> &localStructure){
                 SHA1_Final(final, &sc);
                 std::string digest( final, final + sizeof final / sizeof final[0] );
                 //inserisce il path con il relativo digest nella map
-                localStructure[path] = digest;
+                std::bitset<160> b;
+                for (int i = 0; i < digest.length(); ++i) {
+                    char c = digest[i];
+                    for (int j = 7; j >= 0 && c; --j) {
+                        if (c & 0x1) {
+                            b.set(8 * i + j);
+                        }
+                        c >>= 1;
+                    }
+                }
+                //std::cout<<b.to_string()<<std::endl;
+                localStructure[path] = b.to_string();
                 return 0;
             }
         }
