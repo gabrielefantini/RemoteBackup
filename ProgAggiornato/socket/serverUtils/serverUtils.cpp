@@ -179,15 +179,19 @@ std::set<std::string> checkForFile(std::map<std::string,std::string> &client_map
 }
 
 std::string getServerPath(std::string clientPath, std::string clientDir,std::string backupDir){
+    /*
     std::cout<<"\nGET SERVER PATH {entro}\n";
     std::cout<<"client path: "<<clientPath<<"\n";
     std::cout<<"client dir: "<<clientDir<<"\n";
     std::cout<<"backup dir: "<<backupDir<<"\n";
+    */
     std::string serverPath;
     int pos=clientDir.length();
     serverPath=std::string(backupDir+clientPath.substr(pos));
+    /*
     std::cout<<"==> "<<serverPath<<"\n";
     std::cout<<"GET SERVER PATH {esco}\n\n";
+    */
     return serverPath;
 }
 
@@ -264,8 +268,11 @@ void updateBackupFolder(std::map<std::string,std::string> &client_map,std::map<s
                     std::cout<<"dir "<<oldpath<<" da eliminare.\n";
                 else
                     std::cout<<"file "<<oldpath<<" da eliminare.\n";
-                //rimozione file
-                fs::remove(oldpath);
+                //rimozione file/directory
+                if(fs::exists(oldpath) && fs::is_directory(oldpath))
+                    fs::remove_all(oldpath);
+                else if(fs::exists(oldpath) && fs::is_regular(oldpath))
+                    fs::remove(oldpath);
             }
 
         }
