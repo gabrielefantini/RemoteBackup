@@ -279,20 +279,23 @@ std::string getMapPath(std::string &backupPath){
 
 int setupLocalMap(std::string &mapPath,std::map<std::string,std::string> &m){
     if(fs::exists(mapPath) && fs::is_regular(mapPath)){
-        FILE *fp;
-        char path[MAXLEN+1],hash[MAXLEN+1];
-        fp=fopen(mapPath.c_str(),"r+");
-        if(fp==nullptr){
+        int pos;
+        std::string line,dir,hash;
+        std::ifstream ifs (mapPath, std::ifstream::in); //controlla che non sia necessario mettere mapPath.c_str()
+        if(!ifs.good()){
             std::cout<<"error opening file "<<mapPath<<"\n";
             return -1;
         }
-        while(fscanf(fp,"%s %s",path,hash)!=EOF) {
+        while(std::getline(ifs,line)) {
+            pos=line.find(":");
+            dir=line.substr(0,pos);
+            hash=line.substr(pos+1);
             if (hash != "directory")
                 m.insert(std::pair<std::string, std::string>(path, hash));
             else
                 m.insert(std::pair<std::string, std::string>(path, ""));
         }
-    fclose(fp);
+        ifs.close();
         return 1;   //file trovato, map caricata
     }
     return 0;   //file non esistente, map rimane vuota
@@ -312,9 +315,9 @@ int saveLocalMap(std::string &mapPath,std::map<std::string,std::string> &m){
     }
     for (auto& x: m)
         if(x.second!="")
-            fprintf(fp,"%s %s\n",x.first.c_str(),x.second.c_str());
+            fprintf(fp,"%s:%s\n",x.first.c_str(),x.second.c_str());
         else
-            fprintf(fp,"%s directory\n",x.first.c_str());
+            fprintf(fp,"%s:directory\n",x.first.c_str());
 
     fclose(fp);
     return 0;

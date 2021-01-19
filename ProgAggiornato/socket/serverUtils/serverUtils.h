@@ -7,6 +7,7 @@
 #include <boost/filesystem.hpp>
 #include <map>
 #include <set>
+#include <fstream>
 #include "../hashManager/hashManager.h"
 
 #ifndef SOCKET_SERVERUTILS_H
