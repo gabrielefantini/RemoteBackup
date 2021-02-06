@@ -89,12 +89,9 @@
       <change beforePath="$PROJECT_DIR$/ClientSocket.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/ClientSocket.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../socket/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../socket/Socket.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/Socket.cpp" afterDir="false" />
-<<<<<<< HEAD
-=======
       <change beforePath="$PROJECT_DIR$/../socket/Socket.h" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/Socket.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../socket/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../socket/serverUtils/folders.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../socket/serverUtils/folders.txt" afterDir="false" />
->>>>>>> master
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -605,13 +602,7 @@
       <workItem from="1610624022750" duration="22000" />
       <workItem from="1610788306674" duration="1446000" />
       <workItem from="1610792113091" duration="5204000" />
-<<<<<<< HEAD
-      <workItem from="1610896303997" duration="1522000" />
-      <workItem from="1610898063591" duration="1585000" />
-      <workItem from="1610899677148" duration="597000" />
-=======
       <workItem from="1610807790347" duration="9108000" />
->>>>>>> master
     </task>
     <servers />
   </component>

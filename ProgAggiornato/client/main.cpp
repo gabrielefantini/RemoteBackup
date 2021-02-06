@@ -4,9 +4,12 @@
 #include "hashManager/hashManager.h"
 #include "fileWatcher/FileWatcher.h"
 
+
 int main(int argc,char** argv) {
+
     // static variable for connection problems
     static int connectionProblem = 0;
+    std::string password;
     // argomenti attesi: usr path
     if(argc!=3){
         std::cout<<"ERRORE: numero argomenti errato (specifica 'usr' e 'path')"<<std::endl;
@@ -33,8 +36,14 @@ int main(int argc,char** argv) {
 
 
         try {
+            std::cout << "Inserisci la password" << std::endl;
+            std::cin >> password;
             ClientSocket cs{5000};
-            cs.notify(usr, backupDir, localMap);
+            int r = cs.notify(usr, backupDir, password, localMap);
+            if (r == -1) {
+                std::cout << "Non è stato possibile comunicare col server" << std::endl;
+                return 0;
+            }
             cs.WaitForSendingFile();
         }
         catch(std::runtime_error &e) {
@@ -54,8 +63,7 @@ int main(int argc,char** argv) {
 
     Filewatcher fw{ backupDir,std::chrono::milliseconds(5000) };
 
-    fw.start([&localMap, backupDir, usr] (std::string path_to_watch,FileStatus status) -> void {
-
+    fw.start([&localMap, backupDir, password, usr] (std::string path_to_watch,FileStatus status) -> void {
         switch (status) {
             case FileStatus::created: {
                 std::cout << path_to_watch << " created\n";
@@ -83,7 +91,7 @@ int main(int argc,char** argv) {
                 try {
                     ClientSocket socket{5000};
                     int operationResult;
-                    operationResult = socket.notify(usr, backupDir, localMap);
+                    operationResult = socket.notify(usr, backupDir, password,localMap);
                     if(operationResult == -1){
                         connectionProblem = 1;
                         break;
@@ -113,7 +121,7 @@ int main(int argc,char** argv) {
                     try {
                         ClientSocket socket{5000};
                         int operationResult;
-                        operationResult = socket.notify(usr, backupDir, localMap);
+                        operationResult = socket.notify(usr, backupDir, password, localMap);
                         if(operationResult == -1){
                             connectionProblem = 1;
                             break;

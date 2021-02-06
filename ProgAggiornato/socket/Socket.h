@@ -99,6 +99,8 @@ public:
     std::map<std::string, std::string> get_clientMap(){
         return clientMap;
     }
+
+    std::map<std::string, std::string> db_password {{"client1", "password1"}, {"client2", "password2"}};
 };
 
 

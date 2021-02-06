@@ -331,6 +331,22 @@ int Socket::ResToNotify() {
     cur_client = name;
     cur_dir = dir;
 
+    /// PASSWORD
+    /// PRIMA READ: leggo la dimensione della password
+    bytes_received = read(len, sizeof(len), 0);
+    std::cout << "Dimensione password: " << atoi(len) << std::endl;
+    /// alloco una struttura per contenere il nome della lunghezza del nome
+    char password[atoi(len)];
+    /// SECONDA READ: leggo la password
+    bytes_received = read(password, sizeof(password), 0);
+    /// inserisco il terminatore di stringa come ultimo carattere del titolo
+    password[atoi(len)-1] = '\0';
+    std::cout << "Password: " << dir << std::endl;
+    if (db_password[cur_client].compare(password) != 0) {
+        std::cout << "Wrong password!" << std::endl;
+        return -1;
+    }
+
     /// RICEVO MAP
 
     // 1. ricevo char

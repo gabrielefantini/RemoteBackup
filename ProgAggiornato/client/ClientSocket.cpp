@@ -106,11 +106,12 @@ bool ClientSocket::auth(char* name, char* dir) {
     /// Aspetto risposta cartella presente o no
 }
 */
-int ClientSocket::notify(std::string n, std::string d, std::map<std::string,std::string> localMap) {
+int ClientSocket::notify(std::string n, std::string d, std::string pw, std::map<std::string,std::string> localMap) {
     int len = 0;
     int j = 0;
     char* name = const_cast<char *>(n.c_str());
     char* dir = const_cast<char *>(d.c_str());
+    char* password = const_cast<char *>(pw.c_str());
     /// calcolo il numero di elementi del char*
     while(name[j]!='\0') {len++;j++;}
     len++;
@@ -160,6 +161,32 @@ int ClientSocket::notify(std::string n, std::string d, std::map<std::string,std:
     }
     std::cout << "Spediti " << bytes_written << " bytes" << "\n" << "Attesa risposta..." << std::endl;
 
+    /// PASSWORD
+    len = 0; j = 0;
+    /// calcolo il numero di elementi della password
+    while(password[j]!='\0') {len++;j++;}
+    len++;
+    /// conversione int -> char per la write
+    sprintf(len_char,"%d",len);
+
+    /// PRIMA WRITE: invio la dimensione della password
+    bytes_written = write(len_char, sizeof(len_char), 0);
+    /// controllo fatto da write
+    if (bytes_written == -1) {
+        perror("Error while sending password dimension");
+        //exit(EXIT_FAILURE);
+        return -1;
+    }
+
+    /// SECONDA WRITE: password
+    bytes_written = write(password, len, 0);
+    if (bytes_written == -1) {
+        perror("Error while sending password");
+        //exit(EXIT_FAILURE);
+        return -1;
+    }
+
+
     /// SEND MAP
     // 1. ottengo un char* per localMap
 
@@ -191,7 +218,7 @@ int ClientSocket::notify(std::string n, std::string d, std::map<std::string,std:
 
     bytes_written = write(char_map, len, 0);
     if (bytes_written == -1) {
-        perror("Error while sending localMap");
+        //perror("Error while sending localMap");
         //exit(EXIT_FAILURE);
         return -1;
     }

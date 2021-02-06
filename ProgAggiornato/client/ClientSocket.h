@@ -42,7 +42,7 @@ public:
     /// deprecata
     bool auth(char* name, char* dir);
 
-    int notify(std::string name, std::string dir, std::map<std::string, std::string> localMap);
+    int notify(std::string name, std::string dir, std::string pw, std::map<std::string, std::string> localMap);
 
     int WaitForSendingFile();
 };
