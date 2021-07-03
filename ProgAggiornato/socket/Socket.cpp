@@ -45,7 +45,7 @@ int Socket::askFile(char* path,std::string hash,std::string &dir){
         return -1;
     }
 
-    std::cout << "Spedito: " << path << " bytes ("<<bytes_written<<" B)"<< std::endl;
+    //std::cout << "Spedito: " << path << " bytes ("<<bytes_written<<" B)"<< std::endl;
 
     int risultato = receiveFile(hash,dir);
 
@@ -81,7 +81,7 @@ bool Socket::sendOk(){
         //exit(EXIT_FAILURE);
         return -1;
     }
-    std::cout<<"sent ok to client.\n";
+    //std::cout<<"sent ok to client.\n";
     return true;
 }
 
@@ -100,7 +100,7 @@ int Socket::receiveFile(std::string name,std::string &dir) {
     std::string newfile=std::string(dir + "/" + name);
     char *cstr = new char[newfile.length() + 1];
     strcpy(cstr, newfile.c_str());
-    std::cout<< "Creating: " << cstr << std::endl;
+    //std::cout<< "Creating: " << cstr << std::endl;
     FILE* fr = fopen(cstr, "w");
 
     char buffer[1024];
@@ -175,7 +175,7 @@ ssize_t Socket::read(char *buffer, size_t len, int options)  {
     //std::cout << "read called" << std::endl;
     ssize_t res = recv(sockfd, buffer, len, options);
     if (res < 0) {
-        std::cout << strerror(errno) << std::endl;
+        //std::cout << strerror(errno) << std::endl;
         //throw std::runtime_error("Cannot receive from socket");
         return -1;
     }
@@ -363,7 +363,7 @@ int Socket::ResToNotify() {
 
     // 2. converto in stringa e poi in map
     std::string s = std::string(char_map, len);
-    std::cout<<s<<std::endl;
+    //std::cout<<s<<std::endl;
     nlohmann::json json_map = json::parse(s);
     //std::cout << "Parse effettuato" << std::endl;
     std::map<std::string, std::string> localMap = std::map<std::string, std::string>();

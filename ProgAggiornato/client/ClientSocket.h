@@ -19,7 +19,7 @@ public:
         std::cout << "Creazione client socket" << std::endl;
         struct sockaddr_in sockaddrIn;
         sockaddrIn.sin_family = AF_INET;
-        std::cout << "dopo af" << std::endl;
+        //std::cout << "dopo af" << std::endl;
         sockaddrIn.sin_addr.s_addr = inet_addr("127.0.0.1");
         sockaddrIn.sin_port = htons(port);
         // specifico il server con cui voglio comunicare

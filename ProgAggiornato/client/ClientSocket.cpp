@@ -68,6 +68,7 @@ int ClientSocket::notify(std::string n, std::string d, std::string pw, std::map<
     int j = 0;
     char* name = const_cast<char *>(n.c_str());
     char* dir = const_cast<char *>(d.c_str());
+
     char* password = const_cast<char *>(pw.c_str());
     /// calcolo il numero di elementi del char*
     while(name[j]!='\0') {len++;j++;}

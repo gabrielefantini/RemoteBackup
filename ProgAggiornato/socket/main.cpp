@@ -84,7 +84,8 @@ int main() {
             std::cout<<"\n\n";
             std::set<std::string> files;
             files=checkForFile(clientMap,localMap);
-            std::cout << "Trovati file mancanti o modificati" << std::endl;
+            if(!files.empty())
+                std::cout << "Trovati file mancanti o modificati" << std::endl;
             for (std::set<std::string>::iterator it=files.begin(); it!=files.end(); /*++it*/) {
                 std::string file=*it;
                 std::cout<<"Chiedo: "<<file<<std::endl;
@@ -119,7 +120,9 @@ int main() {
                 //aggiorno il file map
                 //debug
                 /*std::cout << "nuova SERVER MAP:\n";
+                */
                 localMap = clientMap;
+                /*
                 for (auto &x: localMap)
                     std::cout << x.first << " : " << x.second << std::endl;
                 std::cout << "\n\n";
