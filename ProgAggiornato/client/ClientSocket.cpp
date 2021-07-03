@@ -19,12 +19,12 @@ int get_file_size(std::string filename) // path to file
 }
 
 int ClientSocket::sendFile(const char *name) {
-    std::cout << "send file" << std::endl;
+    //std::cout << "send file" << std::endl;
     int len = get_file_size(name);
     char len_char[10];
     /// conversione int -> char per la write
     sprintf(len_char,"%d",len);
-    std::cout << "len_char: " << len_char << std::endl;
+    //std::cout << "len_char: " << len_char << std::endl;
     /// PRIMA WRITE: invio la dimensione del titolo
     int bytes_written = write(len_char, sizeof(len_char), 0);
     if (bytes_written == -1) {
@@ -62,50 +62,7 @@ int ClientSocket::sendFile(const char *name) {
 
     return bytes_written;
 }
-/*
-int ClientSocket::sendHash(char *buffer) {
-    /// per ora options = 0, da definire
-    int bytes_written = write(buffer, sizeof(buffer), 0);
-    return bytes_written;
-}
 
-bool ClientSocket::auth(char* name, char* dir) {
-    int len = 0;
-    int j = 0;
-
-    /// calcolo il numero di elementi del char*
-    while(name[j]!='\0') {len++;j++;}
-    len++;
-
-    char len_char[4];
-    /// conversione int -> char per la write
-    sprintf(len_char,"%d",len);
-
-    /// PRIMA WRITE: invio la dimensione del nome
-    int bytes_written;
-    bytes_written = write(len_char, sizeof(len_char), 0);
-    /// controllo fatto da write
-
-    /// SECONDA WRITE: nome
-
-    bytes_written = write(name, len, 0);
-    len = 0; j = 0;
-    while(dir[j]!='\0') {len++;j++;}
-    len++;
-
-
-    std::cout << "Spediti " << bytes_written << " bytes, inviato: " << name << std::endl;
-
-    /// TERZA WRITE: dimensione dir
-    sprintf(len_char,"%d",len);
-    bytes_written = write(len_char, sizeof(len_char), 0);
-    /// QUARTA WRITE: dir
-    bytes_written = write(dir, len, 0);
-    std::cout << "Spediti " << bytes_written << " bytes" << "\n" << "Attesa risposta..." << std::endl;
-
-    /// Aspetto risposta cartella presente o no
-}
-*/
 int ClientSocket::notify(std::string n, std::string d, std::string pw, std::map<std::string,std::string> localMap) {
     int len = 0;
     int j = 0;
@@ -192,10 +149,10 @@ int ClientSocket::notify(std::string n, std::string d, std::string pw, std::map<
 
     json json_map = json();
     to_json(json_map,localMap);
-    std::cout << "Json created" << std::endl;
+    //std::cout << "Json created" << std::endl;
 
     std::string string_map = json_map.dump(-1, ' ', false, json::error_handler_t::replace);
-    std::cout << "String created" << std::endl;
+    //std::cout << "String created" << std::endl;
     char* char_map = const_cast<char *>(string_map.c_str());
 
     len = 0; j = 0;
@@ -222,9 +179,9 @@ int ClientSocket::notify(std::string n, std::string d, std::string pw, std::map<
         //exit(EXIT_FAILURE);
         return -1;
     }
-    std::cout << "--- Mappa inviata ---" << std::endl;
+    /*std::cout << "--- Mappa inviata ---" << std::endl;
     for (auto x : localMap)
-        std::cout << x.first << ", " << x.second << std::endl;
+        std::cout << x.first << ", " << x.second << std::endl;*/
 
 
     std::string msg = "ok";
@@ -275,7 +232,7 @@ int ClientSocket::WaitForSendingFile() {
         // se alla fine del timer non ricevo nulla annullo
         // l'aggiornamento chiudendo il socket e setto la variabile
         // di aggiornamento fallito a 1
-        std::cout<<"waitforfile"<<std::endl;
+        //std::cout<<"waitforfile"<<std::endl;
         int bytes_received;
         char len_name[4];
         bytes_received = read(len_name, sizeof(len_name), 0);
@@ -284,7 +241,7 @@ int ClientSocket::WaitForSendingFile() {
             //exit(EXIT_FAILURE);
             return -1;
         }
-        std::cout <<"Dimensione nome client: " <<  atoi(len_name) << std::endl;
+        //std::cout <<"Dimensione nome client: " <<  atoi(len_name) << std::endl;
         char name[atoi(len_name)];
         bytes_received = read(name, sizeof(name), 0);
         if(bytes_received == -1) {

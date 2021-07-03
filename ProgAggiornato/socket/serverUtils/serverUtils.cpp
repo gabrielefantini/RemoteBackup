@@ -19,7 +19,7 @@ int setupUsers(std::map<std::pair<std::string,std::string>,int> &m){
     int num;
     fp=fopen(USERS_FILE,"r+");
     if(fp==nullptr){
-        std::cout<<"error opening file "<<USERS_FILE<<"\n";
+        std::cout<<"Error opening file "<<USERS_FILE<<"\n";
         return -1;
     }
     while(fscanf(fp,"%s %s %d",usr,path,&num)!=EOF){
@@ -82,7 +82,7 @@ int addUser(std::map<std::pair<std::string,std::string>,int> &m,std::string &usr
     FILE *fp;
     fp=fopen(USERS_FILE,"a+");
     if(fp==nullptr){
-        std::cout<<"error opening file "<<USERS_FILE<<"\n";
+        std::cout<<"Error opening file "<<USERS_FILE<<"\n";
         return -1;
     }
     fprintf(fp,"%s %s %d\n",usr.c_str(),path.c_str(),index);
@@ -107,19 +107,19 @@ std::pair<std::string,int> getBackupDir(std::map<std::pair<std::string,std::stri
         //coppia user-folder non esiste -> la creo
         folder_num=addUser(user_map,usr,path);
         if(folder_num==-1){
-            std::cout<<"error during users update.\n";
+            std::cout<<"Error during users update.\n";
             return std::make_pair(std::string(""),-1);
         }
-        std::cout<<"added user-folder, index: "<<folder_num<<std::endl;
+        std::cout<<"Added user-folder, index: "<<folder_num<<std::endl;
     }else{
         folder_num=search->second;
-        std::cout<<"found user-folder, index: "<<folder_num<<std::endl;
+        std::cout<<"Found user-folder, index: "<<folder_num<<std::endl;
     }
     //the backup folder should be: backup/{client}/{value}/{filename}
     std::string filename=fs::path(path).filename().string();
     std::stringstream backup_folder;
 
-    std::cout << "dir watched: "+filename << std::endl;
+    std::cout << "Dir watched: "+filename << std::endl;
     fs::path backupPath=fs::canonical(fs::path(BACKUP));
     backup_folder<<backupPath.string()<<"/"<<usr<<"/"<<folder_num<<"/"<<filename;
     return std::make_pair(backup_folder.str(),folder_num);
@@ -159,14 +159,14 @@ std::set<std::string> checkForFile(std::map<std::string,std::string> &client_map
                     }
                 if(!fnd){
                     //CASO FILE MANCANTE: path diverso(anche parent_path)
-                    std::cout << "file " << path << " MANCANTE.\n";
+                    std::cout << "File " << path << " MANCANTE.\n";
                     fset.insert(path);
                 }
                 cnt++;
             }else{
                 if(it->second!=x.second){
                     //CASO DI FILE MODIFICATO: stesso path, diverso digest
-                    std::cout << "file " << path << " MODIFICATO.\n";
+                    std::cout << "File " << path << " MODIFICATO.\n";
                     fset.insert(path);
                     cnt++;
                 }
@@ -174,7 +174,7 @@ std::set<std::string> checkForFile(std::map<std::string,std::string> &client_map
         }
     }
     if(cnt==0)
-        std::cout<<"nessuna modifica richiesta.\n";
+        std::cout<<"Nessuna modifica richiesta.\n";
     return fset;
 }
 
@@ -196,7 +196,7 @@ std::string getServerPath(std::string clientPath, std::string clientDir,std::str
 }
 
 void updateBackupFolder(std::map<std::string,std::string> &client_map,std::map<std::string,std::string> &server_map,std::string &tmp,std::string &backup,std::string client_dir){
-    std::cout<<"UPDATE BACKUP FOLDER\n";
+    //std::cout<<"UPDATE BACKUP FOLDER\n";
     for(auto& x: client_map){
             std::string path=x.first;
             if(x.second=="") {
@@ -205,7 +205,7 @@ void updateBackupFolder(std::map<std::string,std::string> &client_map,std::map<s
                     //creazione dir
                     std::string newpath=getServerPath(path,client_dir,backup);
                     std::cout<<"DIRECTORY MANCANTE!\n";
-                    std::cout<<"dir "<<newpath<<" mancante -> creazione directory.\n";
+                    std::cout<<"Dir "<<newpath<<" mancante -> creazione directory.\n";
                     fs::create_directory(newpath);
                 }
             }
@@ -265,9 +265,9 @@ void updateBackupFolder(std::map<std::string,std::string> &client_map,std::map<s
                 std::string oldpath=getServerPath(x.first,client_dir,backup);
                 std::cout<<"FILE/DIRECTORY SUPERFLUI!\n";
                 if(x.second=="")
-                    std::cout<<"dir "<<oldpath<<" da eliminare.\n";
+                    std::cout<<"Dir "<<oldpath<<" da eliminare.\n";
                 else
-                    std::cout<<"file "<<oldpath<<" da eliminare.\n";
+                    std::cout<<"File "<<oldpath<<" da eliminare.\n";
                 //rimozione file/directory
                 if(fs::exists(oldpath) && fs::is_directory(oldpath))
                     fs::remove_all(oldpath);
@@ -279,7 +279,7 @@ void updateBackupFolder(std::map<std::string,std::string> &client_map,std::map<s
 }
 
 std::string getMapPath(std::string &backupPath){
-    std::cout<<"GET MAP PATH\n";
+    //std::cout<<"GET MAP PATH\n";
     std::string parent_path=fs::path(backupPath).parent_path().string();
     return std::string(parent_path+"/localMap.txt");
 }
@@ -290,7 +290,7 @@ int setupLocalMap(std::string &mapPath,std::map<std::string,std::string> &m){
         std::string line,dir,hash;
         std::ifstream ifs (mapPath, std::ifstream::in); //controlla che non sia necessario mettere mapPath.c_str()
         if(!ifs.good()){
-            std::cout<<"error opening file "<<mapPath<<"\n";
+            std::cout<<"Error opening file "<<mapPath<<"\n";
             return -1;
         }
         while(std::getline(ifs,line)) {
@@ -309,7 +309,7 @@ int setupLocalMap(std::string &mapPath,std::map<std::string,std::string> &m){
 }
 
 int saveLocalMap(std::string &mapPath,std::map<std::string,std::string> &m){
-    std::cout<<"SAVE LOCAL MAP\n";
+    //std::cout<<"SAVE LOCAL MAP\n";
     //rimozione vecchio file
     if(fs::exists(mapPath) && fs::is_regular(mapPath))
         fs::remove(mapPath);
@@ -317,7 +317,7 @@ int saveLocalMap(std::string &mapPath,std::map<std::string,std::string> &m){
     FILE *fp;
     fp=fopen(mapPath.c_str(),"w+");
     if(fp==nullptr){
-        std::cout<<"error opening file "<<mapPath<<"\n";
+        std::cout<<"Error opening file "<<mapPath<<"\n";
         return -1;
     }
     for (auto& x: m)

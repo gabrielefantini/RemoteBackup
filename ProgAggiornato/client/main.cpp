@@ -36,7 +36,7 @@ int main(int argc,char** argv) {
 
 
         try {
-            std::cout << "Inserisci la password" << std::endl;
+            std::cout << "Inserisci la password: ";
             std::cin >> password;
             ClientSocket cs{5000};
             int r = cs.notify(usr, backupDir, password, localMap);
@@ -66,7 +66,7 @@ int main(int argc,char** argv) {
     fw.start([&localMap, backupDir, password, usr] (std::string path_to_watch,FileStatus status) -> void {
         switch (status) {
             case FileStatus::created: {
-                std::cout << path_to_watch << " created\n";
+                std::cout << path_to_watch << " creato\n";
                 if(filesys::is_regular(path_to_watch) && !filesys::is_empty(path_to_watch)){ // se il file non è vuoto
                     add(path_to_watch, localMap);
                 } if(filesys::is_directory(path_to_watch)) { // se è una directory
@@ -76,17 +76,17 @@ int main(int argc,char** argv) {
             }
             case FileStatus::modified: {
                 modify(path_to_watch, localMap);
-                std::cout << path_to_watch << " modified\n";
+                std::cout << path_to_watch << " modificato\n";
                 break;
             }
             case FileStatus::erased: {
-                std::cout << path_to_watch << " erased\n";
+                std::cout << path_to_watch << " eliminato\n";
                 remove(path_to_watch, localMap);
                 //std::cout<<"map updated:\n";
                 break;
             }
             case FileStatus::do_update: {
-                std::cout << "è successo qualcosa\n";
+                std::cout << "È successo qualcosa\n";
                 // mi connetto
                 try {
                     ClientSocket socket{5000};

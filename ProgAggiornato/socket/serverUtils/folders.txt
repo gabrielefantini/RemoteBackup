@@ -6,3 +6,5 @@ client2 /home/lollo/Scrivania/pds/tests/dir2 0
 client1 /home/gabriele/Scrivania/test 4
 client1 /home/mattia/Scrivania/test_pds 5
 client2 /home/gabriele/Scrivania/test 1
+client1 /home/mattia/Scrivania/RemoteBackup/ProgAggiornato/client/cartella_da_osservare 6
+client2 /home/mattia/Scrivania/RemoteBackup/ProgAggiornato/client/cartella_da_osservare2 2

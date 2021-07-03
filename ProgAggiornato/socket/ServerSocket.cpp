@@ -14,15 +14,15 @@ ServerSocket::ServerSocket(int port)  {
 
     if (::bind(sockfd, reinterpret_cast<struct sockaddr*>(&sockaddrIn), sizeof(sockaddrIn)) != 0)
         throw std::runtime_error("Cannot bind port");
-    else
-        std::cout << "bind ok" << std::endl;
+    /*else
+        std::cout << "bind ok" << std::endl;*/
 
     // il socket viene messo in modalità passiva sulla porta
     /// 8 -> fino a 8 connessioni possono essere messe in sospeso
     if (::listen(sockfd, 8) != 0)
         throw std::runtime_error("Error listen");
-    else
-        std::cout << "listen ok" << std::endl;
+    /*else
+        std::cout << "listen ok" << std::endl;*/
 }
 
 Socket ServerSocket:: accept (struct sockaddr_in* addr, unsigned int* len) {

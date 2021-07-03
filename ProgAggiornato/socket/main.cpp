@@ -17,7 +17,7 @@ int main() {
         return -1;
     }
     //debug
-    printUserMap(user_map);
+    //printUserMap(user_map);
     int flag = 0;
     while(true) {
         struct sockaddr_in addr;
@@ -40,22 +40,22 @@ int main() {
             //cur_dir   : directory client di cui eseguire il backup
             std::string cur_client=s.get_cur_client();
             std::string cur_dir=s.get_cur_dir();
-            std::cout<< "client: "<<cur_client<<std::endl;
-            std::cout<< "directory: "<<cur_dir<<std::endl;
+            std::cout<< "Client: "<<cur_client<<std::endl;
+            std::cout<< "Directory: "<<cur_dir<<std::endl;
 
             //b_setup->first=backup_dir_name:   path della cartella di backup   (nome)
             //b_setup->second=id:               id della directory di backup    (in relazione al client)
             std::pair<std::string,int> b_setup=getBackupDir(user_map,cur_client,cur_dir);
             std::string backup_dir_name=b_setup.first;
             int id=b_setup.second;
-            std::cout << "backup path name: " << backup_dir_name<< "\n";
+            std::cout << "Backup path sul server: " << backup_dir_name<< "\n";
 
             //prepara la directory di backup partendo dal nome precedentemente generato
             int res_setup=s.setupDir(backup_dir_name,cur_client,id);
 
             //prepara la directory temporanea (per gli upload futuri)
             std::string tmp_dir_name=getTmpDir(backup_dir_name);
-            std::cout<<"files will go there: "<<tmp_dir_name<<std::endl;
+            //std::cout<<"files will go there: "<<tmp_dir_name<<std::endl;
 
             //localMap: hash map lato server
             //cerco se ho una copia della map in <relative pos>/backup/{client}/{id}/localMap.txt
@@ -64,29 +64,30 @@ int main() {
             std::string localMapPath=getMapPath(backup_dir_name);
 
             if(res_setup==1){
-                std::cout<<"cartella di backup trovata -> ricerca file map\n";
+                std::cout<<"Cartella di backup trovata -> ricerca file map\n";
                 int res_map=setupLocalMap(localMapPath,localMap);
-                if(res_map==1)
+                /*if(res_map==1)
                     std::cout<<"file map trovato -> map caricata\n";
                 else
-                    std::cout<<"file map non trovato -> map vuota\n";
+                    std::cout<<"file map non trovato -> map vuota\n";*/
             }else
-                std::cout<<"cartella di backup nuova -> map vuota\n";
+                std::cout<<"Cartella di backup nuova -> map vuota\n";
 
             //compara le map per richiedere i file necessari
             std::map<std::string,std::string> clientMap=s.get_clientMap();
-            std::cout<<"CLIENT MAP:\n";
+            /*std::cout<<"CLIENT MAP:\n";
             for (auto& x: clientMap)
                 std::cout<<x.first<<" : "<<x.second<<std::endl;
             std::cout<<"\nSERVER MAP:\n";
             for (auto& x: localMap)
-                std::cout<<x.first<<" : "<<x.second<<std::endl;
+                std::cout<<x.first<<" : "<<x.second<<std::endl;*/
             std::cout<<"\n\n";
             std::set<std::string> files;
             files=checkForFile(clientMap,localMap);
+            std::cout << "Trovati file mancanti o modificati" << std::endl;
             for (std::set<std::string>::iterator it=files.begin(); it!=files.end(); /*++it*/) {
                 std::string file=*it;
-                std::cout<<"chiedo: "<<file<<std::endl;
+                std::cout<<"Chiedo: "<<file<<std::endl;
                 std::string hash=clientMap.find(file)->second;
                 char *cstr = new char[file.length() + 1];
                 strcpy(cstr, file.c_str());
@@ -96,13 +97,13 @@ int main() {
                     //perror("Error while sending name");
                     //exit(EXIT_FAILURE);
                     if (flag == 0) {
-                        std::cout << "A problem to receive the file has been detected" << std::endl;
-                        std::cout << "Try to ask again the file, maybe it was a temporary error..." << std::endl;
+                        std::cout << "Si è riscontrato un problema durante la ricezione del file" << std::endl;
+                        std::cout << "Provo a chiedere di nuovo il file, potrebbe trattarsi di un errore temporaneo..." << std::endl;
                         //it = it--;
                         flag = 1;
                     }
                     else {
-                        std::cout << "File asked two times. Probably it wasn't a temporary error, I close the communication" << std::endl;
+                        std::cout << "File chiesto due volte. Probabilmente non si trattava di un errore temporaneo, chiudo la connessione." << std::endl;
                         flag = 2;
                         break;
                     }
@@ -117,12 +118,12 @@ int main() {
                 updateBackupFolder(clientMap, localMap, tmp_dir_name, backup_dir_name, cur_dir);
                 //aggiorno il file map
                 //debug
-                std::cout << "nuova SERVER MAP:\n";
+                /*std::cout << "nuova SERVER MAP:\n";
                 localMap = clientMap;
                 for (auto &x: localMap)
                     std::cout << x.first << " : " << x.second << std::endl;
                 std::cout << "\n\n";
-                //
+                //*/
                 int update_res = saveLocalMap(localMapPath, localMap);
                 if (update_res == 0)
                     std::cout << localMapPath << " aggiornato correttamente.\n";
@@ -131,7 +132,7 @@ int main() {
 
         }
         else
-            std::cout<<"Communication failed!\n";
+            std::cout<<"Collegamento fallito!\n";
     }
     return 0;
 }

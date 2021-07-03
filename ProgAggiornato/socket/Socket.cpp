@@ -95,12 +95,12 @@ int Socket::receiveFile(std::string name,std::string &dir) {
         //exit(EXIT_FAILURE);
         return -1;
     }
-    std::cout << "received len: " << atoi(len) << std::endl;
+    //std::cout << "received len: " << atoi(len) << std::endl;
 
     std::string newfile=std::string(dir + "/" + name);
     char *cstr = new char[newfile.length() + 1];
     strcpy(cstr, newfile.c_str());
-    std::cout<< "creating: " << cstr << std::endl;
+    std::cout<< "Creating: " << cstr << std::endl;
     FILE* fr = fopen(cstr, "w");
 
     char buffer[1024];
@@ -118,10 +118,10 @@ int Socket::receiveFile(std::string name,std::string &dir) {
             return -1;
         }
 
-        std::cout << "Dentro al while" << std::endl;
-        std::cout << buffer << std::endl;
-        printf("%d / %d bytes read\n", tot,len_tot);
-        std::cout<< "----------------------" <<std::endl;
+        //std::cout << "Dentro al while" << std::endl;
+        //std::cout << buffer << std::endl;
+        //printf("%d / %d bytes read\n", tot,len_tot);
+        //std::cout<< "----------------------" <<std::endl;
 
         int written = fwrite(&buffer, sizeof(char), bytes_read, fr);
         if(ferror(fr))
@@ -130,9 +130,9 @@ int Socket::receiveFile(std::string name,std::string &dir) {
             fclose(fr);
             exit(EXIT_FAILURE);
         }
-        std::cout << "Written: " << written << " bytes" << std::endl;
+        //std::cout << "Written: " << written << " bytes" << std::endl;
         if(tot == len_tot){
-            std::cout << "Ricevuto tutto" << std::endl;
+            //std::cout << "Ricevuto tutto" << std::endl;
             break;
         }
 
@@ -146,7 +146,7 @@ int Socket::receiveFile(std::string name,std::string &dir) {
     buffer[bytes_read] = 0;
     if(bytes_read == -1)
         return -1;
-    std::cout << "receive finita" << std::endl;
+    //std::cout << "receive finita" << std::endl;
     /// chiudo il file
     fclose(fr);
     delete[] cstr;
@@ -172,7 +172,7 @@ ssize_t Socket::read(char *buffer, size_t len, int options)  {
     tv.tv_usec = 0;
     setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof tv);
 
-    std::cout << "read called" << std::endl;
+    //std::cout << "read called" << std::endl;
     ssize_t res = recv(sockfd, buffer, len, options);
     if (res < 0) {
         std::cout << strerror(errno) << std::endl;
@@ -295,14 +295,14 @@ int Socket::ResToNotify() {
     /// PRIMA READ: leggo la dimensione del nome
     bytes_received = read(len_name, sizeof(len_name), 0);
     /// atoi è una funzione che mi permette di convertire un char in un intero
-    std::cout <<"Dimensione nome client: " <<  atoi(len_name) << std::endl;
+    //std::cout <<"Dimensione nome client: " <<  atoi(len_name) << std::endl;
     /// alloco una struttura per contenere il nome della lunghezza del nome
     char name[atoi(len_name)];
     /// SECONDA READ: leggo il nome
     bytes_received = read(name, sizeof(name), 0);
     /// inserisco il terminatore di stringa come ultimo carattere del titolo
     name[atoi(len_name)-1] = '\0';
-    std::cout << "Nome client: " << name << std::endl;
+    //std::cout << "Nome client: " << name << std::endl;
 
     // nome dir
 
@@ -310,23 +310,23 @@ int Socket::ResToNotify() {
     /// PRIMA READ: leggo la dimensione del nome
     bytes_received = read(len, sizeof(len), 0);
     /// atoi è una funzione che mi permette di convertire un char in un intero
-    std::cout << "Dimensione nome dir: " << atoi(len) << std::endl;
+    //std::cout << "Dimensione nome dir: " << atoi(len) << std::endl;
     /// alloco una struttura per contenere il nome della lunghezza del nome
     char dir[atoi(len)];
     /// SECONDA READ: leggo il nome
     bytes_received = read(dir, sizeof(dir), 0);
     /// inserisco il terminatore di stringa come ultimo carattere del titolo
     dir[atoi(len)-1] = '\0';
-    std::cout << "Nome dir: " << dir << std::endl;
+    //std::cout << "Nome dir: " << dir << std::endl;
 
     int len_path = atoi(len)-1+atoi(len_name);
-    std::cout << "Len_path: " << len_path << std::endl;
+    //std::cout << "Len_path: " << len_path << std::endl;
     char path_complessivo[len_path];
 
     for (int i = 0; i<atoi(len_name); i++) path_complessivo[i] = name[i];
     //path_complessivo[atoi(len_name)-1] = '/';
     for (int i = 0; i<atoi(len); i++) path_complessivo[i+atoi(len_name)-1] = dir[i];
-    std::cout << "Percorso creato: " << path_complessivo << std::endl;
+    //std::cout << "Percorso creato: " << path_complessivo << std::endl;
 
     cur_client = name;
     cur_dir = dir;
@@ -334,14 +334,14 @@ int Socket::ResToNotify() {
     /// PASSWORD
     /// PRIMA READ: leggo la dimensione della password
     bytes_received = read(len, sizeof(len), 0);
-    std::cout << "Dimensione password: " << atoi(len) << std::endl;
+    //std::cout << "Dimensione password: " << atoi(len) << std::endl;
     /// alloco una struttura per contenere il nome della lunghezza del nome
     char password[atoi(len)];
     /// SECONDA READ: leggo la password
     bytes_received = read(password, sizeof(password), 0);
     /// inserisco il terminatore di stringa come ultimo carattere del titolo
     password[atoi(len)-1] = '\0';
-    std::cout << "Password: " << dir << std::endl;
+    //std::cout << "Password: " << dir << std::endl;
     if (db_password[cur_client].compare(password) != 0) {
         std::cout << "Wrong password!" << std::endl;
         return -1;
@@ -353,7 +353,7 @@ int Socket::ResToNotify() {
     /// PRIMA READ: leggo la dimensione del nome
     bytes_received = read(len, sizeof(len), 0);
     /// atoi è una funzione che mi permette di convertire un char in un intero
-    std::cout << "Dimensione map: " << atoi(len) << std::endl;
+    //std::cout << "Dimensione map: " << atoi(len) << std::endl;
     /// alloco una struttura per contenere il nome della lunghezza del nome
     char char_map[atoi(len)];
     /// SECONDA READ: leggo il nome
@@ -365,21 +365,21 @@ int Socket::ResToNotify() {
     std::string s = std::string(char_map, len);
     std::cout<<s<<std::endl;
     nlohmann::json json_map = json::parse(s);
-    std::cout << "Parse effettuato" << std::endl;
+    //std::cout << "Parse effettuato" << std::endl;
     std::map<std::string, std::string> localMap = std::map<std::string, std::string>();
     from_json(localMap, json_map);
 
-    std::cout << "--- Mappa ricevuta ---" << std::endl;
+    /*std::cout << "--- Mappa ricevuta ---" << std::endl;
     for (auto x : localMap)
         std::cout << x.first << ", " << x.second << std::endl;
-
+    */
     /// POSSIBILE CONFRONTO: la funzione non è bool ma restituisce la mappa e nel main si fa il confronto
     clientMap = localMap;
     bytes_received = read(len, sizeof(len), 0);
     char ok[atoi(len)];
     bytes_received = read(ok, sizeof(ok), 0);
     ok[atoi(len)-1] = '\0';
-    std::cout << "Messaggio ricevuto: " << ok << std::endl;
+    //std::cout << "Messaggio ricevuto: " << ok << std::endl;
 
     // a questo punto il server sa che il client è riuscito a inviare tutto correttamente e invia il suo ok
     int bytes_written = write(len, sizeof(len), 0);
